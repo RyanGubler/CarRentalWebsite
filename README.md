@@ -9,7 +9,7 @@ Documentation will be kept
 Project will be kept
 
 ## Version-control procedures
-Each group member should have a forked repository of the app in Ryan's account of the project "group-4" in their Github. Each group member should have a cloned version of this repository, and will submit pull requests to monitor progress.
+Each group member should have a forked repository of the app in Ryan's account of the project "cs3450_group-4" in their Github. Each group member should have a cloned version of this repository, and will submit pull requests to monitor progress.
 
 ## Tool stack description and setup procedure
 Django is our groups framework of choice for this app. We all have experience using Django, and the SQLLite database that is included with Django.
