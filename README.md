@@ -17,7 +17,7 @@ Django is our groups framework of choice for this app. We all have experience us
 ## Build instructions
 Clone the project in git bash. `` $ git clone https://github.com/RyanGubler/cs3450_group4 ``   
 Migrate in bash `` $ python manage.py migrate ``   
-Finally, `` python manage.py runserver ``   
+Finally, ``$ python manage.py runserver ``   
 Navigate in the browser to [localhost:8000](localhost:8000) to view the app.   
 ## Unit testing instructions
 Unit tests will cover all of the use case diagrams located in Requirements_definition.docx  
