@@ -4,7 +4,7 @@ a specified number of days.
 ## Workspace layout
 Dans Shady Business will be stored as a web app in this repository.   
 
-Documentation will be kept in a directory called ""   
+Documentation will be kept in a directory called "docs"   
 
 Project will be kept in a directory called "dansshadybusiness"   
 
