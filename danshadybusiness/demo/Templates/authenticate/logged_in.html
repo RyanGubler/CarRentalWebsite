@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href="style.css" type="text/css"/>
+        <title>Login</title>
+    </head>
+    <body>
+        <p>Logged In</p>
+        <form action="{% url 'demo:logoutView' %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Logout">
+       
+        </form>
+        {% if perms.demo.view_car %}
+        <form action = "{% url 'demo:cars' %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Cars">
+        </form>
+        {% endif %}
+    </body>
+</html>
