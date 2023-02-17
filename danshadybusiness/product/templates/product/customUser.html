@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <h1>
+        Your username: {{customUser.user.username}}
+    </h1>
+    <h1>
+        Your balance: {{customUser.balance}}
+        </h1>
+    </head>
+<body>
+
+    <h4>Your Car Reservations:</h4>
+    <ul>
+        {% for reservation in customUser.carreservation_set.all %}
+        <li> 
+            <ul>
+                <li>
+                    Car name: {{reservation.car.name}}
+                </li>
+                <li>
+                    Start Date: {{reservation.startDate}}
+                </li>
+                <li>
+                    End Date: {{reservation.endDate}}
+                </li>
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

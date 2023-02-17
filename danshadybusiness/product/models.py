@@ -17,6 +17,9 @@ class CustomUser(models.Model):
     def addHours(self,amount):
         self.hours += amount
     
+    def __str__(self):
+        return self.user.username
+    
 
 #this method is to create CustomUser when User is created
 @receiver(post_save, sender=User)
@@ -30,5 +33,23 @@ def save_user_profile(sender, instance, **kwargs):
     instance.customuser.save()
 
 
+class Car(models.Model):
+    name = models.CharField(max_length=20)
+    price = models.FloatField()
+
+    def __str__(self):
+        return self.name
+    
+
+class CarReservation(models.Model):
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    startDate = models.DateField()
+    endDate = models.DateField()
+    lojacked = models.BooleanField(default=False)
+
+
+    def __str__(self):
+        return self.user.user.username + " ("+str(self.startDate) + " -> " + str(self.endDate) + ")"
 
 

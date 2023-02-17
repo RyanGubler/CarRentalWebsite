@@ -21,7 +21,7 @@ def addFunds(request):
 
 
 
-def login(request):
+def loginTest(request):
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -29,7 +29,7 @@ def login(request):
         if user is not None:
             login(request, user)
             # Redirect to a success page.
-            return redirect(reverse('product:index'))
+            return redirect(reverse('product:customUser'))
         
         else:
             context = {'errorMessage': "Invalid login credentials, please try again!"}
@@ -44,10 +44,16 @@ def login(request):
 def signup(request):
     if request.method == "POST":
         user = User.objects.create_user(username = request.POST['username'], password = request.POST['password'], email=request.POST['password'], firstname = request.POST['firstName'], lastname = request.POST['lastName'])
-        return redirect(reverse('product:login'))
+        return redirect(reverse('product:loginTest'))
 
     return render(request, 'product/signup.html')
 
 def logout(request):
         logout(request)
-        return redirect(reverse('product:login'))
+        return redirect(reverse('product:loginTest'))
+
+
+def customUser(request):
+    customUser = CustomUser.objects.get(user = request.user)
+    return render(request, 'product/customUser.html', {'customUser': customUser})
+
