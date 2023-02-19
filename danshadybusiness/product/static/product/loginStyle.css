@@ -2,9 +2,6 @@ h1 {
 text-align: center;
 }
 
-
-
-
 #titleDiv {
 background-color: #1b263B;
 color: white;
@@ -19,6 +16,15 @@ border-radius: 4px;
 }
 
 input[type=text] {
+display: inline-block;
+width: 100%
+padding: 10px;
+box-sizing: border-box;
+border: .5px solid;
+margin: 10px 0;
+
+}
+input[type=password] {
 display: inline-block;
 width: 100%
 padding: 10px;
