@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     {% load static %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'product/style.css' %}">
+    <link rel="stylesheet" href="{% static 'product/loginStyle.css' %}">
     <title>Login</title>
 
 
@@ -20,20 +20,23 @@
   </div>
 </div>
 
+
+
+<div class="row">
+    <div class="col-10">
 <div class = "container-fluid" id="formDiv">
     <form>
-  <div class="form-group">
-    <input type="text" class="form-control" id="username" aria-describedby="Username" placeholder="Enter username">
-  </div>
-  <div class="form-group">
-    <input type="password" class="form-control" id="password" placeholder="Password">
-  </div>
+
+    <input type="text" id="username" aria-describedby="Username" placeholder="Enter username">
+
+    <input type="password" id="password" placeholder="Password">
 
   <button type="submit" class="btn btn-primary">Login</button>
             <a href="{% url 'signup' %}">Sign up</a>
 
 </form>
-
+    </div>
+</div>
 </div>
 </body>
 </html>

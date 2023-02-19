@@ -1,0 +1,38 @@
+h1 {
+text-align: center;
+}
+
+
+
+
+#titleDiv {
+background-color: #1b263B;
+color: white;
+padding: 20px;
+}
+
+#formDiv {
+margin: auto;
+max-width: 250px;
+padding: 10px;
+border-radius: 4px;
+}
+
+input[type=text] {
+display: inline-block;
+width: 100%
+padding: 10px;
+box-sizing: border-box;
+border: .5px solid;
+margin: 10px 0;
+
+}
+
+input[type=submit] {
+width: 100%
+padding: 10px;
+margin: 10px 0;
+border-radius: 4px;
+font-size: 15px;
+cursor: pointer;
+}
