@@ -5,3 +5,9 @@ html, body {
     max-width: 100%;
     overflow-x: hidden;
 }
+.home-page{
+    text-align: center;
+    font-weight: 600;
+    font-size: x-large;
+    margin-top: 20%;
+}
