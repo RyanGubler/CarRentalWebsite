@@ -53,3 +53,11 @@ class CarReservation(models.Model):
         return self.user.user.username +" "+self.car.name+ " ("+str(self.startDate) + " -> " + str(self.endDate) + ")"
 
 
+
+# Create your models here.
+
+class ServiceTicket(models.Model):
+    customerId = models.IntegerField()
+    carId = models.IntegerField()
+    assigned = models.BooleanField(default=False)
+

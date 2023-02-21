@@ -1,20 +1,33 @@
 from django.shortcuts import render
-from product.models import CustomUser, Car
+from product.models import CustomUser, Car, ServiceTicket
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.http import JsonResponse
-
-
-
-
+from django.contrib.auth.models import Group, Permission, User
 
 def addFunds(request):
     return render(request, 'product/addFunds.html', {})
 
+def aboutUs(request):
+    return render(request, 'product/aboutUs.html', {})
+
+def index(request):
+    return render(request, 'product/index.html', {})
+
+def login(request):
+    return render(request, 'product/login.html', {})
+
+def signup(request):
+    return render(request, 'product/signup.html', {})
+
+def service(request):
+    return render(request, 'product/serviceTicket.html', {})
+
 # Create your views here.
+
 # @login_required
 # def index(request):
 #     customUser = CustomUser.objects.get(user = request.user)
@@ -41,14 +54,6 @@ def loginTest(request):
 
     
     return render(request, 'product/login.html')
-
-
-def signup(request):
-    if request.method == "POST":
-        user = User.objects.create_user(username = request.POST['username'], password = request.POST['password'], email=request.POST['password'], firstname = request.POST['firstName'], lastname = request.POST['lastName'])
-        return redirect(reverse('product:loginTest'))
-
-    return render(request, 'product/signup.html')
 
 def logoutPage(request):
         logout(request)
@@ -105,4 +110,30 @@ def addCar(request):
 
 
 
+
+
+
+def createTicket(request):
+    customerId = request.POST['customerId']
+    carId = request.POST['carId']
+    ticket = ServiceTicket(customerId=customerId, carId=carId)
+    ticket.save()
+
+def terminate(request):
+    serviceTicketId = request.POST['serviceTicketId']
+    ServiceTicket.objects.filter(pk=serviceTicketId)
+
+def service(request):
+    ticketList = list[ServiceTicket.objects.all()[:5]]
+    return render(request, 'product/serviceTicket.html', {'ticketList' : ticketList})
+
+def signup(request):
+    if request.method == 'POST':
+        user = User.objects.create_user(username = request.POST['username'],
+                                        password = request.POST['password'], 
+                                        email=request.POST['email'], 
+                                        firstname = request.POST['firstName'], 
+                                        lastname = request.POST['lastName'])
+        return(request, 'product/login.html', {})
+    return render(request,'product/signup.html', {})
 
