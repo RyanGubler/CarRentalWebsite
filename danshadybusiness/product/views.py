@@ -6,4 +6,7 @@ def addFunds(request):
 def aboutUs(request):
     return render(request, 'product/aboutUs.html', {})
 
+def index(request):
+    return render(request, 'product/index.html', {})
+
 # Create your views here.
