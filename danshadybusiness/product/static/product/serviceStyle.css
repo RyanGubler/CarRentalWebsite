@@ -1,0 +1,36 @@
+h1 {
+text-align: center;
+}
+
+#titleDiv {
+background-color: #1b263B;
+color: white;
+padding: 20px;
+}
+
+#ticketContainer {
+height: 350 px;
+text-align: center;
+}
+
+.ticket {
+width: 33.333%;
+height: 250px;
+box-sizing: border-box;
+border: .5px solid;
+background-color: #E0E1DD ;
+
+}
+
+#ticket1 {
+float: left;
+
+}
+
+#ticket2 {
+float: left;
+}
+
+#ticket3 {
+float: right;
+}
