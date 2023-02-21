@@ -5,32 +5,18 @@ from django.db import migrations
 from django.contrib.auth.management import create_permissions
 from django.contrib.auth.models import Group, Permission, User
 from django.contrib.contenttypes.models import ContentType
+from django.db import models
+import django.db.models.deletion
+from django.conf import settings
 
-class Migration(migrations.Migration):
 
-    initial = True
-
-    dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-    ]
-
-    operations = [
-        migrations.CreateModel(
-            name='CustomUser',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('balance', models.FloatField(default=0.0)),
-                ('hours', models.FloatField(default=0.0)),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-            ],
-        ),
 
 def createGroups(apps, schema_editor):
     contentType = ContentType.objects.get_for_model(User)
     groups = ["User", "Employee", "Manager"]
     for groupName in groups:
         permission = Permission.objects.create(codename=groupName, name=groupName, content_type= contentType)
-        newGroup =   Group.objectscreate(name=groupName)
+        newGroup =  Group.objects.create(name=groupName)
         newGroup.permissions.add(permission)
 
 class Migration(migrations.Migration):
@@ -38,7 +24,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-      migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [

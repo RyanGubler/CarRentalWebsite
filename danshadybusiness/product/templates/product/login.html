@@ -7,44 +7,31 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'product/loginStyle.css' %}">
     <title>Login</title>
-
-
-
 </head>
 <body>
-
-<div class="container-fluid" id="titleDiv">
-  <div class="row">
-      <div class="col-8">
-          <h1>Dans' Getaway Car Shack</h1>
-      </div>
-  </div>
-</div>
-
-
-
-<div class="row">
-    <div class="col-10">
-<div class = "container-fluid" id="formDiv">
-<form action="{% url 'product:loginTest' %}" method="post">
-    {% csrf_token %}
-  
-    <div >
-      <label for="username"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="username" required>
-  
-      <label for="password"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="password" required>
-  
-      <button type="submit">Login</button>
-      
+    <div class="container-fluid" id="titleDiv">
+        <div class="row">
+            <div class="col-8">
+                <h1>Dans' Getaway Car Shack</h1>
+            </div>
+        </div>
     </div>
-  
-
-  </form>
+    <div class="row">
+        <div class="col-10">
+            <div class = "container-fluid" id="formDiv">
+                <form action="{% url 'product:loginTest' %}" method="post">
+                {% csrf_token %}
+                    <div>
+                        <label for="username"><b>Username</b></label>
+                        <input type="text" placeholder="Enter Username" name="username" required>
+                        <label for="password"><b>Password</b></label>
+                        <input type="password" placeholder="Enter Password" name="password" required>
+                        <button type="submit">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-</div>
-</div>
-
 </body>
+
 </html>
