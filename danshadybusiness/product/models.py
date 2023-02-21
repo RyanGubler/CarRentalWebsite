@@ -50,6 +50,6 @@ class CarReservation(models.Model):
 
 
     def __str__(self):
-        return self.user.user.username + " ("+str(self.startDate) + " -> " + str(self.endDate) + ")"
+        return self.user.user.username +" "+self.car.name+ " ("+str(self.startDate) + " -> " + str(self.endDate) + ")"
 
 
