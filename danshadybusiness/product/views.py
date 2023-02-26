@@ -148,11 +148,12 @@ def service(request):
 
 def signup(request):
     if request.method == 'POST':
-        user = User.objects.create_user(username = request.POST['username'],
+        user = User.objects.create_user(username = request.POST['email'],
                                         password = request.POST['password'], 
-                                        email=request.POST['email'], 
-                                        firstname = request.POST['firstName'], 
-                                        lastname = request.POST['lastName'])
-        return(request, 'product/login.html', {})
+                                        email = request.POST['email'], 
+                                        first_name = request.POST['firstName'], 
+                                        last_name = request.POST['lastName'])
+        user.save
+        return render(request, 'product/login.html', {})
     return render(request,'product/signup.html', {})
 
