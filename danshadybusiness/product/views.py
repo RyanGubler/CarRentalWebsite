@@ -8,8 +8,27 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.contrib.auth.models import Group, Permission, User
 
+
+
+# We may want to pass context back to the addFunds paget that shows
+# the current total funds in account.
+
 def addFunds(request):
+    customUser = CustomUser.objects.get(user = request.user)
+    if request.method == "POST":
+        if '$10' in request.method.POST:
+            customUser.addFunds(10)
+        elif '$25' in request.method.POST:
+            customUser.addFunds(25)
+        elif '$50' in request.method.POST:
+            customUser.addFunds(50)
+        elif '$100' in request.method.POST:
+            customUser.addFunds(100)
+        else:
+            customUser.addFunds(float(request.POST('custom')))
     return render(request, 'product/addFunds.html', {})
+
+
 
 def aboutUs(request):
     return render(request, 'product/aboutUs.html', {})
