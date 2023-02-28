@@ -4,7 +4,9 @@ body{
 html, body {
     max-width: 100%;
     overflow-x: hidden;
+
     overflow-y: auto;
+
 }
 
 .button{
@@ -29,16 +31,17 @@ html, body {
     background-color: #1b263b;
 }
 
-
 .custom-amount{
     border-radius:10px;
     box-shadow: 2px 2px 4px #444;
 }
+
 #custom-button.col-xs{
     min-width: 75px;
     width: 75px;
     margin-right: 50px;
 }
+
 #custom-button.col-sm{
     min-width: 75px;
     width: 75px;
@@ -84,3 +87,4 @@ html, body {
         margin-left: -25px;
     }
 }
+

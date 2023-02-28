@@ -9,18 +9,38 @@ padding: 20px;
 }
 
 #ticketContainer {
+
 height: 350 px;
+
 text-align: center;
 }
 
 .ticket {
 width: 33.333%;
-height: 250px;
+height: 200px;
 box-sizing: border-box;
 border: .5px solid;
 background-color: #E0E1DD ;
 
 }
+
+
+#serviceButton {
+padding: 10px;
+}
+
+ul {
+list-style-type: none;
+}
+.grey {
+background-color: #E0E1DD ;
+}
+
+.blue {
+background-color: #778DA9;
+}
+
+
 
 #ticket1 {
 float: left;
