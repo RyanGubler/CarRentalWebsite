@@ -8,8 +8,27 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.contrib.auth.models import Group, Permission, User
 
+
+
+# We may want to pass context back to the addFunds paget that shows
+# the current total funds in account.
+
 def addFunds(request):
+    customUser = CustomUser.objects.get(user = request.user)
+    if request.method == "POST":
+        if '$10' in request.method.POST:
+            customUser.addFunds(10)
+        elif '$25' in request.method.POST:
+            customUser.addFunds(25)
+        elif '$50' in request.method.POST:
+            customUser.addFunds(50)
+        elif '$100' in request.method.POST:
+            customUser.addFunds(100)
+        else:
+            customUser.addFunds(float(request.POST('custom')))
     return render(request, 'product/addFunds.html', {})
+
+
 
 def aboutUs(request):
     return render(request, 'product/aboutUs.html', {})
@@ -129,11 +148,12 @@ def service(request):
 
 def signup(request):
     if request.method == 'POST':
-        user = User.objects.create_user(username = request.POST['username'],
+        user = User.objects.create_user(username = request.POST['email'],
                                         password = request.POST['password'], 
-                                        email=request.POST['email'], 
-                                        firstname = request.POST['firstName'], 
-                                        lastname = request.POST['lastName'])
-        return(request, 'product/login.html', {})
+                                        email = request.POST['email'], 
+                                        first_name = request.POST['firstName'], 
+                                        last_name = request.POST['lastName'])
+        user.save
+        return render(request, 'product/login.html', {})
     return render(request,'product/signup.html', {})
 
