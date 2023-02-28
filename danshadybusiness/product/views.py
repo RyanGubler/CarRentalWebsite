@@ -16,18 +16,18 @@ from datetime import datetime
 # the current total funds in account.
 
 def addFunds(request):
-    customUser = CustomUser.objects.get(user = request.user)
-    if request.method == "POST":
-        if '$10' in request.method.POST:
-            customUser.addFunds(10)
-        elif '$25' in request.method.POST:
-            customUser.addFunds(25)
-        elif '$50' in request.method.POST:
-            customUser.addFunds(50)
-        elif '$100' in request.method.POST:
-            customUser.addFunds(100)
-        else:
-            customUser.addFunds(float(request.POST('custom')))
+    # customUser = CustomUser.objects.get(user = request.user)
+    # if request.method == "POST":
+    #     if '$10' in request.method.POST:
+    #         customUser.addFunds(10)
+    #     elif '$25' in request.method.POST:
+    #         customUser.addFunds(25)
+    #     elif '$50' in request.method.POST:
+    #         customUser.addFunds(50)
+    #     elif '$100' in request.method.POST:
+    #         customUser.addFunds(100)
+    #     else:
+    #         customUser.addFunds(float(request.POST('custom')))
     return render(request, 'product/addFunds.html', {})
 
 
