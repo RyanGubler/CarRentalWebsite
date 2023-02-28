@@ -61,3 +61,6 @@ class ServiceTicket(models.Model):
     carId = models.IntegerField()
     assigned = models.BooleanField(default=False)
 
+    def __str__(self):
+        return User.objects.get(pk=self.customerId).username + ' '+ str(Car.objects.get(pk = self.carId))
+

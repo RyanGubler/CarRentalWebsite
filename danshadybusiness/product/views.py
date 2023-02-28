@@ -7,9 +7,30 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.contrib.auth.models import Group, Permission, User
+from datetime import datetime
+
+
+
+
+# We may want to pass context back to the addFunds paget that shows
+# the current total funds in account.
 
 def addFunds(request):
+    customUser = CustomUser.objects.get(user = request.user)
+    if request.method == "POST":
+        if '$10' in request.method.POST:
+            customUser.addFunds(10)
+        elif '$25' in request.method.POST:
+            customUser.addFunds(25)
+        elif '$50' in request.method.POST:
+            customUser.addFunds(50)
+        elif '$100' in request.method.POST:
+            customUser.addFunds(100)
+        else:
+            customUser.addFunds(float(request.POST('custom')))
     return render(request, 'product/addFunds.html', {})
+
+
 
 def aboutUs(request):
     return render(request, 'product/aboutUs.html', {})
@@ -17,14 +38,17 @@ def aboutUs(request):
 def index(request):
     return render(request, 'product/index.html', {})
 
-def login(request):
-    return render(request, 'product/login.html', {})
+# def login(request):
+#     return render(request, 'product/login.html', {})
 
 def signup(request):
     return render(request, 'product/signup.html', {})
 
 def service(request):
     return render(request, 'product/serviceTicket.html', {})
+
+def reservation(request):
+    return render(request, 'product/reservation.html', {})
 
 # Create your views here.
 
@@ -59,7 +83,7 @@ def logoutPage(request):
         logout(request)
         return redirect(reverse('product:loginTest'))
 
-@login_required
+@login_required(login_url='product:loginTest')
 def customUser(request):
     customUser = CustomUser.objects.get(user = request.user)
     return render(request, 'product/customUser.html', {'customUser': customUser})
@@ -67,6 +91,9 @@ def customUser(request):
 
 
 def addCarPage(request):
+    if not request.user.has_perm('Manager'):
+        return redirect(reverse('product:customUser'))
+
     context = CustomUser.objects.get(user=request.user)
     return render(request, 'product/addCarPage.html', {'context':context})
 
@@ -85,30 +112,31 @@ def addCar(request):
 
 
 
-# def availableCars(request):
-#     resp = {}
-#     startDate = request.GET.get('startDate')
-#     endDate = request.GET.get('endDate')
-
-#     for car in Car.objects.all():
-#         addingCar = True
-#         if len(car.carreservation_set.all()) == 0:
-#             resp[car.name] = car.price
-#         else:
-#             for reservation in car.carreservation_set.all():
-#                 if startDate < reservation.endDate and startDate > reservation.startDate:
-#                     addingCar = False
-#                     break
-#                 if endDate > reservation.startDate and endDate < reservation.endDate:
-#                     addingCar = False
-#                     break
-#             if addingCar:
-#                 resp[car.name] = car.price
-#     return JsonResponse(resp)
-
-
-
-
+def availableCars(request):
+    resp = {}
+    startDate = request.GET.get('startDate')
+    endDate = request.GET.get('endDate')
+    startDate = datetime.strptime(startDate, '%Y-%m-%d').date()
+    endDate = datetime.strptime(endDate, '%Y-%m-%d').date()
+    print("The start date converted to a string is: "+ str(startDate))
+    if startDate> endDate:
+        resp['error'] = "End Date is before Start Date"
+        return JsonResponse(resp)
+    for car in Car.objects.all():
+        addingCar = True
+        if len(car.carreservation_set.all()) == 0:
+            resp[car.name] = car.price
+        else:
+            for reservation in car.carreservation_set.all():
+                if startDate <= reservation.endDate and startDate >= reservation.startDate:
+                    addingCar = False
+                    break
+                if endDate >= reservation.startDate and endDate <= reservation.endDate:
+                    addingCar = False
+                    break
+            if addingCar:
+                resp[car.id] = car.name
+    return JsonResponse(resp)
 
 
 
@@ -129,11 +157,12 @@ def service(request):
 
 def signup(request):
     if request.method == 'POST':
-        user = User.objects.create_user(username = request.POST['username'],
+        user = User.objects.create_user(username = request.POST['email'],
                                         password = request.POST['password'], 
-                                        email=request.POST['email'], 
-                                        firstname = request.POST['firstName'], 
-                                        lastname = request.POST['lastName'])
-        return(request, 'product/login.html', {})
+                                        email = request.POST['email'], 
+                                        first_name = request.POST['firstName'], 
+                                        last_name = request.POST['lastName'])
+        user.save
+        return render(request, 'product/login.html', {})
     return render(request,'product/signup.html', {})
 

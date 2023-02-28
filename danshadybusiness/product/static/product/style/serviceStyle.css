@@ -9,6 +9,9 @@ padding: 20px;
 }
 
 #ticketContainer {
+
+height: 350 px;
+
 text-align: center;
 }
 
@@ -20,6 +23,7 @@ border: .5px solid;
 background-color: #E0E1DD ;
 
 }
+
 
 #serviceButton {
 padding: 10px;
@@ -37,6 +41,7 @@ background-color: #778DA9;
 }
 
 
+
 #ticket1 {
 float: left;
 
@@ -49,4 +54,3 @@ float: left;
 #ticket3 {
 float: right;
 }
-
