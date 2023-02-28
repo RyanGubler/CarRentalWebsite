@@ -28,9 +28,16 @@
         </li>
         {% endfor %}
     </ul>
-
   <a href="{% url 'product:addFunds' %}">Add funds to profile</a>
+  {% if perms.auth.Manager %}
   <a href="{% url 'product:addCarPage' %}">Add car to database</a>
+  {% endif %}
+{% if perms.auth.Employee or perms.auth.Manager %}
+  <a href="{% url 'product:service' %}">Look at service tickets</a>
+  {% endif %}
+
+
+  <a href = "{% url 'product:logoutPage' %}">Logout here</a>
 
 
 
