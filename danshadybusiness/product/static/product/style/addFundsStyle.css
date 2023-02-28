@@ -4,6 +4,7 @@ body{
 html, body {
     max-width: 100%;
     overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .button{
@@ -25,48 +26,61 @@ html, body {
     transform: translateY(0px) translateX(0px);
     transition: 0.1s;
     box-shadow: 0px 0px 0px #444;
+    background-color: #1b263b;
 }
+
 
 .custom-amount{
     border-radius:10px;
     box-shadow: 2px 2px 4px #444;
 }
-#custom-button{
+#custom-button.col-xs{
     min-width: 75px;
     width: 75px;
     margin-right: 50px;
 }
-
-@media (min-width:768px){
-    .money-button{
-        margin-top: 100px;
-    }
-    #custom-button{
-        margin-top: 100px;
+#custom-button.col-sm{
+    min-width: 75px;
+    width: 75px;
+    margin-right: 50px;
+}
+@media (min-width:375px){
+    .button{
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
     .custom-amount{
+        margin-top:50px
+    }
+    #ten-button{
         margin-top: 100px;
+    }
+}
+@media (min-width:768px){
+    .money-button{
+        margin-bottom: 25px;
+        margin-top: 100px;
+    }
+    
+    #custom-button{
+        margin-top: 75px;
+        margin-left: 50px;
+    }  
+    .custom-amount{
+        margin-top: 75px;
     }
 }
 @media (min-width: 992px){
-    .money-button{
-        margin-top: 100px;
+    .custom-amount{
+        margin-top: 75px;
     }
     #custom-button{
-        margin-top: 100px;
-    }
-    .custom-amount{
-        margin-top: 100px;
+        margin-left: 10px;
     }
 }
 @media (min-width: 1200px){
-    .money-button{
-        margin-top: 100px;
-    }
+
     #custom-button{
-        margin-top: 100px;
-    }
-    .custom-amount{
-        margin-top: 100px;
+        margin-left: -25px;
     }
 }
