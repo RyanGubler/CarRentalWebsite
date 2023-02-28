@@ -13,7 +13,7 @@ html, body {
     background-color: #1b263b;
     color: white;
     width: 125px;
-    text-align:center;
+    text-align: center;
     border-radius: 10px;
     box-shadow: 2px 2px 3px #444;
     min-width: 125px;
@@ -22,7 +22,7 @@ html, body {
     background-color: #415a77;
     transform: translateY(-2px) translateX(-1px);
     transition: 0.35s;
-    box-shadow: 4px 4px 6px #444444;
+    box-shadow: 4px 4px 6px #444;
 }
 .button:active{
     transform: translateY(0px) translateX(0px);

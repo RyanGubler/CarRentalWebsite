@@ -1,5 +1,3 @@
-
-
 var startDatePicker;
 var endDatePicker;
 var startDate;

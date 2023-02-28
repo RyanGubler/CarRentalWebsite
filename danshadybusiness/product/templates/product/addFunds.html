@@ -15,33 +15,35 @@
         {% block content %}
         <div class="page">
             <div class="row">
-                <div class="button-ctn text-center">
-                    <div class="col-sm-2 money-button"></div>
-                        
-                    <div class="col-xs-12 col-sm-2 money-button" id="ten-button" >
-                        <button class="button" value="10">$10</button>
+                <form>
+                    <div class="button-ctn text-center">
+                        <div class="col-sm-2 money-button"></div>
+                            
+                        <div class="col-xs-12 col-sm-2 money-button" id="ten-button" >
+                            <button class="button" value="10">$10</button>
+                        </div>
+                        <div class="col-xs-12 col-sm-2 money-button" id="twenty-five-button">
+                            <button class="button"  value="25">$25</button>
+                        </div>
+                        <div class="col-xs-12 col-sm-2 money-button" id="fifty-button">
+                            <button class="button"  value="50">$50</button>
+                        </div>
+                        <div class="col-xs-12 col-sm-2 money-button" id="hundred-button">
+                            <button class="button"  value="100">$100</button>
+                        </div>
+                        <div class="col-sm-2 money-button"></div>
                     </div>
-                    <div class="col-xs-12 col-sm-2 money-button" id="twenty-five-button">
-                        <button class="button"  value="25">$25</button>
+                    <div class="custom-add">
+                        <div class="col-sm-5"></div>
+                        <div class="col-xs-12 col-sm-2 text-center">
+                            <input type="text" class="custom-amount" placeholder="Custom">
+                        </div>
+                        <div class="col-xs-12 col-sm-1 text-center">
+                            <button class="button" id="custom-button">Add</button>
+                        </div>
+                        <div class="col-xs-4"></div>
                     </div>
-                    <div class="col-xs-12 col-sm-2 money-button" id="fifty-button">
-                        <button class="button"  value="50">$50</button>
-                    </div>
-                    <div class="col-xs-12 col-sm-2 money-button" id="hundred-button">
-                        <button class="button"  value="100">$100</button>
-                    </div>
-                    <div class="col-sm-2 money-button"></div>
-                </div>
-                <div class="custom-add">
-                    <div class="col-sm-5"></div>
-                    <div class="col-xs-12 col-sm-2 text-center">
-                        <input type="text" class="custom-amount" placeholder="Custom">
-                    </div>
-                    <div class="col-xs-12 col-sm-1 text-center">
-                        <button class="button" id="custom-button">Add</button>
-                    </div>
-                    <div class="col-xs-4"></div>
-                </div>
+                </form>
             </div>
         </div>
 
