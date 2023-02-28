@@ -5,7 +5,7 @@
     {% load static %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <link rel="stylesheet" href="{% static 'product/signupStyle.css' %}">
+    <link rel="stylesheet" href="{% static 'product/style/signupStyle.css' %}">
     <title>Signup</title>
 </head>
 <body>
@@ -31,7 +31,7 @@
     <input type="password" class="form-control" name="password" id="password" placeholder="Enter a Password">
 
   <button type="submit" class="btn btn-primary">Create Account</button>
-            <a href="{% url 'product:login' %}">Already a user?</a>
+            <a href="{% url 'product:loginTest' %}">Already a user?</a>
 
 </form>
 
