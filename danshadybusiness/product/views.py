@@ -26,6 +26,9 @@ def signup(request):
 def service(request):
     return render(request, 'product/serviceTicket.html', {})
 
+def reservation(request):
+    return render(request, 'product/reservation.html', {})
+
 # Create your views here.
 
 # @login_required
