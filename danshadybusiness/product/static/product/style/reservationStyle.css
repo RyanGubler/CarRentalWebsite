@@ -1,0 +1,42 @@
+
+@media (min-width: 375px){
+    .start-col{
+        margin-top: 52px;
+    }
+    .end-col{
+        margin-top: 10px;
+    }
+    .enter-button{
+        margin-top: 20px;
+        width: 178px;
+    }
+}
+
+@media (min-width: 768px){
+    .end-col{
+        margin-top: 52px;
+    }
+    .enter-button{
+        margin-top: 77px;
+        margin-left: -130px;
+        width: 50px;
+    }
+}
+
+@media (min-width: 992px){
+
+    .enter-button{
+        margin-top: 78px;
+        margin-left: -245px;
+        width: 50px;
+    }
+}
+
+@media (min-width: 1200px){
+
+    .enter-button{
+        margin-top: 78px;
+        margin-left: -350px;
+        width: 50px;
+    }
+}

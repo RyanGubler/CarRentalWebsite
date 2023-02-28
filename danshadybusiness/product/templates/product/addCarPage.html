@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+
+
+    <h1>Add car page</h1>
+
+    <form action="{% url 'product:addCar' %}" method="post">
+        {% csrf_token %}
+      
+        <div >
+          <label for="carName"><b>Car name</b></label>
+          <input type="text" placeholder="Enter Car name" name="carName" required>
+      
+          <label for="carPrice"><b>Car Price</b></label>
+          <input type="number" placeholder="Enter Car Price" name="carPrice" required>
+      
+          <button type="submit">Purchase Car</button>
+          
+        </div>
+      
+    
+      </form>
+
+      <h3>Your current funds: {{context.balance}}</h3>
+
+      <h3>{{errorMessage}}</h3>
+
+
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+    {% load static %}
+    <div class="header">
+        <img src="{% static 'product/images/companyLogo.png' %}" alt="Company Logo" class="logo">
+        <div class="container">
+            <div class="row">
+                <div class="title">
+                    <div class="col-xs-3"></div>
+                    <h1 class="title col-xs-6 text-center">Dan's Getaway Car Shack</h1>
+                    <div class="col-xs-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="control-bar-container" onload="mobileView()">
+        
+        <div class="control-bar mobile-view" id="links">
+            <!-- <div class="col-xs-11"></div> -->
+            <!-- <button class="col-xs-1 text-right burger-button "><img src="{% static 'product/images/burger.png' %}" alt="Burger Button" class="burger-button"></button>
+            </button> -->
+            <a class="col-xs-12 col-sm-2 text-center link" id="home" href="{% url 'product:index' %}">Home</a>
+            <a class="col-xs-12 col-sm-2 text-center link" id="add-funds" href="{% url 'product:addFunds' %}">Add Funds</a>
+            <a class="col-xs-12 col-sm-2 text-center link" id="inventory">Inventory</a>
+            <a class="col-xs-12 col-sm-2 text-center link" id="reservation" href="{% url 'product:reservation' %}">Reservations</a>
+            <a class="col-xs-12 col-sm-2 text-center link" id="about-us" href="{% url 'product:aboutUs' %}">About Us</a>
+            <a class="col-xs-12 col-sm-2 text-center link" id="account">Account</a>
+
+        </div>
+    </div>
+</div>
