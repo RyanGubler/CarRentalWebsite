@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Reservation</title>
+        {% load static %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <link rel="stylesheet" href="{% static 'product/style/style.css' %}">
+        <link rel="stylesheet" href="{% static 'product/style/headerStyle.css' %}">
+        <link rel="stylesheet" href="{% static 'product/style/footerStyle.css' %}">
+        <link rel="stylesheet" href="{% static 'product/style/reservationStyle.css' %}">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
+
+    </head>
+    <body>
+        {% include 'product/header.html' %}
+        {% block content %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-4 text-center">
+                    <div class="start-col"> 
+                        <h5><b>Start Date</b></h5>
+                        <input type="text" class="start-date" id="start-date" placeholder="MM/DD/YYYY"></input>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 text-center">
+                    <div class="end-col"> 
+                        <h5><b>End Date</b></h5>
+                        <input type="text" class="end-date" id="end-date" placeholder="MM/DD/YYYY"></input>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-3 text-center">
+                    <div class="end-col"> 
+                        <h5><b>Price</b></h5>
+                        <select class="selection-box" id="selection">
+                            <option class="number" value="10">$10</option>
+                            <option class="number" value="50">$50</option>
+                            <option class="number" value="100">$100</option>
+                        </select>
+                    </div>
+                </div>
+                <div class = "col-xs-12 col-sm-12 col-md-1 text-center">
+                    <div class = "button-col">
+                        <button class="enter-button">Enter</button>
+                    </div>
+                </div> 
+            </div>
+        </div>
+
+        {% include 'product/footer.html' %}
+        {% endblock %}
+        <script src="{% static 'product/js/calendar.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+        <script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
+    </body>
+</html>
