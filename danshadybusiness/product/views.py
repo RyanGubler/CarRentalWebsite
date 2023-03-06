@@ -116,6 +116,7 @@ def availableCars(request):
     resp = {}
     startDate = request.GET.get('startDate')
     endDate = request.GET.get('endDate')
+    carPrice = request.GET.get('carPrice')
     startDate = datetime.strptime(startDate, '%Y-%m-%d').date()
     endDate = datetime.strptime(endDate, '%Y-%m-%d').date()
     print("The start date converted to a string is: "+ str(startDate))
@@ -128,15 +129,18 @@ def availableCars(request):
             resp[car.name] = car.price
         else:
             for reservation in car.carreservation_set.all():
-                if startDate <= reservation.endDate and startDate >= reservation.startDate:
+                if (startDate <= reservation.endDate and startDate >= reservation.startDate) or car.price != float(carPrice):
                     addingCar = False
                     break
-                if endDate >= reservation.startDate and endDate <= reservation.endDate:
+                if (endDate >= reservation.startDate and endDate <= reservation.endDate) or car.price != float(carPrice):
                     addingCar = False
                     break
             if addingCar:
-                resp[car.id] = car.name
-    return JsonResponse(resp)
+                resp[car.name] = car.id
+
+    response = JsonResponse(resp)
+    response['Access-Control-Allow-Origin'] = '*'
+    return response
 
 
 
@@ -166,3 +170,41 @@ def signup(request):
         return render(request, 'product/login.html', {})
     return render(request,'product/signup.html', {})
 
+
+def employeeHours(request):
+    if request.user.has_perm('auth.Employee'):
+        return render(request,'product/employeeHours.html')
+
+    else:
+        return redirect(reverse('product:customUser'))
+    
+
+def logHours(request):
+    if request.method == 'POST' and request.user.has_perm('auth.Employee'):
+        totalHours = request.POST['hours']
+        user = CustomUser.objects.get(user = request.user)
+        user.addHours(float(totalHours))
+        user.save()
+        return redirect(reverse('product:customUser'))
+    return redirect(reverse('product:employeeHours'))
+
+
+
+
+def payEmployeePage(request):
+    if request.user.has_perm('auth.Manager'):
+        return render(request, 'product/payEmployeePage.html')
+    return redirect(reverse('product:customUser'))
+
+
+def payAll(request):
+    if request.method == "POST" and request.user.has_perm('auth.Manager'):
+        for user in CustomUser.objects.all():
+            user1 = user.user
+            if user1.has_perm('auth.Employee'):
+                hours = user.hours
+                user.addFunds(float(hours*15.0))
+                user.addHours(float(hours*-1))
+                user.save()
+        return redirect(reverse('product:customUser'))
+    return redirect(reverse('product:customUser'))

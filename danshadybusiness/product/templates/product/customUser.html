@@ -7,6 +7,11 @@
     <h1>
         Your balance: {{customUser.balance}}
         </h1>
+        {% if perms.auth.Employee %}
+        <h1>
+            Your hours logged: {{customUser.hours}}
+        </h1>
+        {% endif %}
     </head>
 <body>
 
@@ -31,9 +36,11 @@
   <a href="{% url 'product:addFunds' %}">Add funds to profile</a>
   {% if perms.auth.Manager %}
   <a href="{% url 'product:addCarPage' %}">Add car to database</a>
+  <a href = "{% url 'product:payEmployeePage' %}">Pay Employees</a>
   {% endif %}
 {% if perms.auth.Employee or perms.auth.Manager %}
   <a href="{% url 'product:service' %}">Look at service tickets</a>
+  <a href = "{% url 'product:employeeHours' %}">Log Hours</a>
   {% endif %}
 
 
