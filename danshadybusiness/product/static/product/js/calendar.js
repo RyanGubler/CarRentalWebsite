@@ -43,6 +43,9 @@ fetch(`http://127.0.0.1:8000/product/availableCars?carPrice=${selection}&startDa
         oldDiv.removeChild(oldDiv.firstChild);
     }
     for (item in info){
+    if (item === 'start-date' || item === 'end-date'){
+        continue;
+    }
         
     var newDiv = document.createElement('div');
 
@@ -50,8 +53,8 @@ fetch(`http://127.0.0.1:8000/product/availableCars?carPrice=${selection}&startDa
     var link = document.createElement('a');
     var id = info[item];
     
-    link.href = `${id}`
-    link.textContent = `Reserve ${item}`
+    link.href = `${id}`;
+    link.textContent = `Reserve ${item}`;
     console.log(item);
     h1.textContent = item;
     newDiv.appendChild(h1);

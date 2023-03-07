@@ -2,7 +2,22 @@
 <html>
     <body>
         <h1>
-            This is for the car {{car.name}}
+            Thank you for reserving {{car.name}}!
         </h1>
+        <form action = "{% url 'product:reserveCar' car.id %}" method = "post">
+            {% csrf_token %}
+            <label for = "startDate">
+
+            </label>
+            <input type = "date" value = "2025-05-25" name = "startDate" id = "startDate" readonly>
+            <label for = "endDate">
+
+            </label>
+            <input type = "date" name = "endDate" id = "endDate" readonly >
+
+            <button type = "submit">Reserve Car</button>
+
+
+        </form>
     </body>
 </html>

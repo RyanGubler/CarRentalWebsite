@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from product.models import CustomUser, Car, ServiceTicket
+from product.models import CustomUser, Car, ServiceTicket, CarReservation
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
@@ -122,6 +122,8 @@ def availableCars(request):
     if startDate> endDate:
         resp['error'] = "End Date is before Start Date"
         return JsonResponse(resp)
+    resp['start-date'] = startDate
+    resp['end-date'] = endDate
     for car in Car.objects.all():
         addingCar = True
         if car.price != float(carPrice):
@@ -134,6 +136,12 @@ def availableCars(request):
                     addingCar = False
                     break
                 if (endDate >= reservation.startDate and endDate <= reservation.endDate) or (car.price != float(carPrice)):
+                    addingCar = False
+                    break
+                if (reservation.startDate >= startDate and reservation.startDate <= endDate) or (car.price != float(carPrice)):
+                    addingCar = False
+                    break
+                if (reservation.endDate >= startDate and reservation.endDate <= endDate) or (car.price != float(carPrice)):
                     addingCar = False
                     break
             if addingCar:
@@ -218,4 +226,8 @@ def displayCar(request, car_id):
     return render(request, 'product/displayCar.html', {'car':car})
 
 def reserveCar(request, car_id):
-    ...
+    car = Car.objects.get(pk=car_id)
+    customUser = CustomUser.objects.get(user = request.user)
+    reservation = CarReservation(car = car, user = customUser, startDate = request.POST['startDate'], endDate = request.POST['endDate'], lojacked = False)
+    reservation.save()
+    return redirect(reverse('product:customUser'))
