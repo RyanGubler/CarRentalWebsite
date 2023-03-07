@@ -106,7 +106,7 @@ def addCar(request):
 
     customUser.addFunds(float(request.POST['carPrice']) * -1)
     customUser.save()
-    car = Car(name = request.POST['carName'], price = float(request.POST['carPrice']) / 10)
+    car = Car(name = request.POST['carName'], price = float(request.POST['carPrice']))
     car.save()
     return redirect(reverse('product:addCarPage'))
 
@@ -119,20 +119,21 @@ def availableCars(request):
     carPrice = request.GET.get('carPrice')
     startDate = datetime.strptime(startDate, '%Y-%m-%d').date()
     endDate = datetime.strptime(endDate, '%Y-%m-%d').date()
-    print("The start date converted to a string is: "+ str(startDate))
     if startDate> endDate:
         resp['error'] = "End Date is before Start Date"
         return JsonResponse(resp)
     for car in Car.objects.all():
         addingCar = True
-        if len(car.carreservation_set.all()) == 0:
+        if car.price != float(carPrice):
+            continue
+        if len(car.carreservation_set.all()) == 0 and car.price == float(carPrice):
             resp[car.name] = car.id
         else:
             for reservation in car.carreservation_set.all():
-                if (startDate <= reservation.endDate and startDate >= reservation.startDate) or car.price != float(carPrice):
+                if (startDate <= reservation.endDate and startDate >= reservation.startDate) or (car.price != float(carPrice)):
                     addingCar = False
                     break
-                if (endDate >= reservation.startDate and endDate <= reservation.endDate) or car.price != float(carPrice):
+                if (endDate >= reservation.startDate and endDate <= reservation.endDate) or (car.price != float(carPrice)):
                     addingCar = False
                     break
             if addingCar:
