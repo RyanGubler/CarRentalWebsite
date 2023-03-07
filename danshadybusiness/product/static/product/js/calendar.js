@@ -47,9 +47,15 @@ fetch(`http://127.0.0.1:8000/product/availableCars?carPrice=${selection}&startDa
     var newDiv = document.createElement('div');
 
     var h1 = document.createElement('h1');
+    var link = document.createElement('a');
+    var id = info[item];
+    
+    link.href = `${id}`
+    link.textContent = `Reserve ${item}`
     console.log(item);
     h1.textContent = item;
     newDiv.appendChild(h1);
+    newDiv.appendChild(link);
 
     
 

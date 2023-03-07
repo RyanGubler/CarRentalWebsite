@@ -126,7 +126,7 @@ def availableCars(request):
     for car in Car.objects.all():
         addingCar = True
         if len(car.carreservation_set.all()) == 0:
-            resp[car.name] = car.price
+            resp[car.name] = car.id
         else:
             for reservation in car.carreservation_set.all():
                 if (startDate <= reservation.endDate and startDate >= reservation.startDate) or car.price != float(carPrice):
@@ -137,9 +137,9 @@ def availableCars(request):
                     break
             if addingCar:
                 resp[car.name] = car.id
-
     response = JsonResponse(resp)
     response['Access-Control-Allow-Origin'] = '*'
+
     return response
 
 
@@ -208,3 +208,13 @@ def payAll(request):
                 user.save()
         return redirect(reverse('product:customUser'))
     return redirect(reverse('product:customUser'))
+
+
+
+
+def displayCar(request, car_id):
+    car = Car.objects.get(pk=car_id)
+    return render(request, 'product/displayCar.html', {'car':car})
+
+def reserveCar(request, car_id):
+    ...
