@@ -163,6 +163,18 @@ def signup(request):
                                         first_name = request.POST['firstName'], 
                                         last_name = request.POST['lastName'])
         user.save
+        user.groups.add(Group.objects.get(name='User'))
         return render(request, 'product/login.html', {})
     return render(request,'product/signup.html', {})
 
+
+def hirePage(request):
+    if request.method == 'POST':
+        user = User.objects.get(id=request.POST['id'])
+        hire(user)
+    return render(request, 'product/hirePage.html', context={
+        'users' : User.objects.all
+    })
+def hire(user):
+    if not user.groups.get("Employee"):
+        user.groups.add(Group.objects.get(name='Employee'))
