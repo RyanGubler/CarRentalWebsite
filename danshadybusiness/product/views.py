@@ -28,6 +28,7 @@ def addFunds(request):
             customUser.addFunds(100)
         else:
             customUser.addFunds(float(request.POST('custom')))
+
     return render(request, 'product/addFunds.html', {})
 
 
