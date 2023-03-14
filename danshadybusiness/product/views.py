@@ -12,19 +12,19 @@ from datetime import datetime
 
 
 
-# We may want to pass context back to the addFunds paget that shows
+# We may want to pass context back to the addFunds page that shows
 # the current total funds in account.
 
 def addFunds(request):
     customUser = CustomUser.objects.get(user = request.user)
     if request.method == "POST":
-        if '$10' in request.method.POST:
+        if '10' in request.method.POST:
             customUser.addFunds(10)
-        elif '$25' in request.method.POST:
+        elif '25' in request.method.POST:
             customUser.addFunds(25)
-        elif '$50' in request.method.POST:
+        elif '50' in request.method.POST:
             customUser.addFunds(50)
-        elif '$100' in request.method.POST:
+        elif '100' in request.method.POST:
             customUser.addFunds(100)
         else:
             customUser.addFunds(float(request.POST('custom')))
