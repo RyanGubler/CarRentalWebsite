@@ -23,10 +23,6 @@ window.onload = function() {
 }
 
 function getAvailableCars(selection, start,end){
-console.log(selection);
-console.log(start);
-console.log(end);
-
 var startList = start.split(' ');
 var endList = end.split(' ');
 
@@ -36,7 +32,6 @@ fetch(`http://127.0.0.1:8000/product/availableCars?carPrice=${selection}&startDa
 .then(info => info.json())
 .then(info => {
 
-    console.log(info);
 
     var oldDiv = document.getElementById('belowDiv');
     while (oldDiv.firstChild) {
@@ -46,16 +41,25 @@ fetch(`http://127.0.0.1:8000/product/availableCars?carPrice=${selection}&startDa
     if (item === 'start-date' || item === 'end-date'){
         continue;
     }
+    
         
     var newDiv = document.createElement('div');
+    if (item == 'error'){
+        var error = document.createElement('h1');
+        error.textContent = info['error'];
+        newDiv.appendChild(error);
+        oldDiv.appendChild(newDiv);
+        
+        break;
+    }
+       
 
     var h1 = document.createElement('h1');
     var link = document.createElement('a');
     var id = info[item];
     
-    link.href = `${id}`;
+    link.href = `${id}/${info['start-date']}/${info['end-date']}`;
     link.textContent = `Reserve ${item}`;
-    console.log(item);
     h1.textContent = item;
     newDiv.appendChild(h1);
     newDiv.appendChild(link);

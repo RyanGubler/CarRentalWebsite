@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.contrib.auth.models import Group, Permission, User
-from datetime import datetime
+from datetime import datetime, date
 
 
 
@@ -75,6 +75,10 @@ def loginTest(request):
             return render(request, 'product/login.html', context)
 
         # Return an 'invalid login' error message.
+    
+    # check if user is already logged in
+    if request.user.is_authenticated:
+        return redirect(reverse('product:customUser'))
 
     
     return render(request, 'product/login.html')
@@ -114,11 +118,15 @@ def addCar(request):
 
 def availableCars(request):
     resp = {}
-    startDate = request.GET.get('startDate')
-    endDate = request.GET.get('endDate')
-    carPrice = request.GET.get('carPrice')
-    startDate = datetime.strptime(startDate, '%Y-%m-%d').date()
-    endDate = datetime.strptime(endDate, '%Y-%m-%d').date()
+    try:
+        startDate = request.GET.get('startDate')
+        endDate = request.GET.get('endDate')
+        carPrice = request.GET.get('carPrice')
+        startDate = datetime.strptime(startDate, '%Y-%m-%d').date()
+        endDate = datetime.strptime(endDate, '%Y-%m-%d').date()
+    except:
+        resp['error'] = "Please Input Start and End Date"
+        return JsonResponse(resp)
     if startDate> endDate:
         resp['error'] = "End Date is before Start Date"
         return JsonResponse(resp)
@@ -221,9 +229,10 @@ def payAll(request):
 
 
 
-def displayCar(request, car_id):
+def displayCar(request, car_id, startDate, endDate):
     car = Car.objects.get(pk=car_id)
-    return render(request, 'product/displayCar.html', {'car':car})
+    customUser = CustomUser.objects.get(user = request.user)
+    return render(request, 'product/displayCar.html', {'car':car,'startDate': startDate, 'endDate':endDate, 'customUser':customUser})
 
 def reserveCar(request, car_id):
     car = Car.objects.get(pk=car_id)
