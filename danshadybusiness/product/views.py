@@ -12,22 +12,23 @@ from datetime import datetime, date
 
 
 
-# We may want to pass context back to the addFunds paget that shows
+# We may want to pass context back to the addFunds page that shows
 # the current total funds in account.
 
 def addFunds(request):
-    # customUser = CustomUser.objects.get(user = request.user)
-    # if request.method == "POST":
-    #     if '$10' in request.method.POST:
-    #         customUser.addFunds(10)
-    #     elif '$25' in request.method.POST:
-    #         customUser.addFunds(25)
-    #     elif '$50' in request.method.POST:
-    #         customUser.addFunds(50)
-    #     elif '$100' in request.method.POST:
-    #         customUser.addFunds(100)
-    #     else:
-    #         customUser.addFunds(float(request.POST('custom')))
+    customUser = CustomUser.objects.get(user = request.user)
+    if request.method == "POST":
+        if '10' in request.method.POST:
+            customUser.addFunds(10)
+        elif '25' in request.method.POST:
+            customUser.addFunds(25)
+        elif '50' in request.method.POST:
+            customUser.addFunds(50)
+        elif '100' in request.method.POST:
+            customUser.addFunds(100)
+        else:
+            customUser.addFunds(float(request.POST('custom')))
+
     return render(request, 'product/addFunds.html', {})
 
 
@@ -184,6 +185,7 @@ def signup(request):
                                         first_name = request.POST['firstName'], 
                                         last_name = request.POST['lastName'])
         user.save
+        user.groups.add(Group.objects.get(name='User'))
         return render(request, 'product/login.html', {})
     return render(request,'product/signup.html', {})
 
@@ -240,3 +242,15 @@ def reserveCar(request, car_id):
     reservation = CarReservation(car = car, user = customUser, startDate = request.POST['startDate'], endDate = request.POST['endDate'], lojacked = False)
     reservation.save()
     return redirect(reverse('product:customUser'))
+    
+def hirePage(request):
+    if request.method == 'POST':
+        user = User.objects.get(id=request.POST['id'])
+        hire(user)
+    return render(request, 'product/hirePage.html', context={
+        'users' : User.objects.all
+    })
+def hire(user):
+    if not user.groups.get("Employee"):
+        user.groups.add(Group.objects.get(name='Employee'))
+

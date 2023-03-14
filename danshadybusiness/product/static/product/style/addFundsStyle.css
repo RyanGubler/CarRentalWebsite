@@ -56,7 +56,7 @@ html, body {
         margin-top:50px
     }
     #ten-button{
-        margin-top: 100px;
+        margin-top: 20px;
     }
 }
 @media (min-width:768px){
@@ -71,6 +71,9 @@ html, body {
     }  
     .custom-amount{
         margin-top: 75px;
+    }
+    #ten-button{
+        margin-top: 100px;
     }
 }
 @media (min-width: 992px){
