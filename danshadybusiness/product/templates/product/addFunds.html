@@ -15,7 +15,8 @@
         {% block content %}
         <div class="page">
             <div class="row">
-                <form>
+                <form action="{% url 'product:addFunds' %}" method="post">
+                    {% csrf_token %}
                     <div class="button-ctn text-center">
                         <div class="col-sm-2 money-button"></div>
                             
