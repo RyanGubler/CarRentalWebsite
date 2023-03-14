@@ -17,17 +17,28 @@ from datetime import datetime
 
 def addFunds(request):
     customUser = CustomUser.objects.get(user = request.user)
-    if request.method == "POST":
-        if '10' in request.method.POST:
-            customUser.addFunds(10)
-        elif '25' in request.method.POST:
-            customUser.addFunds(25)
-        elif '50' in request.method.POST:
-            customUser.addFunds(50)
-        elif '100' in request.method.POST:
-            customUser.addFunds(100)
-        else:
-            customUser.addFunds(float(request.POST('custom')))
+    print(request.POST)
+    if request.method == 'POST':
+        if "10" in request.POST:
+            customUser.addFunds(10.0)
+            customUser.save()
+            return redirect(reverse("product:addFunds"))
+        elif "25" in request.POST:
+            customUser.addFunds(25.0)
+            customUser.save()
+            return redirect(reverse("product:addFunds"))
+        elif "50" in request.POST:
+            customUser.addFunds(50.0)
+            customUser.save()
+            return redirect(reverse("product:addFunds"))
+        elif "100" in request.POST:
+            customUser.addFunds(100.0)
+            customUser.save()
+            return redirect(reverse("product:addFunds"))
+        elif "custom" in request.POST:
+            customUser.addFunds(float(request.POST["custom"]))
+            customUser.save()
+            return redirect(reverse("product:addFunds"))
 
     return render(request, 'product/addFunds.html', {})
 
@@ -179,3 +190,4 @@ def hirePage(request):
 def hire(user):
     if not user.groups.get("Employee"):
         user.groups.add(Group.objects.get(name='Employee'))
+        user.save()
