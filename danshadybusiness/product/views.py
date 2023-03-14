@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from product.models import CustomUser, Car, ServiceTicket
+from product.models import CustomUser, Car, ServiceTicket, CarReservation
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.contrib.auth.models import Group, Permission, User
-from datetime import datetime
+from datetime import datetime, date
 
 
 
@@ -87,6 +87,10 @@ def loginTest(request):
             return render(request, 'product/login.html', context)
 
         # Return an 'invalid login' error message.
+    
+    # check if user is already logged in
+    if request.user.is_authenticated:
+        return redirect(reverse('product:customUser'))
 
     
     return render(request, 'product/login.html')
@@ -118,7 +122,7 @@ def addCar(request):
 
     customUser.addFunds(float(request.POST['carPrice']) * -1)
     customUser.save()
-    car = Car(name = request.POST['carName'], price = float(request.POST['carPrice']) / 10)
+    car = Car(name = request.POST['carName'], price = float(request.POST['carPrice']))
     car.save()
     return redirect(reverse('product:addCarPage'))
 
@@ -126,29 +130,46 @@ def addCar(request):
 
 def availableCars(request):
     resp = {}
-    startDate = request.GET.get('startDate')
-    endDate = request.GET.get('endDate')
-    startDate = datetime.strptime(startDate, '%Y-%m-%d').date()
-    endDate = datetime.strptime(endDate, '%Y-%m-%d').date()
-    print("The start date converted to a string is: "+ str(startDate))
+    try:
+        startDate = request.GET.get('startDate')
+        endDate = request.GET.get('endDate')
+        carPrice = request.GET.get('carPrice')
+        startDate = datetime.strptime(startDate, '%Y-%m-%d').date()
+        endDate = datetime.strptime(endDate, '%Y-%m-%d').date()
+    except:
+        resp['error'] = "Please Input Start and End Date"
+        return JsonResponse(resp)
     if startDate> endDate:
         resp['error'] = "End Date is before Start Date"
         return JsonResponse(resp)
+    resp['start-date'] = startDate
+    resp['end-date'] = endDate
     for car in Car.objects.all():
         addingCar = True
-        if len(car.carreservation_set.all()) == 0:
-            resp[car.name] = car.price
+        if car.price != float(carPrice):
+            continue
+        if len(car.carreservation_set.all()) == 0 and car.price == float(carPrice):
+            resp[car.name] = car.id
         else:
             for reservation in car.carreservation_set.all():
-                if startDate <= reservation.endDate and startDate >= reservation.startDate:
+                if (startDate <= reservation.endDate and startDate >= reservation.startDate) or (car.price != float(carPrice)):
                     addingCar = False
                     break
-                if endDate >= reservation.startDate and endDate <= reservation.endDate:
+                if (endDate >= reservation.startDate and endDate <= reservation.endDate) or (car.price != float(carPrice)):
+                    addingCar = False
+                    break
+                if (reservation.startDate >= startDate and reservation.startDate <= endDate) or (car.price != float(carPrice)):
+                    addingCar = False
+                    break
+                if (reservation.endDate >= startDate and reservation.endDate <= endDate) or (car.price != float(carPrice)):
                     addingCar = False
                     break
             if addingCar:
-                resp[car.id] = car.name
-    return JsonResponse(resp)
+                resp[car.name] = car.id
+    response = JsonResponse(resp)
+    response['Access-Control-Allow-Origin'] = '*'
+
+    return response
 
 
 
@@ -180,6 +201,59 @@ def signup(request):
     return render(request,'product/signup.html', {})
 
 
+def employeeHours(request):
+    if request.user.has_perm('auth.Employee'):
+        return render(request,'product/employeeHours.html')
+
+    else:
+        return redirect(reverse('product:customUser'))
+    
+
+def logHours(request):
+    if request.method == 'POST' and request.user.has_perm('auth.Employee'):
+        totalHours = request.POST['hours']
+        user = CustomUser.objects.get(user = request.user)
+        user.addHours(float(totalHours))
+        user.save()
+        return redirect(reverse('product:customUser'))
+    return redirect(reverse('product:employeeHours'))
+
+
+
+
+def payEmployeePage(request):
+    if request.user.has_perm('auth.Manager'):
+        return render(request, 'product/payEmployeePage.html')
+    return redirect(reverse('product:customUser'))
+
+
+def payAll(request):
+    if request.method == "POST" and request.user.has_perm('auth.Manager'):
+        for user in CustomUser.objects.all():
+            user1 = user.user
+            if user1.has_perm('auth.Employee'):
+                hours = user.hours
+                user.addFunds(float(hours*15.0))
+                user.addHours(float(hours*-1))
+                user.save()
+        return redirect(reverse('product:customUser'))
+    return redirect(reverse('product:customUser'))
+
+
+
+
+def displayCar(request, car_id, startDate, endDate):
+    car = Car.objects.get(pk=car_id)
+    customUser = CustomUser.objects.get(user = request.user)
+    return render(request, 'product/displayCar.html', {'car':car,'startDate': startDate, 'endDate':endDate, 'customUser':customUser})
+
+def reserveCar(request, car_id):
+    car = Car.objects.get(pk=car_id)
+    customUser = CustomUser.objects.get(user = request.user)
+    reservation = CarReservation(car = car, user = customUser, startDate = request.POST['startDate'], endDate = request.POST['endDate'], lojacked = False)
+    reservation.save()
+    return redirect(reverse('product:customUser'))
+    
 def hirePage(request):
     if request.method == 'POST':
         user = User.objects.get(id=request.POST['id'])
@@ -190,4 +264,8 @@ def hirePage(request):
 def hire(user):
     if not user.groups.get("Employee"):
         user.groups.add(Group.objects.get(name='Employee'))
+<<<<<<< HEAD
         user.save()
+=======
+
+>>>>>>> 3bfe092d29ba9bbbaf489057efd0e89c376eeff3
