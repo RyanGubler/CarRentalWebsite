@@ -86,7 +86,7 @@ def logoutPage(request):
 @login_required(login_url='product:loginTest')
 def customUser(request):
     customUser = CustomUser.objects.get(user = request.user)
-    return render(request, 'product/customUser.html', {'customUser': customUser})
+    return render(request, 'product/account.html', {'customUser': customUser})
 
 
 
@@ -152,7 +152,7 @@ def terminate(request):
     ServiceTicket.objects.filter(pk=serviceTicketId)
 
 def service(request):
-    ticketList = list[ServiceTicket.objects.all()[:5]]
+    ticketList = list[ServiceTicket.objects.all()[:2]]
     return render(request, 'product/serviceTicket.html', {'ticketList' : ticketList})
 
 def signup(request):

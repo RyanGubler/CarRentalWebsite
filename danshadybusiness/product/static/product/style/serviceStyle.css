@@ -1,7 +1,9 @@
 h1 {
 text-align: center;
 }
-
+body {
+    background-color: #E0E1DD;
+}
 #titleDiv {
 background-color: #1b263B;
 color: white;
@@ -9,9 +11,7 @@ padding: 20px;
 }
 
 #ticketContainer {
-
 height: 350 px;
-
 text-align: center;
 }
 
@@ -20,7 +20,7 @@ width: 33.333%;
 height: 200px;
 box-sizing: border-box;
 border: .5px solid;
-background-color: #E0E1DD ;
+background-color: white;
 
 }
 
@@ -33,7 +33,7 @@ ul {
 list-style-type: none;
 }
 .grey {
-background-color: #E0E1DD ;
+background-color: white ;
 }
 
 .blue {

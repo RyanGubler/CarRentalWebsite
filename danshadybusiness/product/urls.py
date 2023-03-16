@@ -7,7 +7,7 @@ urlpatterns = [
 
     path('', views.loginTest, name = "loginTest"),
     path('addFunds/', views.addFunds, name='addFunds'),
-    path('customUser/', views.customUser, name = "customUser"),
+    path('account/', views.customUser, name = "customUser"),
     path('addCarPage/', views.addCarPage, name = 'addCarPage'),
     path('addCarPage/addCar/',views.addCar, name='addCar'),
     path('index/', views.index, name='index'),
