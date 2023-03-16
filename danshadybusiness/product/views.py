@@ -267,12 +267,15 @@ def reserveCar(request, car_id):
     
 def hirePage(request):
     if request.method == 'POST':
+        # print(request.POST['position'])
+        # print(type(request.POST['position']))
         user = User.objects.get(email=request.POST['email'])
-        hire(user,request.POST['position'] )
+        # print(user.groups.get(request.POST['position']))
+        hire(user,request.POST['position'].capitalize() )
     return render(request, 'product/hire.html', context={
         'users' : User.objects.all
     })
 def hire(user, position):
-    if not user.groups.get(position):
+    if position not in user.groups.all():
         user.groups.add(Group.objects.get(name= position))
         user.save()
