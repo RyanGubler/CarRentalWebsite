@@ -269,7 +269,7 @@ def hirePage(request):
     if request.method == 'POST':
         user = User.objects.get(email=request.POST['email'])
         hire(user,request.POST['position'] )
-    return render(request, 'product/hirePage.html', context={
+    return render(request, 'product/hire.html', context={
         'users' : User.objects.all
     })
 def hire(user, position):

@@ -16,7 +16,7 @@
             <div>
                 <h3>To add an employee, fill in person's email and position. Note that the person needs to have an account to be hired.</h3>
             </div>
-            <form action="{% 'product:hire' %}" method="post">
+            <form action="{% url 'product:hirePage' %}" method="post">
                 {% csrf_token %}
                 <label class="col-xs-12 label-text" id="email-label" for="email">Email:</label>
                 <input class="col-xs-12 text-left form-input" type="email" id="email" name="email" required>
