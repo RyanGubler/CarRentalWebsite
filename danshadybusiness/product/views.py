@@ -12,9 +12,6 @@ from datetime import datetime, date
 
 
 
-# We may want to pass context back to the addFunds page that shows
-# the current total funds in account.
-
 def addFunds(request):
     customUser = CustomUser.objects.get(user = request.user)
     print(request.POST)
@@ -185,8 +182,19 @@ def terminate(request):
     ServiceTicket.objects.filter(pk=serviceTicketId)
 
 def service(request):
-    ticketList = list[ServiceTicket.objects.all()[:5]]
+    if request.method == 'POST':
+        deleteTickets()
+    ticketList = list[ServiceTicket.objects.all()]
+    firstTickets = []
+    if len(ticketList)<= 3:
+        firstTickets = ticketList
+    else :
+        firstTickets = ticketList[:3]    
     return render(request, 'product/serviceTicket.html', {'ticketList' : ticketList})
+
+def deleteTickets(deleteList):
+    for ticketId in deleteList:
+        ServiceTicket.objects.filter(id=ticketId).delete()
 
 def signup(request):
     if request.method == 'POST':
@@ -256,16 +264,12 @@ def reserveCar(request, car_id):
     
 def hirePage(request):
     if request.method == 'POST':
-        user = User.objects.get(id=request.POST['id'])
-        hire(user)
+        user = User.objects.get(email=request.POST['email'])
+        hire(user,request.POST['position'] )
     return render(request, 'product/hirePage.html', context={
         'users' : User.objects.all
     })
-def hire(user):
-    if not user.groups.get("Employee"):
-        user.groups.add(Group.objects.get(name='Employee'))
-<<<<<<< HEAD
+def hire(user, position):
+    if not user.groups.get(position):
+        user.groups.add(Group.objects.get(name= position))
         user.save()
-=======
-
->>>>>>> 3bfe092d29ba9bbbaf489057efd0e89c376eeff3
