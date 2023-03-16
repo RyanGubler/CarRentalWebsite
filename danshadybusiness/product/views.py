@@ -50,6 +50,9 @@ def service(request):
 def reservation(request):
     return render(request, 'product/reservation.html', {})
 
+def hire(request):
+    return render(request, 'product/hire.html', {})
+
 # Create your views here.
 
 # @login_required

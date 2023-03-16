@@ -18,6 +18,7 @@ urlpatterns = [
     path('availableCars/', views.availableCars, name="availableCars"),
     path('customUser/logout/', views.logoutPage, name = "logoutPage"),
     path('reservation/', views.reservation, name='reservation'),
+    path('hire/', views.hire, name='hire'),
 
 
 ]
