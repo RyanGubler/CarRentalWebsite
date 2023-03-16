@@ -4,9 +4,10 @@
     bottom: 0; 
     width: 100%; 
     height: 126px;
+    margin-top:1000px;
 }
 .logo-icon{
-
+    padding-top: 35px;
     height: 100px;
 }
 @media screen and (max-width: 768px){

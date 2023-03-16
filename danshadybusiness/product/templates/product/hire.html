@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Add Funds</title>
+        {% load static %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <link rel="stylesheet" href="{% static 'product/style/hireStyle.css' %}">
+        <link rel="stylesheet" href="{% static 'product/style/headerStyle.css' %}">
+        <link rel="stylesheet" href="{% static 'product/style/footerStyle.css' %}">
+    </head>
+    <body>
+        {% include 'product/header.html' %}
+        {% block content %}
+        <div class="hire-page">
+            <div>
+                <h3>To add an employee, fill in person's email, position, and hourly salary. Note that the person needs to have an account to be hired.</h3>
+            </div>
+            <form>
+                <label class="col-xs-12 label-text" id="email-label" for="email">Email:</label>
+                <input class="col-xs-12 text-center form-input" type="email" id="email" name="email" required>
+                <label class="col-xs-12 label-text" for="position">Position:</label>
+                <select class="col-xs-12 form-input" id="position" name="position">
+                    <option value="employee">Employee</option>
+                    <option value="manager">Manager</option>
+                </select>
+                <label class="col-xs-12 label-text" for="salary">Hourly Salary:</label>
+                <input class="col-xs-12 text-center form-input" type="number" id="salary" name="salary" required>
+                <input class="col-xs-12 form-button" type="submit" value="Hire">
+            </form>
+        </div>
+        {% include 'product/footer.html' %}
+        {% endblock %}
+    </body>
+</html>
