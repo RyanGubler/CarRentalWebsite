@@ -50,11 +50,11 @@ def index(request):
 # def login(request):
 #     return render(request, 'product/login.html', {})
 
-def signup(request):
-    return render(request, 'product/signup.html', {})
+# def signup(request):
+#     return render(request, 'product/signup.html', {})
 
-def service(request):
-    return render(request, 'product/serviceTicket.html', {})
+# def service(request):
+#     return render(request, 'product/serviceTicket.html', {})
 
 def reservation(request):
     return render(request, 'product/reservation.html', {})
