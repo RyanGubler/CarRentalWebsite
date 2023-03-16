@@ -14,18 +14,17 @@
         {% block content %}
         <div class="hire-page">
             <div>
-                <h3>To add an employee, fill in person's email, position, and hourly salary. Note that the person needs to have an account to be hired.</h3>
+                <h3>To add an employee, fill in person's email and position. Note that the person needs to have an account to be hired.</h3>
             </div>
-            <form>
+            <form action="{% 'product:hire' %}" method="post">
+                {% csrf_token %}
                 <label class="col-xs-12 label-text" id="email-label" for="email">Email:</label>
-                <input class="col-xs-12 text-center form-input" type="email" id="email" name="email" required>
+                <input class="col-xs-12 text-left form-input" type="email" id="email" name="email" required>
                 <label class="col-xs-12 label-text" for="position">Position:</label>
                 <select class="col-xs-12 form-input" id="position" name="position">
-                    <option value="employee">Employee</option>
-                    <option value="manager">Manager</option>
+                    <option value="employee" name="employee">Employee</option>
+                    <option value="manager" name="manager">Manager</option>
                 </select>
-                <label class="col-xs-12 label-text" for="salary">Hourly Salary:</label>
-                <input class="col-xs-12 text-center form-input" type="number" id="salary" name="salary" required>
                 <input class="col-xs-12 form-button" type="submit" value="Hire">
             </form>
         </div>
