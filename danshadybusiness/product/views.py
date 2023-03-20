@@ -50,11 +50,11 @@ def index(request):
 # def login(request):
 #     return render(request, 'product/login.html', {})
 
-def signup(request):
-    return render(request, 'product/signup.html', {})
+# def signup(request):
+#     return render(request, 'product/signup.html', {})
 
-def service(request):
-    return render(request, 'product/serviceTicket.html', {})
+# def service(request):
+#     return render(request, 'product/serviceTicket.html', {})
 
 def reservation(request):
     return render(request, 'product/reservation.html', {})
@@ -201,14 +201,18 @@ def deleteTickets(deleteList):
 
 def signup(request):
     if request.method == 'POST':
-        user = User.objects.create_user(username = request.POST['email'],
-                                        password = request.POST['password'], 
-                                        email = request.POST['email'], 
-                                        first_name = request.POST['firstName'], 
-                                        last_name = request.POST['lastName'])
-        user.save
-        user.groups.add(Group.objects.get(name='User'))
-        return render(request, 'product/login.html', {})
+        try:
+            exists = User.objects.get(email = request.POST['email'])
+            return render(request,"product/signup.html",{'error':"Email already exists"})
+        except:
+            user = User.objects.create_user(username = request.POST['email'],
+                                            password = request.POST['password'], 
+                                            email = request.POST['email'], 
+                                            first_name = request.POST['firstName'], 
+                                            last_name = request.POST['lastName'])
+            user.save
+            user.groups.add(Group.objects.get(name='User'))
+            return render(request, 'product/login.html', {})
     return render(request,'product/signup.html', {})
 
 
