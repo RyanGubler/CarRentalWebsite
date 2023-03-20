@@ -152,7 +152,7 @@ def terminate(request):
     ServiceTicket.objects.filter(pk=serviceTicketId)
 
 def service(request):
-    ticketList = list[ServiceTicket.objects.all()[:2]]
+    ticketList = ServiceTicket.objects.all()[:3]
     return render(request, 'product/serviceTicket.html', {'ticketList' : ticketList})
 
 def signup(request):

@@ -5,20 +5,26 @@
     <title> Account </title>
     {% load static %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="stylesheet" href="{% static 'product/style/accountStyle.css' %}">
     <link rel="stylesheet" href="{% static 'product/style/headerStyle.css' %}">
-        <link rel="stylesheet" href="{% static 'product/style/footerStyle.css' %}">
+    <link rel="stylesheet" href="{% static 'product/style/footerStyle.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
 </head>
 <body>
- {% include 'product/header.html' %}
-        {% block content %}
- <div id="details">
+{% include 'product/header.html' %}
+{% block content %}
+     <div id="details">
         <h1>Welcome, {{customUser.user.first_name}} {{customUser.user.last_name}}</h1>
         <p>Email: {{customUser.user.username}}</p>
         <p>Balance: ${{customUser.balance}}</p>
-     </div>
- {% include 'product/footer.html' %}
-        {% endblock %}
+          {% for reservation in customUser.carreservation_set.all %}
+         <p>
+          Active Rental {{reservation.car.name}} {{reservation.startDate}} - {{reservation.endDate}}
+         </p>
+         {% endfor %}
+    </div>
+{% include 'product/footer.html' %}
+{% endblock %}
 </body>
 </html>

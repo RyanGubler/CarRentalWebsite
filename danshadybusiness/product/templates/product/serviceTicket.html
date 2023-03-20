@@ -13,40 +13,9 @@
 <body>
  {% block content %}
  {% include 'product/header.html' %}
-<script>
-    var tick1 = false;
-    var tick2 = false;
-    var tick3 = false;
-    function btnClick(id, id2) {
-            document.getElementById(id).style.backgroundColor = "#778DA9";
-            document.getElementById(id2).remove();
-            if (id == "ticket1") {
-            tick1 = true;
-            }
-            if (id =="ticket2") {
-            tick2 = true;
-            }
-            if (id == "ticket3" {
-            tick3 = true;
-            }
-    }
 
-    function serviceTickets() {
 
-    if (tick1) {
 
-    }
-    if (tick2) {
-
-    }
-
-    if (tick3) {
-
-    }
-
-    }
-
-</script>
 
 <div class="container" id="ticketContainer">
 
@@ -54,7 +23,7 @@
     <div class="grey ticket" id="ticket1">
 
                     {% if ticketList|length > 0 %}
-        <h3>Service ticket 1</h3>
+        <h3>Service ticket #1</h3>
         {% else %}
         <h3>Rest Easy!</h3>
         {% endif %}
@@ -66,15 +35,12 @@
             <li>No work to do here!</li>
             {% endif %}
         </ul>
-                        {% if ticketList|length > 0 %}
 
-        <button id="btn" onclick="btnClick('ticket1', 'btn')">Select</button>
-                    {% endif %}
 
     </div>
     <div class="grey ticket" id="ticket2">
         {% if ticketList|length > 1 %}
-        <h3>Service ticket 2</h3>
+        <h3>Service ticket #2</h3>
         {% else %}
         <h3>Rest Easy!</h3>
         {% endif %}
@@ -86,16 +52,13 @@
             <li>No work to do here!</li>
              {% endif %}
         </ul>
-                {% if ticketList|length > 1 %}
 
-                <button id="btn2" onclick="btnClick('ticket2', 'btn2')">Select</button>
-                    {% endif %}
 
 
     </div>
     <div class="grey ticket" id="ticket3">
         {% if ticketList|length > 2 %}
-        <h3>Service ticket 3</h3>
+        <h3>Service ticket #3</h3>
         {% else %}
         <h3>Rest Easy!</h3>
         {% endif %}
@@ -107,16 +70,41 @@
             <li>No work to do here!</li>
              {% endif %}
         </ul>
-        {% if ticketList|length > 2 %}
-        <button id="btn3" onclick="btnClick('ticket3', 'btn3')">Select</button>
-            {% endif %}
+
 
     </div>
-            {% if ticketList|length > 0 %}
 
+
+ <form  method="post">
+     {% csrf_token %}
+    {% if ticketList|length > 0 %}
+     <div class="checkboxer col-xs-4">
+     <label  for="1st">Complete Ticket 1</label>
+    <input  type="checkbox" id="1st">
+     </div>
+        {% endif %}
+        {% if ticketList|length > 1 %}
+     <div class = "checkboxer col-xs-4">
+     <label  for="2nd">Complete Ticket 2</label>
+    <input type="checkbox" id="2nd">
+     </div>
+        {% endif %}
+        {% if ticketList|length > 2 %}
+     <div class="checkboxer col-xs-4">
+     <label  for="3rd">Complete Ticket 3</label>
+    <input  type="checkbox" id="3rd">
+     </div>
+        {% endif %}
+            {% if ticketList|length > 0 %}
+    <div class = "checkboxer col-xs-12">
     <button type="submit" id="serviceButton" onclick="serviceTickets()">Service selected tickets</button>
-    {% endif %}
+        </div>
+     {% endif %}
+        </form>
+
 </div>
+
+
  {% include 'product/footer.html' %}
         {% endblock %}
 </body>

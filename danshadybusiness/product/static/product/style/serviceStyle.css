@@ -25,6 +25,10 @@ background-color: white;
 }
 
 
+.selected {
+background-color: #778DA9;
+}
+
 #serviceButton {
 padding: 10px;
 }
@@ -41,6 +45,9 @@ background-color: #778DA9;
 }
 
 
+.checkboxer {
+display: inline;
+}
 
 #ticket1 {
 float: left;
