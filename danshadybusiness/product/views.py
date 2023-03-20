@@ -166,3 +166,6 @@ def signup(request):
         return render(request, 'product/login.html', {})
     return render(request,'product/signup.html', {})
 
+
+def reportHours(request):
+    return render(request, 'product/reportHours.html')
