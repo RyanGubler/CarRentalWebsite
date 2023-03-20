@@ -2,13 +2,19 @@ h1 {
 text-align: center;
 }
 
+
 body{
     background-color: #E0E1DD;
 }
+
+
 html, body {
     max-width: 100%;
     overflow-x: hidden;
+    overflow-y: auto;
 }
+
+
 
 #titleDiv {
 background-color: #1b263B;

@@ -20,5 +20,15 @@ urlpatterns = [
     path('reservation/', views.reservation, name='reservation'),
     path('reportHours/', views.reportHours, name='reportHours')
 
+    path('hire/', views.hirePage, name='hirePage'),
+
+    path('employeeHours/', views.employeeHours, name='employeeHours'),
+    path('employeeHours/logHours/',views.logHours, name='logHours'),
+    path('payEmployeePage/', views.payEmployeePage, name="payEmployeePage"),
+    path('payEmployeePage/payAll/', views.payAll, name='payAll'),
+    path('reservation/<int:car_id>/<str:startDate>/<str:endDate>/', views.displayCar, name = 'displayCar'),
+    path('reservation/<int:car_id>/reserveCar/', views.reserveCar, name = 'reserveCar'),
+
+
 
 ]
