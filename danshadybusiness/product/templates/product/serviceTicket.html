@@ -23,7 +23,7 @@
     <div class="grey ticket" id="ticket1">
 
                     {% if ticketList|length > 0 %}
-        <h3>Service ticket #1</h3>
+        <h3>Service ticket #{{ ticketList.0.id }}</h3>
         {% else %}
         <h3>Rest Easy!</h3>
         {% endif %}
@@ -40,7 +40,7 @@
     </div>
     <div class="grey ticket" id="ticket2">
         {% if ticketList|length > 1 %}
-        <h3>Service ticket #2</h3>
+        <h3>Service ticket #{{ticketList.1.id}}</h3>
         {% else %}
         <h3>Rest Easy!</h3>
         {% endif %}
@@ -58,7 +58,7 @@
     </div>
     <div class="grey ticket" id="ticket3">
         {% if ticketList|length > 2 %}
-        <h3>Service ticket #3</h3>
+        <h3>Service ticket #{{ ticketList.2.id }}</h3>
         {% else %}
         <h3>Rest Easy!</h3>
         {% endif %}
@@ -80,19 +80,19 @@
     {% if ticketList|length > 0 %}
      <div class="checkboxer col-xs-4">
      <label  for="1st">Complete Ticket 1</label>
-    <input  type="checkbox" id="1st">
+    <input  type="checkbox" id="1st" name="1st">
      </div>
         {% endif %}
         {% if ticketList|length > 1 %}
      <div class = "checkboxer col-xs-4">
      <label  for="2nd">Complete Ticket 2</label>
-    <input type="checkbox" id="2nd">
+    <input type="checkbox" id="2nd" name="2nd">
      </div>
         {% endif %}
         {% if ticketList|length > 2 %}
      <div class="checkboxer col-xs-4">
      <label  for="3rd">Complete Ticket 3</label>
-    <input  type="checkbox" id="3rd">
+    <input  type="checkbox" id="3rd" name="3rd">
      </div>
         {% endif %}
             {% if ticketList|length > 0 %}

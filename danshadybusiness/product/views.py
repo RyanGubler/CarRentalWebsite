@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.contrib.auth.models import Group, Permission, User
 from datetime import datetime, date
+from .forms import ServiceForm
 
 
 
@@ -187,18 +188,30 @@ def terminate(request):
 def service(request):
 
     if request.method == 'POST':
-        deleteTickets()
-    ticketList = list[ServiceTicket.objects.all()]
+        deleteList = []
+        deleteList.append(request.POST.get('1st'))
+        deleteList.append(request.POST.get('2nd'))
+        deleteList.append(request.POST.get('3rd'))
+        deleteTickets(deleteList)
+    ticketList = ServiceTicket.objects.all()
     firstTickets = []
     if len(ticketList)<= 3:
         firstTickets = ticketList
     else :
-        firstTickets = ticketList[:3]    
-    return render(request, 'product/serviceTicket.html', {'ticketList' : ticketList})
+        firstTickets = ticketList[:3]
+    form = ServiceForm()
+    return render(request, 'product/serviceTicket.html', {'ticketList' : ticketList, 'form': form})
 
 def deleteTickets(deleteList):
-    for ticketId in deleteList:
-        ServiceTicket.objects.filter(id=ticketId).delete()
+    ticketList = ServiceTicket.objects.all()
+    firstTickets = []
+    if len(ticketList) <= 3:
+        firstTickets = ticketList
+    else:
+        firstTickets = ticketList[:3]
+    for i in range(len(firstTickets)):
+        if deleteList[i] == "on":
+            firstTickets[i].delete()
 
 def signup(request):
     if request.method == 'POST':
