@@ -12,9 +12,6 @@ from datetime import datetime, date
 
 
 
-# We may want to pass context back to the addFunds page that shows
-# the current total funds in account.
-
 def addFunds(request):
     customUser = CustomUser.objects.get(user = request.user)
     print(request.POST)
@@ -53,11 +50,11 @@ def index(request):
 # def login(request):
 #     return render(request, 'product/login.html', {})
 
-def signup(request):
-    return render(request, 'product/signup.html', {})
+# def signup(request):
+#     return render(request, 'product/signup.html', {})
 
-def service(request):
-    return render(request, 'product/serviceTicket.html', {})
+# def service(request):
+#     return render(request, 'product/serviceTicket.html', {})
 
 def reservation(request):
     return render(request, 'product/reservation.html', {})
@@ -188,19 +185,34 @@ def terminate(request):
     ServiceTicket.objects.filter(pk=serviceTicketId)
 
 def service(request):
-    ticketList = list[ServiceTicket.objects.all()[:5]]
+    if request.method == 'POST':
+        deleteTickets()
+    ticketList = list[ServiceTicket.objects.all()]
+    firstTickets = []
+    if len(ticketList)<= 3:
+        firstTickets = ticketList
+    else :
+        firstTickets = ticketList[:3]    
     return render(request, 'product/serviceTicket.html', {'ticketList' : ticketList})
+
+def deleteTickets(deleteList):
+    for ticketId in deleteList:
+        ServiceTicket.objects.filter(id=ticketId).delete()
 
 def signup(request):
     if request.method == 'POST':
-        user = User.objects.create_user(username = request.POST['email'],
-                                        password = request.POST['password'], 
-                                        email = request.POST['email'], 
-                                        first_name = request.POST['firstName'], 
-                                        last_name = request.POST['lastName'])
-        user.save
-        user.groups.add(Group.objects.get(name='User'))
-        return render(request, 'product/login.html', {})
+        try:
+            exists = User.objects.get(email = request.POST['email'])
+            return render(request,"product/signup.html",{'error':"Email already exists"})
+        except:
+            user = User.objects.create_user(username = request.POST['email'],
+                                            password = request.POST['password'], 
+                                            email = request.POST['email'], 
+                                            first_name = request.POST['firstName'], 
+                                            last_name = request.POST['lastName'])
+            user.save
+            user.groups.add(Group.objects.get(name='User'))
+            return render(request, 'product/login.html', {})
     return render(request,'product/signup.html', {})
 
 
@@ -259,14 +271,17 @@ def reserveCar(request, car_id):
     
 def hirePage(request):
     if request.method == 'POST':
-        user = User.objects.get(id=request.POST['id'])
-        hire(user)
-    return render(request, 'product/hirePage.html', context={
+        # print(request.POST['position'])
+        # print(type(request.POST['position']))
+        user = User.objects.get(email=request.POST['email'])
+        # print(user.groups.get(request.POST['position']))
+        hire(user,request.POST['position'].capitalize() )
+    return render(request, 'product/hire.html', context={
         'users' : User.objects.all
     })
-def hire(user):
-    if not user.groups.get("Employee"):
-        user.groups.add(Group.objects.get(name='Employee'))
-        user.save()
 
+def hire(user, position):
+    if position not in user.groups.all():
+        user.groups.add(Group.objects.get(name= position))
+        user.save()
 

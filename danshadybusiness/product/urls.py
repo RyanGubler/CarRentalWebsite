@@ -19,7 +19,7 @@ urlpatterns = [
     path('customUser/logout/', views.logoutPage, name = "logoutPage"),
     path('reservation/', views.reservation, name='reservation'),
 
-    path('hire/', views.hire, name='hire'),
+    path('hire/', views.hirePage, name='hirePage'),
 
     path('employeeHours/', views.employeeHours, name='employeeHours'),
     path('employeeHours/logHours/',views.logHours, name='logHours'),
