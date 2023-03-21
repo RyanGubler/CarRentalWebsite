@@ -12,7 +12,7 @@
     <body>
         {% include 'product/header.html' %}
         {% block content %}
-        <div class="hire-page">
+        <div class="page">
             <div>
                 <h3>To add an employee, fill in person's email and position. Note that the person needs to have an account to be hired.</h3>
             </div>
@@ -27,8 +27,9 @@
                 </select>
                 <input class="col-xs-12 form-button" type="submit" value="Hire">
             </form>
+        
+            {% include 'product/footer.html' %}
+            {% endblock %}
         </div>
-        {% include 'product/footer.html' %}
-        {% endblock %}
     </body>
 </html>

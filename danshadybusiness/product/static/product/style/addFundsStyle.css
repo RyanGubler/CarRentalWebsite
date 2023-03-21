@@ -1,14 +1,19 @@
-body{
-    background-color: #E0E1DD;
-}
 html, body {
+    margin: 0;
     max-width: 100%;
     overflow-x: hidden;
-
+    background-color: #E0E1DD;
     overflow-y: auto;
+    height: 100%;
 
 }
-
+.page {
+    position: relative;
+    min-height: 90vh;
+    min-height: 100%;
+    /* equal to footer height + some padding */
+    margin-bottom: -60px;
+}
 .button{
     background-color: #1b263b;
     color: white;

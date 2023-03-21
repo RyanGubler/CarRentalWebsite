@@ -9,55 +9,57 @@
     <link rel="stylesheet" href="{% static 'product/style/serviceStyle.css' %}">
 </head>
 <body>
-{% include 'product/header.html' %}
-        {% block content %}
-<script>
+    <div class="page">
+    {% include 'product/header.html' %}
+            {% block content %}
+    <script>
 
-    function btnClick(id, id2) {
-            document.getElementById(id).style.backgroundColor = "#778DA9";
-            document.getElementById(id2).remove();
-    }
+        function btnClick(id, id2) {
+                document.getElementById(id).style.backgroundColor = "#778DA9";
+                document.getElementById(id2).remove();
+        }
 
-</script>
+    </script>
 
-<div class="container" id="ticketContainer">
+    <div class="container" id="ticketContainer">
 
-    <h3>There are x service tickets to attend to!</h3>
-    <div class="grey ticket" id="ticket1">
-        <h3>This is example ticket 1</h3>
-        <ul>
-            <li>Service Ticket ID </li>
-            <li>Customer Name</li>
-            <li>Service Ticket creation date</li>
-            <li>Car Id</li>
-        </ul>
-        <button id="btn" onclick="btnClick('ticket1', 'btn')">Select</button>
+        <h3>There are x service tickets to attend to!</h3>
+        <div class="grey ticket" id="ticket1">
+            <h3>This is example ticket 1</h3>
+            <ul>
+                <li>Service Ticket ID </li>
+                <li>Customer Name</li>
+                <li>Service Ticket creation date</li>
+                <li>Car Id</li>
+            </ul>
+            <button id="btn" onclick="btnClick('ticket1', 'btn')">Select</button>
+        </div>
+        <div class="grey ticket" id="ticket2">
+            <h3>This is example ticket 2</h3>
+            <ul>
+                <li>Service Ticket ID </li>
+                <li>Customer Name</li>
+                <li>Service Ticket creation date</li>
+                <li>Car Id</li>
+            </ul>
+                    <button id="btn2" onclick="btnClick('ticket2', 'btn2')">Select</button>
+
+        </div>
+        <div class="grey ticket" id="ticket3">
+            <h3>This is example ticket 3</h3>
+            <ul>
+                <li>Service Ticket ID </li>
+                <li>Customer Name</li>
+                <li>Service Ticket creation date</li>
+                <li>Car Id</li>
+            </ul>
+            <button id="btn3" onclick="btnClick('ticket3', 'btn3')">Select</button>
+        </div>
+
+    <button type="submit" id="serviceButton">Service selected tickets</button>
     </div>
-    <div class="grey ticket" id="ticket2">
-        <h3>This is example ticket 2</h3>
-         <ul>
-            <li>Service Ticket ID </li>
-            <li>Customer Name</li>
-            <li>Service Ticket creation date</li>
-            <li>Car Id</li>
-        </ul>
-                <button id="btn2" onclick="btnClick('ticket2', 'btn2')">Select</button>
-
+    {% include 'product/footer.html' %}
+            {% endblock %}
     </div>
-    <div class="grey ticket" id="ticket3">
-        <h3>This is example ticket 3</h3>
-         <ul>
-            <li>Service Ticket ID </li>
-            <li>Customer Name</li>
-            <li>Service Ticket creation date</li>
-            <li>Car Id</li>
-        </ul>
-        <button id="btn3" onclick="btnClick('ticket3', 'btn3')">Select</button>
-    </div>
-
-<button type="submit" id="serviceButton">Service selected tickets</button>
-</div>
- {% include 'product/footer.html' %}
-        {% endblock %}
 </body>
 </html>

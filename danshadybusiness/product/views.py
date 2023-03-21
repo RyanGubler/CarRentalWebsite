@@ -267,8 +267,6 @@ def hirePage(request):
 def hire(user):
     if not user.groups.get("Employee"):
         user.groups.add(Group.objects.get(name='Employee'))
-<<<<<<< HEAD
         user.save()
-=======
 
->>>>>>> 3bfe092d29ba9bbbaf489057efd0e89c376eeff3
+
