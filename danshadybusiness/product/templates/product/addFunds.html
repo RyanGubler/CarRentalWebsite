@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="{% static 'product/style/addFundsStyle.css' %}">
         <link rel="stylesheet" href="{% static 'product/style/headerStyle.css' %}">
         <link rel="stylesheet" href="{% static 'product/style/footerStyle.css' %}">
+        <link rel="stylesheet" href="{% static 'product/style/style.css' %}">
         <script src="header.js"></script>
     </head>
     <body>
@@ -37,11 +38,7 @@
                     <div class="custom-add">
                         <div class="col-sm-5"></div>
                         <div class="col-xs-12 col-sm-2 text-center">
-<<<<<<< HEAD
-                            <input type="text" name="custom" class="custom-amount" placeholder="Custom">
-=======
                             <input type="number" min="0" class="custom-amount" placeholder="Custom">
->>>>>>> 0dacad63fa7bcb13a5546cb6335e6d8f32e2d237
                         </div>
                         <div class="col-xs-12 col-sm-1 text-center">
                             <button class="button" id="custom-button" name="custom" value="custom">Add</button>
@@ -50,9 +47,10 @@
                     </div>
                 </form>
             </div>
-        </div>
+        
 
-        {% include 'product/footer.html' %}
-        {% endblock %}
+            {% include 'product/footer.html' %}
+            {% endblock %}
+        </div>
     </body>
 </html>

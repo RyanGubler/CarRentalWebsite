@@ -2,29 +2,28 @@
 
 <html>
     <body>
-        <h1>
-            {{car.name}}
-        </h1>
-        <h1>
-            Your current funds: ${{customUser.balance}}
-        </h1>
-        <h1>
-            Reservation price per day: ${{car.price}}
-        </h1>
-        <form action = "{% url 'product:reserveCar' car.id %}" method = "post">
-            {% csrf_token %}
-            <label for = "startDate">
-                Start Date:
-            </label>
-            <input type = "date" value = {{startDate}} name = "startDate" id = "startDate" readonly>
-            <label for = "endDate">
-                End Date:
-            </label>
-            <input type = "date" value = {{endDate}} name = "endDate" id = "endDate" readonly >
-
-            <button type = "submit">Reserve Car</button>
-
-
-        </form>
+        <div class="page">
+            <h1>
+                {{car.name}}
+            </h1>
+            <h1>
+                Your current funds: ${{customUser.balance}}
+            </h1>
+            <h1>
+                Reservation price per day: ${{car.price}}
+            </h1>
+            <form action = "{% url 'product:reserveCar' car.id %}" method = "post">
+                {% csrf_token %}
+                <label for = "startDate">
+                    Start Date:
+                </label>
+                <input type = "date" value = {{startDate}} name = "startDate" id = "startDate" readonly>
+                <label for = "endDate">
+                    End Date:
+                </label>
+                <input type = "date" value = {{endDate}} name = "endDate" id = "endDate" readonly>
+                <button type = "submit">Reserve Car</button>
+            </form>
+        </div>
     </body>
 </html>

@@ -1,13 +1,21 @@
-body{
-    background-color: #E0E1DD;
-}
 html, body {
+    margin: 0;
     max-width: 100%;
     overflow-x: hidden;
+    background-color: #E0E1DD;
+
+    height: 100%;
+
 }
-.home-page{
+.page {
+    position: relative;
+    min-height: 90vh;
+    min-height: 100%;
+}
+p{
+    font-size: 1.5em;
     text-align: center;
-    font-weight: 600;
-    font-size: x-large;
-    margin-top: 20%;
+    margin-top: 150px;
+    margin-bottom: -200px;
+    padding: 0px 10px 0px 10px;
 }

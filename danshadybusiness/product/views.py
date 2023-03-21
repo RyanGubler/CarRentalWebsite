@@ -279,7 +279,9 @@ def hirePage(request):
     return render(request, 'product/hire.html', context={
         'users' : User.objects.all
     })
+
 def hire(user, position):
     if position not in user.groups.all():
         user.groups.add(Group.objects.get(name= position))
         user.save()
+
