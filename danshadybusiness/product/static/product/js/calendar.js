@@ -28,7 +28,7 @@ var endList = end.split(' ');
 
 
 
-fetch(`http://127.0.0.1:8000/product/availableCars?carPrice=${selection}&startDate=${startList[3]}-${getMonthNumber(startList[1])}-${startList[2]}&endDate=${endList[3]}-${getMonthNumber(endList[1])}-${endList[2]}`)
+fetch(`http://localhost:8000/product/availableCars?carPrice=${selection}&startDate=${startList[3]}-${getMonthNumber(startList[1])}-${startList[2]}&endDate=${endList[3]}-${getMonthNumber(endList[1])}-${endList[2]}`)
 .then(info => info.json())
 .then(info => {
 
