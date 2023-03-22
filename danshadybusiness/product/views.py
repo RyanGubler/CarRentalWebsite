@@ -45,7 +45,8 @@ def aboutUs(request):
     return render(request, 'product/aboutUs.html', {})
 
 def index(request):
-    return render(request, 'product/index.html', {})
+    customUser = CustomUser.objects.get(user = request.user)
+    return render(request, 'product/index.html', {'customUser': customUser})
 
 # def login(request):
 #     return render(request, 'product/login.html', {})
