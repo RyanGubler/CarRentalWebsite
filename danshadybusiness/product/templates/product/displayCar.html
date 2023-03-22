@@ -12,6 +12,9 @@
             <h1>
                 Reservation price per day: ${{car.price}}
             </h1>
+            <h1>
+                Reservation total: {{totalPrice}}
+            </h1>
             <form action = "{% url 'product:reserveCar' car.id %}" method = "post">
                 {% csrf_token %}
                 <label for = "startDate">
@@ -25,5 +28,8 @@
                 <button type = "submit">Reserve Car</button>
             </form>
         </div>
+        <h1>
+            {{error}}
+        </h1>
     </body>
 </html>

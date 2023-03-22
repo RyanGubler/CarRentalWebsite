@@ -258,15 +258,31 @@ def payAll(request):
 
 
 def displayCar(request, car_id, startDate, endDate):
+    
     car = Car.objects.get(pk=car_id)
     customUser = CustomUser.objects.get(user = request.user)
-    return render(request, 'product/displayCar.html', {'car':car,'startDate': startDate, 'endDate':endDate, 'customUser':customUser})
+    start = datetime.strptime(startDate, '%Y-%m-%d').date()
+    end = datetime.strptime(endDate, '%Y-%m-%d').date()
+
+    return render(request, 'product/displayCar.html', {'car':car,'startDate': startDate, 'endDate':endDate, 'customUser':customUser, 'totalPrice': ((end-start).days +1)*car.price})
 
 def reserveCar(request, car_id):
     car = Car.objects.get(pk=car_id)
     customUser = CustomUser.objects.get(user = request.user)
+    startDate = request.POST['startDate']
+    endDate = request.POST['endDate']
+    start = datetime.strptime(startDate, '%Y-%m-%d').date()
+    end = datetime.strptime(endDate, '%Y-%m-%d').date()
+    print((float((end - start).days +1)*car.price))
+    if customUser.balance < (float((end - start).days +1)*car.price):
+        return redirect('product:displayCar', startDate = startDate, endDate = endDate, car_id = car_id)
+
+    customUser.addFunds(-(float((end - start).days +1)*car.price))
+    customUser.save()
+    
     reservation = CarReservation(car = car, user = customUser, startDate = request.POST['startDate'], endDate = request.POST['endDate'], lojacked = False)
     reservation.save()
+    
     return redirect(reverse('product:customUser'))
     
 def hirePage(request):
