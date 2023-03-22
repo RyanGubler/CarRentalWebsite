@@ -40,6 +40,15 @@ p{
     box-shadow: 0px 0px 0px #444;
     background-color: #1b263b;
 }
+.add-car-label{
+    margin: 75px 0px 30px 0px;
+}
+input, label {
+    display: block;
+}
+.car-content{
+    margin: 0px 0px 25px 0px;
+}
 
 @media(min-width: 375px){
     .dashboard-ctn{
@@ -50,11 +59,21 @@ p{
     }
     .dashboard-button{
         margin-bottom: 50px;
-        
     }
     #addCar{
         margin-top: 200px;
     }
+    /* .purchase-button{
+
+        margin-left: 265px;
+    }
+    .car-price{
+        margin-left: 240px;
+    }
+    .car-name{
+        margin-left: 240px;
+    } */
+
 }
 @media(min-width: 768px){
     .dashboard-button{
@@ -69,6 +88,19 @@ p{
     #addCar{
         margin-top: 0px;
     }
+    .purchase-button{
+        transform: translateX(50px);
+        margin-left:0px;
+    }
+    .car-price{
+        transform: translateX(25px);
+        margin-left:0px;
+    }
+    .car-name{
+        transform: translateX(25px);
+        margin-left: 0px;
+    }
+
 }
 @media(min-width: 992px){
     .dashboard-button{
@@ -79,5 +111,31 @@ p{
         display: flex;
         justify-content: center;
         flex-direction: row;
+    }
+    .purchase-button{
+        transform: translateX(220px) translateY(-100px);
+    }
+    .car-price{
+        transform: translateX(165px) translateY(-76px);
+    }
+    .car-name{
+        transform: translateX(-45px);
+    }
+    .funds{
+        margin-top: -80px;
+    }
+}
+@media(min-width: 1200px){
+    .purchase-button{
+        transform: translateX(255px) translateY(-100px);
+    }
+    .car-price{
+        transform: translateX(200px) translateY(-76px);
+    }
+    .car-name{
+        transform: translateX(-10px);
+    }
+    .funds{
+        margin-top: -80px;
     }
 }

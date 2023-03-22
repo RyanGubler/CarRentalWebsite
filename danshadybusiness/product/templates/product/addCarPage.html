@@ -1,33 +1,40 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>Add Car</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href="{% static 'product/style/addFundsStyle.css' %}">
+    <link rel="stylesheet" href="{% static 'product/style/headerStyle.css' %}">
+    <link rel="stylesheet" href="{% static 'product/style/footerStyle.css' %}">
+    <link rel="stylesheet" href="{% static 'product/style/style.css' %}">
+    <script src="header.js"></script>
+</head>
 <body>
+  {% include 'product/header.html' %}
+  {% block content %}
   <div class="page">
-
-
-    <h1>Add car page</h1>
-
-    <form action="{% url 'product:addCar' %}" method="post">
-        {% csrf_token %}
-      
-        <div >
-          <label for="carName"><b>Car name</b></label>
-          <input type="text" placeholder="Enter Car name" name="carName" required>
-      
-          <label for="carPrice"><b>Car Price</b></label>
-          <input type="number" placeholder="Enter Car Price" name="carPrice" required>
-      
-          <button type="submit">Purchase Car</button>
-          
-        </div>
-      
-    
-      </form>
-
-      <h3>Your current funds: {{context.balance}}</h3>
-
-      <h3>{{errorMessage}}</h3>
-
+    <div class="container">
+      <div class="row">
+        <h1 class="add-car-label col-xs-12 text-center">Add Car</h1>
+        <form action="{% url 'product:addCar' %}" method="post">
+            {% csrf_token %}
+            <div class="col-sm-4"></div>
+            <div class="car-details-ctn col-xs-12 col-sm-4">
+              <label class="car-name" for="carName"><b>Car name</b></label>
+              <input class="car-content car-name" type="text" placeholder="Enter Car name" name="carName" required>   
+              <label class="car-price" for="carPrice"><b>Car Price</b></label>
+              <input class="car-content car-price" type="number" placeholder="Enter Car Price" name="carPrice" required>     
+              <button class="purchase-button button"type="submit">Purchase Car</button>       
+            </div>
+          </form>
+          <h3 class="funds col-xs-12 text-center">Your current funds: {{context.balance}}</h3>
+          <h3>{{errorMessage}}</h3>
+      </div>
+    </div>
+    {% include 'product/footer.html' %}
+    {% endblock %}
   </div>
 </body>
-
 </html>
