@@ -8,7 +8,6 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.contrib.auth.models import Group, Permission, User
 from datetime import datetime, date
-from .forms import ServiceForm
 
 
 
@@ -199,8 +198,7 @@ def service(request):
         firstTickets = ticketList
     else :
         firstTickets = ticketList[:3]
-    form = ServiceForm()
-    return render(request, 'product/serviceTicket.html', {'ticketList' : ticketList, 'form': form})
+    return render(request, 'product/serviceTicket.html', {'ticketList' : ticketList})
 
 def deleteTickets(deleteList):
     ticketList = ServiceTicket.objects.all()

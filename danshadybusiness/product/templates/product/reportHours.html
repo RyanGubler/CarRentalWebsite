@@ -17,18 +17,18 @@
 
     <div id="reportContainer">
 
-        <form action="{% url 'product:reportHours' %}" method="post">
+        <form action="{% url 'product:logHours' %}" method="post">
             <div class="r">
         <label for="hours">Enter Hours worked</label>
             </div>
             <div class="r">
-            <input type="number" id="hours">
+            <input type="number" name="hours" id="hours">
             </div>
             <div>
         <label for="certify"> I hereby certify the hours I have submitted are accurate</label>
             </div>
             <div>
-            <input type="checkbox" required="required">
+            <input type="checkbox" id="certify" name="certify" required="required">
             </div>
             <button type="submit">Submit Hours for Manager Approval</button>
         </form>
