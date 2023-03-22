@@ -169,11 +169,17 @@ def availableCars(request):
     return response
 
 
+def createTicketPage(request):
+    # take an integer in a post
+    # passes context with list of all current reservations in appropriate date window
+    if request.method =='POST':
+        reservation = CarReservation.get(id=request.POST['reservationId'])
+        createTicket(CarReservation.meta.get_field('customerId'), CarReservation.meta.get_field('carId'))
+    currentDate = datetime.date.today()
+    validReservations = CarReservation.objects.exclude(startDate__gte=currentDate)
+    return render(request, 'product/createTicketPage.html', {'validReservations' : validReservations})
 
-
-def createTicket(request):
-    customerId = request.POST['customerId']
-    carId = request.POST['carId']
+def createTicket(customerId, carId):
     ticket = ServiceTicket(customerId=customerId, carId=carId)
     ticket.save()
 
