@@ -173,7 +173,7 @@ def createTicketPage(request):
     # take an integer in a post
     # passes context with list of all current reservations in appropriate date window
     if request.method =='POST':
-        reservation = CarReservation.get(id=request.POST['reservationId'])
+        reservation = CarReservation.get(id=request.Integer(POST['reservationId']))
         createTicket(CarReservation.meta.get_field('customerId'), CarReservation.meta.get_field('carId'))
     currentDate = datetime.date.today()
     validReservations = CarReservation.objects.exclude(startDate__gte=currentDate)
@@ -183,9 +183,10 @@ def createTicket(customerId, carId):
     ticket = ServiceTicket(customerId=customerId, carId=carId)
     ticket.save()
 
-def terminate(request):
-    serviceTicketId = request.POST['serviceTicketId']
-    ServiceTicket.objects.filter(pk=serviceTicketId)
+# def terminate(request):
+#     # todo  subtract $300 from funds of user
+#     serviceTicketId = request.POST['serviceTicketId']
+#     ServiceTicket.objects.filter(pk=serviceTicketId)
 
 def service(request):
     if request.method == 'POST':
@@ -200,6 +201,10 @@ def service(request):
 
 def deleteTickets(deleteList):
     for ticketId in deleteList:
+        ticket = ServiceTicket.objects.filter(id=ticketId)
+        user = User.objects.get(id=ticket.customerId)
+        currentCustomUser = CustomUser.objects.filter(user=user)
+        currentCustomUser.addFunds(-300)
         ServiceTicket.objects.filter(id=ticketId).delete()
 
 def signup(request):
