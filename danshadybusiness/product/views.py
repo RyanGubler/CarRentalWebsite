@@ -45,16 +45,17 @@ def aboutUs(request):
     return render(request, 'product/aboutUs.html', {})
 
 def index(request):
-    return render(request, 'product/index.html', {})
+    customUser = CustomUser.objects.get(user = request.user)
+    return render(request, 'product/index.html', {'customUser': customUser})
 
 # def login(request):
 #     return render(request, 'product/login.html', {})
 
-def signup(request):
-    return render(request, 'product/signup.html', {})
+# def signup(request):
+#     return render(request, 'product/signup.html', {})
 
-def service(request):
-    return render(request, 'product/serviceTicket.html', {})
+# def service(request):
+#     return render(request, 'product/serviceTicket.html', {})
 
 def reservation(request):
     return render(request, 'product/reservation.html', {})
@@ -172,11 +173,17 @@ def availableCars(request):
     return response
 
 
+def createTicketPage(request):
+    # take an integer in a post
+    # passes context with list of all current reservations in appropriate date window
+    if request.method =='POST':
+        reservation = CarReservation.get(id=request.POST['reservationId'])
+        createTicket(CarReservation.meta.get_field('customerId'), CarReservation.meta.get_field('carId'))
+    currentDate = datetime.date.today()
+    validReservations = CarReservation.objects.exclude(startDate__gte=currentDate)
+    return render(request, 'product/createTicketPage.html', {'validReservations' : validReservations})
 
-
-def createTicket(request):
-    customerId = request.POST['customerId']
-    carId = request.POST['carId']
+def createTicket(customerId, carId):
     ticket = ServiceTicket(customerId=customerId, carId=carId)
     ticket.save()
 
@@ -213,14 +220,18 @@ def deleteTickets(deleteList):
 
 def signup(request):
     if request.method == 'POST':
-        user = User.objects.create_user(username = request.POST['email'],
-                                        password = request.POST['password'], 
-                                        email = request.POST['email'], 
-                                        first_name = request.POST['firstName'], 
-                                        last_name = request.POST['lastName'])
-        user.save
-        user.groups.add(Group.objects.get(name='User'))
-        return render(request, 'product/login.html', {})
+        try:
+            exists = User.objects.get(email = request.POST['email'])
+            return render(request,"product/signup.html",{'error':"Email already exists"})
+        except:
+            user = User.objects.create_user(username = request.POST['email'],
+                                            password = request.POST['password'], 
+                                            email = request.POST['email'], 
+                                            first_name = request.POST['firstName'], 
+                                            last_name = request.POST['lastName'])
+            user.save
+            user.groups.add(Group.objects.get(name='User'))
+            return render(request, 'product/login.html', {})
     return render(request,'product/signup.html', {})
 
 
@@ -267,15 +278,31 @@ def payAll(request):
 
 
 def displayCar(request, car_id, startDate, endDate):
+    
     car = Car.objects.get(pk=car_id)
     customUser = CustomUser.objects.get(user = request.user)
-    return render(request, 'product/displayCar.html', {'car':car,'startDate': startDate, 'endDate':endDate, 'customUser':customUser})
+    start = datetime.strptime(startDate, '%Y-%m-%d').date()
+    end = datetime.strptime(endDate, '%Y-%m-%d').date()
+
+    return render(request, 'product/displayCar.html', {'car':car,'startDate': startDate, 'endDate':endDate, 'customUser':customUser, 'totalPrice': ((end-start).days +1)*car.price})
 
 def reserveCar(request, car_id):
     car = Car.objects.get(pk=car_id)
     customUser = CustomUser.objects.get(user = request.user)
+    startDate = request.POST['startDate']
+    endDate = request.POST['endDate']
+    start = datetime.strptime(startDate, '%Y-%m-%d').date()
+    end = datetime.strptime(endDate, '%Y-%m-%d').date()
+    print((float((end - start).days +1)*car.price))
+    if customUser.balance < (float((end - start).days +1)*car.price):
+        return redirect('product:displayCar', startDate = startDate, endDate = endDate, car_id = car_id)
+
+    customUser.addFunds(-(float((end - start).days +1)*car.price))
+    customUser.save()
+    
     reservation = CarReservation(car = car, user = customUser, startDate = request.POST['startDate'], endDate = request.POST['endDate'], lojacked = False)
     reservation.save()
+    
     return redirect(reverse('product:customUser'))
     
 def hirePage(request):
@@ -288,6 +315,7 @@ def hirePage(request):
     return render(request, 'product/hire.html', context={
         'users' : User.objects.all
     })
+
 def hire(user, position):
     if position not in user.groups.all():
         user.groups.add(Group.objects.get(name= position))

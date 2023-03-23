@@ -26,5 +26,14 @@
     </div>
 {% include 'product/footer.html' %}
 {% endblock %}
+
+    <div class="page">
+        {% include 'product/header.html' %}
+            {% block content %}
+
+        {% include 'product/footer.html' %}
+            {% endblock %}
+    </div>
+
 </body>
 </html>

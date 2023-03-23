@@ -1,30 +1,53 @@
 <!DOCTYPE html>
 
 <html>
+    <head>
+        <title>Add Funds</title>
+        {% load static %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <link rel="stylesheet" href="{% static 'product/style/addFundsStyle.css' %}">
+        <link rel="stylesheet" href="{% static 'product/style/headerStyle.css' %}">
+        <link rel="stylesheet" href="{% static 'product/style/footerStyle.css' %}">
+        <link rel="stylesheet" href="{% static 'product/style/style.css' %}">
+        <script src="header.js"></script>
+    </head>
     <body>
-        <h1>
-            {{car.name}}
-        </h1>
-        <h1>
-            Your current funds: ${{customUser.balance}}
-        </h1>
-        <h1>
-            Reservation price per day: ${{car.price}}
-        </h1>
-        <form action = "{% url 'product:reserveCar' car.id %}" method = "post">
-            {% csrf_token %}
-            <label for = "startDate">
-                Start Date:
-            </label>
-            <input type = "date" value = {{startDate}} name = "startDate" id = "startDate" readonly>
-            <label for = "endDate">
-                End Date:
-            </label>
-            <input type = "date" value = {{endDate}} name = "endDate" id = "endDate" readonly >
+        {% include 'product/header.html' %}
+        {% block content %}
+        <div class="page">
+            <h1>
+                {{car.name}}
+            </h1>
+            <h1>
+                Your current funds: ${{customUser.balance}}
+            </h1>
+            <h1>
+                Reservation price per day: ${{car.price}}
+            </h1>
+            <h1>
+                Reservation total: {{totalPrice}}
+            </h1>
+            <form action = "{% url 'product:reserveCar' car.id %}" method = "post">
+                {% csrf_token %}
+                <label for = "startDate">
+                    Start Date:
+                </label>
+                <input type = "date" value = {{startDate}} name = "startDate" id = "startDate" readonly>
+                <label for = "endDate">
+                    End Date:
+                </label>
+                <input type = "date" value = {{endDate}} name = "endDate" id = "endDate" readonly>
+                <button class="button" type = "submit">Reserve Car</button>
+            </form>
+        </div>
 
-            <button type = "submit">Reserve Car</button>
+        <h1>
+            {{error}}
+        </h1>
 
+        {% include 'product/footer.html' %}
+        {% endblock %}
 
-        </form>
     </body>
 </html>

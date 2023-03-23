@@ -12,12 +12,34 @@
     <body>
         {% include 'product/header.html' %}
         {% block content %}
-        <div class="home-page">
-            <p>You might wonder why our prices are so low. Come rent with us and find out.</p>
-            
+        <div class="page">
+            <div class="container">
+                <div class="row">
+                    {% if perms.auth.Manager %}
+                        <p>Welcome {{customUser.user.username}}. Here is a dashboard to handle your cars, employees, and service calls.</p>
+                        <div class="dashboard-ctn">
+                            <div class="col-sm-2"></div>
+                            <a class="col-xs-12 col-sm-4 col-md-2 dashboard-link text-center" id="addCar" href="{% url 'product:addCarPage' %}"><button class="dashboard-button button">Add Car</button></a>
+                            <a class="col-xs-12 col-sm-4 col-md-2 dashboard-link text-center" href = "{% url 'product:payEmployeePage' %}"><button class="dashboard-button button">Pay Employees</button></a>
+                            <a class="col-xs-12 col-sm-4 col-md-2 dashboard-link text-center" href = "{% url 'product:hirePage' %}"><button class="dashboard-button button">Hire Employee</button></a>
+                            <a class="col-xs-12 col-sm-4 col-md-2 dashboard-link text-center" href = "{% url 'product:service' %}"><button class="dashboard-button button">Service Tickets</button></a>
+                            <div class="col-sm-2"></div>
+                        </div>
+                    {% elif perms.auth.Employee %}
+                        <p>Welcome {{customUser.user.username}}. Here is a dashboard to log your hours and answer service calls.</p>
+                        <div class="dashboard-ctn">
+                            <div class="col-sm-3"></div>
+                            <a class="col-xs-12 col-sm-3 dashboard-link text-center" id="addCar" href="{% url 'product:employeeHours' %}"><button class="dashboard-button button">Log Your Hours</button></a>
+                            <a class="col-xs-12 col-sm-3 dashboard-link text-center" href = "{% url 'product:service' %}"><button class="dashboard-button button">Service Tickets</button></a>
+                            <div class="col-sm-3"></div>
+                        </div>
+                    {% else %}
+                        <p>Welcome {{customUser.user.username}}. Get your rental to make your quick getaway! Make sure to purchase the insurance... Wouldn't want you to break down... heh heh...</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% include 'product/footer.html' %}
+            {% endblock %}
         </div>
-
-        {% include 'product/footer.html' %}
-        {% endblock %}
     </body>
 </html>
