@@ -272,16 +272,24 @@ def reserveCar(request, car_id):
     customUser = CustomUser.objects.get(user = request.user)
     startDate = request.POST['startDate']
     endDate = request.POST['endDate']
+    insurance = request.POST['insurance']
+
+    if insurance == "Yes":
+        insurance = 50.0
+        lojacked = False
+    else:
+        insurance = 0.0
+        lojacked = True
     start = datetime.strptime(startDate, '%Y-%m-%d').date()
     end = datetime.strptime(endDate, '%Y-%m-%d').date()
-    print((float((end - start).days +1)*car.price))
-    if customUser.balance < (float((end - start).days +1)*car.price):
+    print((float((end - start).days +1)*car.price) + insurance)
+    if customUser.balance < ((float((end - start).days +1)*car.price) + insurance):
         return redirect('product:displayCar', startDate = startDate, endDate = endDate, car_id = car_id)
 
-    customUser.addFunds(-(float((end - start).days +1)*car.price))
+    customUser.addFunds(-((float((end - start).days +1)*car.price) + insurance))
     customUser.save()
     
-    reservation = CarReservation(car = car, user = customUser, startDate = request.POST['startDate'], endDate = request.POST['endDate'], lojacked = False)
+    reservation = CarReservation(car = car, user = customUser, startDate = request.POST['startDate'], endDate = request.POST['endDate'], lojacked = lojacked)
     reservation.save()
     
     return redirect(reverse('product:customUser'))
@@ -301,4 +309,10 @@ def hire(user, position):
     if position not in user.groups.all():
         user.groups.add(Group.objects.get(name= position))
         user.save()
+
+
+
+def inventory(request):
+    Cars = Car.objects.all()
+    return render(request,'product/inventory.html', {'Cars':Cars})
 
