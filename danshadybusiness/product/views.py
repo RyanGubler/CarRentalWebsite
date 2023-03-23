@@ -103,7 +103,7 @@ def logoutPage(request):
 @login_required(login_url='product:loginTest')
 def customUser(request):
     customUser = CustomUser.objects.get(user = request.user)
-    return render(request, 'product/customUser.html', {'customUser': customUser})
+    return render(request, 'product/account.html', {'customUser': customUser})
 
 
 
@@ -192,19 +192,31 @@ def terminate(request):
     ServiceTicket.objects.filter(pk=serviceTicketId)
 
 def service(request):
+
     if request.method == 'POST':
-        deleteTickets()
-    ticketList = list[ServiceTicket.objects.all()]
+        deleteList = []
+        deleteList.append(request.POST.get('1st'))
+        deleteList.append(request.POST.get('2nd'))
+        deleteList.append(request.POST.get('3rd'))
+        deleteTickets(deleteList)
+    ticketList = ServiceTicket.objects.all()
     firstTickets = []
     if len(ticketList)<= 3:
         firstTickets = ticketList
     else :
-        firstTickets = ticketList[:3]    
+        firstTickets = ticketList[:3]
     return render(request, 'product/serviceTicket.html', {'ticketList' : ticketList})
 
 def deleteTickets(deleteList):
-    for ticketId in deleteList:
-        ServiceTicket.objects.filter(id=ticketId).delete()
+    ticketList = ServiceTicket.objects.all()
+    firstTickets = []
+    if len(ticketList) <= 3:
+        firstTickets = ticketList
+    else:
+        firstTickets = ticketList[:3]
+    for i in range(len(firstTickets)):
+        if deleteList[i] == "on":
+            firstTickets[i].delete()
 
 def signup(request):
     if request.method == 'POST':
@@ -221,6 +233,7 @@ def signup(request):
             user.groups.add(Group.objects.get(name='User'))
             return render(request, 'product/login.html', {})
     return render(request,'product/signup.html', {})
+
 
 
 def employeeHours(request):
