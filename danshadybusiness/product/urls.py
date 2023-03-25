@@ -28,6 +28,7 @@ urlpatterns = [
     path('payEmployeePage/payAll/', views.payAll, name='payAll'),
     path('reservation/<int:car_id>/<str:startDate>/<str:endDate>/', views.displayCar, name = 'displayCar'),
     path('reservation/<int:car_id>/reserveCar/', views.reserveCar, name = 'reserveCar'),
+    path('inventory/',views.inventory,name = "inventory"),
 
 
 
