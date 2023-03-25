@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Request Payment</title>
+     {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href="{% static 'product/style/headerStyle.css' %}">
+    <link rel="stylesheet" href="{% static 'product/style/footerStyle.css' %}">
+    <link rel="stylesheet" href="{% static 'product/style/reportHoursStyle.css' %}">
+</head>
+<body>
+ {% block content %}
+ {% include 'product/header.html' %}
+
+
+    <div id="reportContainer">
+
+        <form action="{% url 'product:logHours' %}" method="post">
+            <div class="r">
+        <label for="hours">Enter Hours worked</label>
+            </div>
+            <div class="r">
+            <input type="number" name="hours" id="hours">
+            </div>
+            <div>
+        <label for="certify"> I hereby certify the hours I have submitted are accurate</label>
+            </div>
+            <div>
+            <input type="checkbox" id="certify" name="certify" required="required">
+            </div>
+            <button type="submit">Submit Hours for Manager Approval</button>
+        </form>
+
+    </div>
+ {% include 'product/footer.html' %}
+        {% endblock %}
+</body>
+</html>

@@ -103,7 +103,7 @@ def logoutPage(request):
 @login_required(login_url='product:loginTest')
 def customUser(request):
     customUser = CustomUser.objects.get(user = request.user)
-    return render(request, 'product/customUser.html', {'customUser': customUser})
+    return render(request, 'product/account.html', {'customUser': customUser})
 
 
 
@@ -173,11 +173,17 @@ def availableCars(request):
     return response
 
 
+def createTicketPage(request):
+    # take an integer in a post
+    # passes context with list of all current reservations in appropriate date window
+    if request.method =='POST':
+        reservation = CarReservation.get(id=request.POST['reservationId'])
+        createTicket(CarReservation.meta.get_field('customerId'), CarReservation.meta.get_field('carId'))
+    currentDate = datetime.date.today()
+    validReservations = CarReservation.objects.exclude(startDate__gte=currentDate)
+    return render(request, 'product/createTicketPage.html', {'validReservations' : validReservations})
 
-
-def createTicket(request):
-    customerId = request.POST['customerId']
-    carId = request.POST['carId']
+def createTicket(customerId, carId):
     ticket = ServiceTicket(customerId=customerId, carId=carId)
     ticket.save()
 
@@ -186,19 +192,31 @@ def terminate(request):
     ServiceTicket.objects.filter(pk=serviceTicketId)
 
 def service(request):
+
     if request.method == 'POST':
-        deleteTickets()
-    ticketList = list[ServiceTicket.objects.all()]
+        deleteList = []
+        deleteList.append(request.POST.get('1st'))
+        deleteList.append(request.POST.get('2nd'))
+        deleteList.append(request.POST.get('3rd'))
+        deleteTickets(deleteList)
+    ticketList = ServiceTicket.objects.all()
     firstTickets = []
     if len(ticketList)<= 3:
         firstTickets = ticketList
     else :
-        firstTickets = ticketList[:3]    
+        firstTickets = ticketList[:3]
     return render(request, 'product/serviceTicket.html', {'ticketList' : ticketList})
 
 def deleteTickets(deleteList):
-    for ticketId in deleteList:
-        ServiceTicket.objects.filter(id=ticketId).delete()
+    ticketList = ServiceTicket.objects.all()
+    firstTickets = []
+    if len(ticketList) <= 3:
+        firstTickets = ticketList
+    else:
+        firstTickets = ticketList[:3]
+    for i in range(len(firstTickets)):
+        if deleteList[i] == "on":
+            firstTickets[i].delete()
 
 def signup(request):
     if request.method == 'POST':
@@ -215,6 +233,7 @@ def signup(request):
             user.groups.add(Group.objects.get(name='User'))
             return render(request, 'product/login.html', {})
     return render(request,'product/signup.html', {})
+
 
 
 def employeeHours(request):
