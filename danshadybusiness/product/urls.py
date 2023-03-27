@@ -18,10 +18,10 @@ urlpatterns = [
     path('availableCars/', views.availableCars, name="availableCars"),
     path('customUser/logout/', views.logoutPage, name = "logoutPage"),
     path('reservation/', views.reservation, name='reservation'),
-    #path('reportHours/', views.reportHours, name='reportHours'),
+    path('reportHours/', views.logHours, name='reportHours'),
 
     path('hire/', views.hirePage, name='hirePage'),
-
+    path('createserviceticket/', views.createTicketPage, name='createTicketPage'),
     path('employeeHours/', views.employeeHours, name='employeeHours'),
     path('employeeHours/logHours/',views.logHours, name='logHours'),
     path('payEmployeePage/', views.payEmployeePage, name="payEmployeePage"),

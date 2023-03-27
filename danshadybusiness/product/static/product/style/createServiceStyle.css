@@ -1,0 +1,11 @@
+body {
+background-color: #E0E1DD;
+}
+
+#formDiv, #titleDiv {
+text-align: center;
+}
+
+select {
+border: 1 px solid black;
+}
