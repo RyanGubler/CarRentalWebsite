@@ -52,13 +52,32 @@ html, body {
     width: 75px;
     margin-right: 50px;
 }
+
+.balance{
+    color: #1b263b;
+    font-weight: 900;
+    
+}
+.balance-ctn{
+    width: 100%;
+    transform: translateY(100px);
+}
+
 @media (min-width:375px){
     .button{
         margin-top: 10px;
         margin-bottom: 10px;
     }
     .custom-amount{
-        margin-top:50px
+        margin-top: 50px;
+        margin-bottom: 10px;
+        
+    }
+    .custom-amount-ctn{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
     }
     #ten-button{
         margin-top: 20px;
@@ -90,6 +109,9 @@ html, body {
     }
 }
 @media (min-width: 1200px){
+    .custom-amount{
+        margin-left: 0px
+    }
     #custom-button{
         margin-left: -25px;
     }
