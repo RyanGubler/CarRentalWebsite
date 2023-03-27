@@ -7,7 +7,7 @@ urlpatterns = [
 
     path('', views.loginTest, name = "loginTest"),
     path('addFunds/', views.addFunds, name='addFunds'),
-    path('customUser/', views.customUser, name = "customUser"),
+    path('account/', views.customUser, name = "customUser"),
     path('addCarPage/', views.addCarPage, name = 'addCarPage'),
     path('addCarPage/addCar/',views.addCar, name='addCar'),
     path('index/', views.index, name='index'),
@@ -18,7 +18,9 @@ urlpatterns = [
     path('availableCars/', views.availableCars, name="availableCars"),
     path('customUser/logout/', views.logoutPage, name = "logoutPage"),
     path('reservation/', views.reservation, name='reservation'),
+
     path('account/', views.account, name='account'),
+
     path('hire/', views.hirePage, name='hirePage'),
 
     path('employeeHours/', views.employeeHours, name='employeeHours'),
@@ -27,6 +29,7 @@ urlpatterns = [
     path('payEmployeePage/payAll/', views.payAll, name='payAll'),
     path('reservation/<int:car_id>/<str:startDate>/<str:endDate>/', views.displayCar, name = 'displayCar'),
     path('reservation/<int:car_id>/reserveCar/', views.reserveCar, name = 'reserveCar'),
+    path('inventory/',views.inventory,name = "inventory"),
 
 
 

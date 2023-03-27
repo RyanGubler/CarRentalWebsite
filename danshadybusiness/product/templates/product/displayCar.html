@@ -25,6 +25,12 @@
             <h1>
                 Reservation price per day: ${{car.price}}
             </h1>
+            <h1>
+                Reservation total: ${{totalPrice}}
+            </h1>
+            <h1>
+                Reservation total with insurance: ${{totalPrice | add:50}}
+            </h1>
             <form action = "{% url 'product:reserveCar' car.id %}" method = "post">
                 {% csrf_token %}
                 <label for = "startDate">
@@ -36,9 +42,25 @@
                 </label>
                 <input type = "date" value = {{endDate}} name = "endDate" id = "endDate" readonly>
                 <button class="button" type = "submit">Reserve Car</button>
+                <br>
+                <label for = "insurance">
+                    Insurance? Price will be 50 dollars extra in total.
+                </label>
+                <select name = "insurance" id = "insurance">
+                    <option>No</option>
+                    <option>Yes</option>
+                    
+
+                </select>
             </form>
         </div>
+
+        <h1>
+            {{error}}
+        </h1>
+
         {% include 'product/footer.html' %}
         {% endblock %}
+
     </body>
 </html>

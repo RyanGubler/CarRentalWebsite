@@ -1,11 +1,19 @@
 h1 {
 text-align: center;
 }
+
+
+body{
+    background-color: #E0E1DD;
+}
+
+
 html, body {
     max-width: 100%;
     overflow-x: hidden;
     overflow-y: auto;
 }
+
 
 
 #titleDiv {
@@ -19,6 +27,7 @@ margin: auto;
 max-width: 250px;
 padding: 10px;
 border-radius: 4px;
+background-color: #E0E1DD;
 }
 
 input[type=text] {
