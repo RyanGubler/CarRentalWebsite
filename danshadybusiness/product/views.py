@@ -107,7 +107,7 @@ def logoutPage(request):
 @login_required(login_url='product:loginTest')
 def customUser(request):
     customUser = CustomUser.objects.get(user = request.user)
-    return render(request, 'product/customUser.html', {'customUser': customUser})
+    return render(request, 'product/account.html', {'customUser': customUser})
 
 
 
@@ -177,11 +177,17 @@ def availableCars(request):
     return response
 
 
+def createTicketPage(request):
+    # take an integer in a post
+    # passes context with list of all current reservations in appropriate date window
+    if request.method =='POST':
+        reservation = CarReservation.get(id=request.POST['reservationId'])
+        createTicket(CarReservation.meta.get_field('customerId'), CarReservation.meta.get_field('carId'))
+    currentDate = datetime.date.today()
+    validReservations = CarReservation.objects.exclude(startDate__gte=currentDate)
+    return render(request, 'product/createTicketPage.html', {'validReservations' : validReservations})
 
-
-def createTicket(request):
-    customerId = request.POST['customerId']
-    carId = request.POST['carId']
+def createTicket(customerId, carId):
     ticket = ServiceTicket(customerId=customerId, carId=carId)
     ticket.save()
 
@@ -190,19 +196,31 @@ def terminate(request):
     ServiceTicket.objects.filter(pk=serviceTicketId)
 
 def service(request):
+
     if request.method == 'POST':
-        deleteTickets()
-    ticketList = list[ServiceTicket.objects.all()]
+        deleteList = []
+        deleteList.append(request.POST.get('1st'))
+        deleteList.append(request.POST.get('2nd'))
+        deleteList.append(request.POST.get('3rd'))
+        deleteTickets(deleteList)
+    ticketList = ServiceTicket.objects.all()
     firstTickets = []
     if len(ticketList)<= 3:
         firstTickets = ticketList
     else :
-        firstTickets = ticketList[:3]    
+        firstTickets = ticketList[:3]
     return render(request, 'product/serviceTicket.html', {'ticketList' : ticketList})
 
 def deleteTickets(deleteList):
-    for ticketId in deleteList:
-        ServiceTicket.objects.filter(id=ticketId).delete()
+    ticketList = ServiceTicket.objects.all()
+    firstTickets = []
+    if len(ticketList) <= 3:
+        firstTickets = ticketList
+    else:
+        firstTickets = ticketList[:3]
+    for i in range(len(firstTickets)):
+        if deleteList[i] == "on":
+            firstTickets[i].delete()
 
 def signup(request):
     if request.method == 'POST':
@@ -219,6 +237,7 @@ def signup(request):
             user.groups.add(Group.objects.get(name='User'))
             return render(request, 'product/login.html', {})
     return render(request,'product/signup.html', {})
+
 
 
 def employeeHours(request):
@@ -263,15 +282,39 @@ def payAll(request):
 
 
 def displayCar(request, car_id, startDate, endDate):
+    
     car = Car.objects.get(pk=car_id)
     customUser = CustomUser.objects.get(user = request.user)
-    return render(request, 'product/displayCar.html', {'car':car,'startDate': startDate, 'endDate':endDate, 'customUser':customUser})
+    start = datetime.strptime(startDate, '%Y-%m-%d').date()
+    end = datetime.strptime(endDate, '%Y-%m-%d').date()
+
+    return render(request, 'product/displayCar.html', {'car':car,'startDate': startDate, 'endDate':endDate, 'customUser':customUser, 'totalPrice': ((end-start).days +1)*car.price})
 
 def reserveCar(request, car_id):
     car = Car.objects.get(pk=car_id)
     customUser = CustomUser.objects.get(user = request.user)
-    reservation = CarReservation(car = car, user = customUser, startDate = request.POST['startDate'], endDate = request.POST['endDate'], lojacked = False)
+    startDate = request.POST['startDate']
+    endDate = request.POST['endDate']
+    insurance = request.POST['insurance']
+
+    if insurance == "Yes":
+        insurance = 50.0
+        lojacked = False
+    else:
+        insurance = 0.0
+        lojacked = True
+    start = datetime.strptime(startDate, '%Y-%m-%d').date()
+    end = datetime.strptime(endDate, '%Y-%m-%d').date()
+    print((float((end - start).days +1)*car.price) + insurance)
+    if customUser.balance < ((float((end - start).days +1)*car.price) + insurance):
+        return redirect('product:displayCar', startDate = startDate, endDate = endDate, car_id = car_id)
+
+    customUser.addFunds(-((float((end - start).days +1)*car.price) + insurance))
+    customUser.save()
+    
+    reservation = CarReservation(car = car, user = customUser, startDate = request.POST['startDate'], endDate = request.POST['endDate'], lojacked = lojacked)
     reservation.save()
+    
     return redirect(reverse('product:customUser'))
     
 def hirePage(request):
@@ -289,4 +332,10 @@ def hire(user, position):
     if position not in user.groups.all():
         user.groups.add(Group.objects.get(name= position))
         user.save()
+
+
+
+def inventory(request):
+    Cars = Car.objects.all()
+    return render(request,'product/inventory.html', {'Cars':Cars})
 

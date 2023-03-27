@@ -1,0 +1,28 @@
+body{
+    background-color: #E0E1DD;
+
+
+}
+html, body {
+    max-width: 100%;
+}
+ #reportContainer {
+text-align: center;
+}
+
+label {
+width = 100%;
+}
+
+.r {
+display: block;
+width: 100%;
+
+}
+
+h1 {
+font-weight: 600;
+font-size: x-large;
+
+}
+
