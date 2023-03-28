@@ -107,11 +107,13 @@ def logoutPage(request):
 def customUser(request):
     now = date.today()
     customUser = CustomUser.objects.get(user = request.user)
+
     list = []
     for reservation in customUser.carreservation_set.all():
         if reservation.endDate >= now:
             list.append(reservation)
     return render(request, 'product/account.html', {'customUser': customUser,'reservations':list})
+
 
 
 
@@ -188,7 +190,7 @@ def createTicketPage(request):
     if request.method =='POST':
         reservation = CarReservation.get(id=request.POST['reservationId'])
         createTicket(CarReservation.meta.get_field('customerId'), CarReservation.meta.get_field('carId'))
-    currentDate = datetime.date.today()
+    currentDate = date.today()
     validReservations = CarReservation.objects.exclude(startDate__gte=currentDate)
     return render(request, 'product/createTicketPage.html', {'validReservations' : validReservations})
 
@@ -230,7 +232,7 @@ def deleteTickets(deleteList):
 def signup(request):
     if request.method == 'POST':
         try:
-            exists = User.objects.get(email = request.POST['email'])
+            exists = CustomUser.objects.get(email = request.POST['email'])
             return render(request,"product/signup.html",{'error':"Email already exists"})
         except:
             user = User.objects.create_user(username = request.POST['email'],
