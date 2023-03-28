@@ -126,7 +126,7 @@ def logoutPage(request):
 
 def addCarPage(request):
     if not request.user.has_perm('auth.Manager'):
-        return redirect(reverse('product:customUser'))
+        return redirect(reverse('product:account'))
 
     context = CustomUser.objects.get(user=request.user)
     return render(request, 'product/addCarPage.html', {'context':context})
@@ -256,10 +256,10 @@ def signup(request):
 
 def employeeHours(request):
     if request.user.has_perm('auth.Employee'):
-        return render(request,'product/employeeHours.html')
+        return render(request,'product/reportHours.html')
 
     else:
-        return redirect(reverse('product:customUser'))
+        return redirect(reverse('product:account'))
     
 
 def logHours(request):
@@ -268,7 +268,7 @@ def logHours(request):
         user = CustomUser.objects.get(user = request.user)
         user.addHours(float(totalHours))
         user.save()
-        return redirect(reverse('product:customUser'))
+        return redirect(reverse('product:account'))
     return redirect(reverse('product:employeeHours'))
 
 
@@ -278,10 +278,13 @@ def payEmployeePage(request):
     if request.user.has_perm('auth.Manager'):
         employees = []
         for employee in User.objects.all():
-            if "Employee" in employee.groups.all():
+            if employee.has_perm('auth.Employee'):
+                if employee.has_perm('is super user'):
+                    continue
                 employees.append(employee)
+        print(employees)
         return render(request, 'product/payEmployeePage.html', {'employees':employees})
-    return redirect(reverse('product:customUser'))
+    return redirect(reverse('product:account'))
 
 
 def payAll(request):
@@ -293,8 +296,8 @@ def payAll(request):
                 user.addFunds(float(hours*15.0))
                 user.addHours(float(hours*-1))
                 user.save()
-        return redirect(reverse('product:customUser'))
-    return redirect(reverse('product:customUser'))
+        return redirect(reverse('product:account'))
+    return redirect(reverse('product:account'))
 
 
 
@@ -339,7 +342,7 @@ def reserveCar(request, car_id):
         customUser.addFunds(-300)
         customUser.save()
     
-    return redirect(reverse('product:customUser'))
+    return redirect(reverse('product:account'))
     
 def hirePage(request):
     if request.method == 'POST':
@@ -367,7 +370,7 @@ def inventory(request):
 
 def overdueReservations(request):
     if not request.user.has_perm('auth.Manager'):
-        return redirect(reverse('product:customUser'))
+        return redirect(reverse('product:account'))
     list = []
     now = date.today()
     for reservation in CarReservation.objects.all():
