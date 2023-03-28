@@ -28,9 +28,10 @@ var endList = end.split(' ');
 
 
 
-fetch(`http://localhost:8000/product/availableCars?carPrice=${selection}&startDate=${startList[3]}-${getMonthNumber(startList[1])}-${startList[2]}&endDate=${endList[3]}-${getMonthNumber(endList[1])}-${endList[2]}`)
+fetch(`http://127.0.0.1:8000/product/availableCars?carPrice=${selection}&startDate=${startList[3]}-${getMonthNumber(startList[1])}-${startList[2]}&endDate=${endList[3]}-${getMonthNumber(endList[1])}-${endList[2]}`)
 .then(info => info.json())
 .then(info => {
+    console.log(info);
 
 
     var oldDiv = document.getElementById('belowDiv');
@@ -49,18 +50,17 @@ fetch(`http://localhost:8000/product/availableCars?carPrice=${selection}&startDa
         error.textContent = info['error'];
         newDiv.appendChild(error);
         oldDiv.appendChild(newDiv);
-        
         break;
     }
        
 
     var h1 = document.createElement('h1');
     var link = document.createElement('a');
-    var id = info[item];
+    var name = info[item];
     
-    link.href = `${id}/${info['start-date']}/${info['end-date']}`;
-    link.textContent = `Reserve ${item}`;
-    h1.textContent = item;
+    link.href = `${item}/${info['start-date']}/${info['end-date']}`;
+    link.textContent = `Reserve ${name}`;
+    h1.textContent = name;
     newDiv.appendChild(h1);
     newDiv.appendChild(link);
 

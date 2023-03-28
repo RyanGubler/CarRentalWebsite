@@ -1,3 +1,52 @@
+
+
+
+h1{
+    text-align: center;
+}
+#logout{
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: white;
+    padding: 10px 25px 10px 0px;
+    font-size: larger;
+}
+li{
+    font-size: x-large;
+}
+
+@media(min-width: 375px){
+    #logout{
+        transform: translateY(-330px);
+    }
+    .account-buttons{
+        transform: translateY(-420px);
+        text-align: center;
+    }
+    .reservation-ctn{
+        margin: 240px 0px 0px 0px;
+        text-align: center;
+    }
+    h4{
+        /* text-align: center; */
+    }
+}
+@media(min-width: 768px){
+    #logout{
+        transform: translateY(-115px);
+    }
+    .account-buttons{
+        transform: translateY(-525px);
+    }
+}
+@media(min-width: 992px){
+
+}
+@media(min-width: 1200px){
+
+}
+
 body {
  background-color: #E0E1DD;
  }

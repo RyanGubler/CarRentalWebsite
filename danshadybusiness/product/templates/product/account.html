@@ -4,30 +4,70 @@
     <meta charset="UTF-8">
     <title> Account </title>
     {% load static %}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'product/style/accountStyle.css' %}">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href="{% static 'product/style/addFundsStyle.css' %}">
     <link rel="stylesheet" href="{% static 'product/style/headerStyle.css' %}">
     <link rel="stylesheet" href="{% static 'product/style/footerStyle.css' %}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-
+    <link rel="stylesheet" href="{% static 'product/style/style.css' %}">
+    <link rel="stylesheet" href="{% static 'product/style/accountStyle.css' %}"">
 </head>
 <body>
 
+    {% include 'product/header.html' %}
+    {% block content %}
+
     <div class="page">
-        {% include 'product/header.html' %}
-            {% block content %}
-<div id="details">
-        <h1>Welcome, {{customUser.user.first_name}} {{customUser.user.last_name}}</h1>
-        <p>Email: {{customUser.user.username}}</p>
-        <p>Balance: ${{customUser.balance}}</p>
-          {% for reservation in customUser.carreservation_set.all %}
-         <p>
-          Active Rental {{reservation.car.name}} {{reservation.startDate}} - {{reservation.endDate}}
-         </p>
-         {% endfor %}
-    </div>
-        {% include 'product/footer.html' %}
-            {% endblock %}
+        <h1>
+            Your username: {{customUser.user.username}}
+        </h1>
+        <h1>
+            Your balance: {{customUser.balance}}
+        </h1>
+        {% if perms.auth.Employee %}
+            <h1>
+                Your hours logged: {{customUser.hours}}
+            </h1>
+        {% endif %}
+        <div class="reservation-ctn text-center">
+        <h1>Car Reservations</h1>
+            <ul>
+                {% for reservation in customUser.carreservation_set.all %}
+                <li> 
+                    <ul>
+                        <li>
+                            Car name: {{reservation.car.name}}
+                        </li>
+                        <li>
+                            Start Date: {{reservation.startDate}}
+                        </li>
+                        <li>
+                            End Date: {{reservation.endDate}}
+                        </li>
+                    </ul>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="account-buttons col-xs-12 col-sm-12">
+            <div class="col-sm-1"></div>
+            <a class="col-xs-6 col-sm-2" href="{% url 'product:addFunds' %}"><button class="button">Add Funds</button></a>
+            {% if perms.auth.Manager %}
+                <a class="col-xs-6 col-sm-2" href="{% url 'product:addCarPage' %}"><button class="button">Add Car</button></a>
+                <a class="col-xs-6 col-sm-2" href = "{% url 'product:payEmployeePage' %}"><button class="button">Pay Employees</button></a>
+
+            {% endif %}
+            {% if perms.auth.Employee or perms.auth.Manager %}
+                <a class="col-xs-6 col-sm-2" href="{% url 'product:service' %}"><button class="button">Service Tickets</button></a>
+                <a class="col-xs-6 col-sm-2" href = "{% url 'product:employeeHours' %}"><button class="button">Log Hours</button></a>
+            {% endif %}
+                
+        </div>
+        <a id="logout" href = "{% url 'product:logoutPage' %}">Logout</a>
+
+    {% include 'product/footer.html' %}
+    {% endblock %}
     </div>
 
 </body>

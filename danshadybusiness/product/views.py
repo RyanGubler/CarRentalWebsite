@@ -14,7 +14,6 @@ from datetime import datetime, date
 
 def addFunds(request):
     customUser = CustomUser.objects.get(user = request.user)
-    print(request.POST)
     if request.method == 'POST':
         if "10" in request.POST:
             customUser.addFunds(10.0)
@@ -37,7 +36,7 @@ def addFunds(request):
             customUser.save()
             return redirect(reverse("product:addFunds"))
 
-    return render(request, 'product/addFunds.html', {})
+    return render(request, 'product/addFunds.html', {'customUser': customUser})
 
 
 
@@ -62,6 +61,10 @@ def reservation(request):
 
 def hire(request):
     return render(request, 'product/hire.html', {})
+
+def account(request):
+    customUser = CustomUser.objects.get(user = request.user)
+    return render(request, 'product/account.html', {'customUser': customUser})
 
 # Create your views here.
 
@@ -102,13 +105,20 @@ def logoutPage(request):
 
 @login_required(login_url='product:loginTest')
 def customUser(request):
+    now = date.today()
     customUser = CustomUser.objects.get(user = request.user)
-    return render(request, 'product/account.html', {'customUser': customUser,})
+
+    list = []
+    for reservation in customUser.carreservation_set.all():
+        if reservation.endDate >= now:
+            list.append(reservation)
+    return render(request, 'product/account.html', {'customUser': customUser,'reservations':list})
+
 
 
 
 def addCarPage(request):
-    if not request.user.has_perm('Manager'):
+    if not request.user.has_perm('auth.Manager'):
         return redirect(reverse('product:customUser'))
 
     context = CustomUser.objects.get(user=request.user)
@@ -150,7 +160,7 @@ def availableCars(request):
         if car.price != float(carPrice):
             continue
         if len(car.carreservation_set.all()) == 0 and car.price == float(carPrice):
-            resp[car.name] = car.id
+            resp[str(car.id)] = car.name
         else:
             for reservation in car.carreservation_set.all():
                 if (startDate <= reservation.endDate and startDate >= reservation.startDate) or (car.price != float(carPrice)):
@@ -166,7 +176,8 @@ def availableCars(request):
                     addingCar = False
                     break
             if addingCar:
-                resp[car.name] = car.id
+                resp[str(car.id)] = car.name
+                
     response = JsonResponse(resp)
     response['Access-Control-Allow-Origin'] = '*'
 
@@ -291,17 +302,31 @@ def reserveCar(request, car_id):
     customUser = CustomUser.objects.get(user = request.user)
     startDate = request.POST['startDate']
     endDate = request.POST['endDate']
+    insurance = request.POST['insurance']
+
+    if insurance == "Yes":
+        insurance = 50.0
+        lojacked = False
+    else:
+        insurance = 0.0
+        lojacked = True
     start = datetime.strptime(startDate, '%Y-%m-%d').date()
     end = datetime.strptime(endDate, '%Y-%m-%d').date()
-    print((float((end - start).days +1)*car.price))
-    if customUser.balance < (float((end - start).days +1)*car.price):
+    if customUser.balance < ((float((end - start).days +1)*car.price) + insurance):
         return redirect('product:displayCar', startDate = startDate, endDate = endDate, car_id = car_id)
 
-    customUser.addFunds(-(float((end - start).days +1)*car.price))
+    customUser.addFunds(-((float((end - start).days +1)*car.price) + insurance))
     customUser.save()
     
-    reservation = CarReservation(car = car, user = customUser, startDate = request.POST['startDate'], endDate = request.POST['endDate'], lojacked = False)
+    reservation = CarReservation(car = car, user = customUser, startDate = request.POST['startDate'], endDate = request.POST['endDate'], lojacked = lojacked)
     reservation.save()
+
+
+    if lojacked:
+        ticket = ServiceTicket(customerId = customUser.id, carId = car.id)
+        ticket.save()
+        customUser.addFunds(-300)
+        customUser.save()
     
     return redirect(reverse('product:customUser'))
     
@@ -320,4 +345,27 @@ def hire(user, position):
     if position not in user.groups.all():
         user.groups.add(Group.objects.get(name= position))
         user.save()
+
+
+
+def inventory(request):
+    Cars = Car.objects.all()
+    return render(request,'product/inventory.html', {'Cars':Cars})
+
+
+
+def overdueReservations(request):
+    if not request.user.has_perm('auth.Manager'):
+        return redirect(reverse('product:customUser'))
+    list = []
+    now = date.today()
+    for reservation in CarReservation.objects.all():
+        if reservation.endDate < now:
+            list.append(reservation)
+    return render(request, 'product/overdueReservations.html', {'reservations':list})
+
+
+def lojackCar(request,reservation_id):
+    return redirect(reverse('product:overdueReservations'))
+
 

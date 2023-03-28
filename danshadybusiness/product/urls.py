@@ -18,7 +18,10 @@ urlpatterns = [
     path('availableCars/', views.availableCars, name="availableCars"),
     path('customUser/logout/', views.logoutPage, name = "logoutPage"),
     path('reservation/', views.reservation, name='reservation'),
-    path('reportHours/', views.logHours, name='reportHours'),
+
+
+    path('account/', views.account, name='account'),
+
 
     path('hire/', views.hirePage, name='hirePage'),
     path('createserviceticket/', views.createTicketPage, name='createTicketPage'),
@@ -28,6 +31,9 @@ urlpatterns = [
     path('payEmployeePage/payAll/', views.payAll, name='payAll'),
     path('reservation/<int:car_id>/<str:startDate>/<str:endDate>/', views.displayCar, name = 'displayCar'),
     path('reservation/<int:car_id>/reserveCar/', views.reserveCar, name = 'reserveCar'),
+    path('inventory/',views.inventory,name = "inventory"),
+    path('overdueReservations/',views.overdueReservations, name = "overdueReservations"),
+    path('overdueReservations/lojackCar/<int:reservation_id>/',views.lojackCar, name='lojackCar'),
 
 
 
