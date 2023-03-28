@@ -9,7 +9,10 @@
     <link rel="stylesheet" href="{% static 'product/style/headerStyle.css' %}">
     <link rel="stylesheet" href="{% static 'product/style/footerStyle.css' %}">
     <link rel="stylesheet" href="{% static 'product/style/style.css' %}">
+
     <script src="header.js"></script>
+
+
 </head>
 <body>
   {% include 'product/header.html' %}
@@ -18,16 +21,19 @@
     <div class="container">
       <div class="row">
         <h1 class="add-car-label col-xs-12 text-center">Add Car</h1>
-        <form action="{% url 'product:addCar' %}" method="post">
+        <form class="add-car-form" action="{% url 'product:addCar' %}" method="post">
             {% csrf_token %}
             <div class="col-sm-4"></div>
             <div class="car-details-ctn col-xs-12 col-sm-4">
               <label class="car-name" for="carName"><b>Car name</b></label>
               <input class="car-content car-name" type="text" placeholder="Enter Car name" name="carName" required>   
               <label class="car-price" for="carPrice"><b>Car Price</b></label>
-              <input class="car-content car-price" type="number" placeholder="Enter Car Price" name="carPrice" required>
+
               <!-- <label class="car-price" for="imageInput"><b>Car Image</b></label>
               <input  type="file" placeholder="Browse..." name="imageInput">        -->
+
+              <input class="car-content car-price" type="number" placeholder="Enter Car Price" name="carPrice" required>     
+
               <button class="purchase-button button"type="submit">Purchase Car</button>       
             </div>
           </form>

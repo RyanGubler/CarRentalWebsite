@@ -9,7 +9,6 @@
         <link rel="stylesheet" href="{% static 'product/style/headerStyle.css' %}">
         <link rel="stylesheet" href="{% static 'product/style/footerStyle.css' %}">
         <link rel="stylesheet" href="{% static 'product/style/style.css' %}">
-        <script src="header.js"></script>
     </head>
     <body>
         {% include 'product/header.html' %}
@@ -37,16 +36,27 @@
                     </div>
                     <div class="custom-add">
                         <div class="col-sm-5"></div>
-                        <div class="col-xs-12 col-sm-2 text-center">
-                            <input type="number" min="0" class="custom-amount" placeholder="Custom" name="custom">
+
+                        <div class="custom-amount-ctn col-xs-12 col-sm-2 text-center">
+                            <input type="number" min="0" class="custom-amount" placeholder="Custom">
+
                         </div>
                         <div class="col-xs-12 col-sm-1 text-center">
                             <button class="button" id="custom-button" value = "">Add</button>
                         </div>
-                        <div class="col-xs-4"></div>
+                        <!-- <div class="col-xs-4"></div> -->
+                        
                     </div>
                 </form>
+                
             </div>
+                <div class="balance-ctn">
+                    <div class=" balance col-xs-12 text-center">
+                        <h2>
+                            Current Balance: $ {{customUser.balance}}
+                        </h2>
+                    </div>
+                </div>
         
 
             {% include 'product/footer.html' %}

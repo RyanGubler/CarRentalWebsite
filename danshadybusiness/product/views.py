@@ -36,7 +36,7 @@ def addFunds(request):
             customUser.save()
             return redirect(reverse("product:addFunds"))
 
-    return render(request, 'product/addFunds.html', {})
+    return render(request, 'product/addFunds.html', {'customUser': customUser})
 
 
 
@@ -61,6 +61,10 @@ def reservation(request):
 
 def hire(request):
     return render(request, 'product/hire.html', {})
+
+def account(request):
+    customUser = CustomUser.objects.get(user = request.user)
+    return render(request, 'product/account.html', {'customUser': customUser})
 
 # Create your views here.
 
