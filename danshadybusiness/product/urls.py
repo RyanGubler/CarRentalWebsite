@@ -16,7 +16,7 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('service/', views.service, name='service'),
     path('availableCars/', views.availableCars, name="availableCars"),
-    path('customUser/logout/', views.logoutPage, name = "logoutPage"),
+    path('account/logout/', views.logoutPage, name = "logoutPage"),
     path('reservation/', views.reservation, name='reservation'),
 
 
