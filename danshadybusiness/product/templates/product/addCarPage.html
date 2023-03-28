@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="{% static 'product/style/headerStyle.css' %}">
     <link rel="stylesheet" href="{% static 'product/style/footerStyle.css' %}">
     <link rel="stylesheet" href="{% static 'product/style/style.css' %}">
+
+    <script src="header.js"></script>
+
+
 </head>
 <body>
   {% include 'product/header.html' %}
@@ -24,7 +28,12 @@
               <label class="car-name" for="carName"><b>Car name</b></label>
               <input class="car-content car-name" type="text" placeholder="Enter Car name" name="carName" required>   
               <label class="car-price" for="carPrice"><b>Car Price</b></label>
+
+              <!-- <label class="car-price" for="imageInput"><b>Car Image</b></label>
+              <input  type="file" placeholder="Browse..." name="imageInput">        -->
+
               <input class="car-content car-price" type="number" placeholder="Enter Car Price" name="carPrice" required>     
+
               <button class="purchase-button button"type="submit">Purchase Car</button>       
             </div>
           </form>
@@ -35,5 +44,6 @@
     {% include 'product/footer.html' %}
     {% endblock %}
   </div>
+
 </body>
 </html>

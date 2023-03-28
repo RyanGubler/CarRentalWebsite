@@ -19,10 +19,12 @@
 
             <a class="col-xs-12 col-sm-2 text-center link" id="home" href="{% url 'product:index' %}">Home</a>
             <a class="col-xs-12 col-sm-2 text-center link" id="add-funds" href="{% url 'product:addFunds' %}">Add Funds</a>
-            <a class="col-xs-12 col-sm-2 text-center link" id="inventory">Inventory</a>
+            <a class="col-xs-12 col-sm-2 text-center link" id="inventory" href = "{% url 'product:inventory' %}">Inventory</a>
             <a class="col-xs-12 col-sm-2 text-center link" id="reservation" href="{% url 'product:reservation' %}">Reservations</a>
             <a class="col-xs-12 col-sm-2 text-center link" id="about-us" href="{% url 'product:aboutUs' %}">About Us</a>
+
             <a class="col-xs-12 col-sm-2 text-center link" id="account" href="{% url 'product:account' %}">Account</a>
+
 
         </div>
     </div>

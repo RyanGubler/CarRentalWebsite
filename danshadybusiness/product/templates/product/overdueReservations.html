@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        {% for reservation in reservations %}
+        <form action = "{% url 'product:lojackCar' reservation.id %}" method = "post">
+            {% csrf_token %}
+
+            <h1>
+                {{reservation}}
+            </h1>
+            <h1>
+                {{reservation.car.id}}
+            </h1>
+            <button>Lojack Car</button>
+        </form>
+        
+        {% endfor %}
+    </body>
+</html>

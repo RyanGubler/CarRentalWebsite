@@ -30,6 +30,8 @@ urlpatterns = [
     path('reservation/<int:car_id>/<str:startDate>/<str:endDate>/', views.displayCar, name = 'displayCar'),
     path('reservation/<int:car_id>/reserveCar/', views.reserveCar, name = 'reserveCar'),
     path('inventory/',views.inventory,name = "inventory"),
+    path('overdueReservations/',views.overdueReservations, name = "overdueReservations"),
+    path('overdueReservations/lojackCar/<int:reservation_id>/',views.lojackCar, name='lojackCar'),
 
 
 
