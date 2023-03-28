@@ -7,7 +7,7 @@ urlpatterns = [
 
     path('', views.loginTest, name = "loginTest"),
     path('addFunds/', views.addFunds, name='addFunds'),
-    path('account/', views.customUser, name = "customUser"),
+    # path('account/', views.customUser, name = "customUser"),
     path('addCarPage/', views.addCarPage, name = 'addCarPage'),
     path('addCarPage/addCar/',views.addCar, name='addCar'),
     path('index/', views.index, name='index'),
@@ -19,10 +19,12 @@ urlpatterns = [
     path('customUser/logout/', views.logoutPage, name = "logoutPage"),
     path('reservation/', views.reservation, name='reservation'),
 
+
     path('account/', views.account, name='account'),
 
-    path('hire/', views.hirePage, name='hirePage'),
 
+    path('hire/', views.hirePage, name='hirePage'),
+    path('createserviceticket/', views.createTicketPage, name='createTicketPage'),
     path('employeeHours/', views.employeeHours, name='employeeHours'),
     path('employeeHours/logHours/',views.logHours, name='logHours'),
     path('payEmployeePage/', views.payEmployeePage, name="payEmployeePage"),
