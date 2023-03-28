@@ -62,9 +62,15 @@ def reservation(request):
 def hire(request):
     return render(request, 'product/hire.html', {})
 
+@login_required(login_url='product:loginTest')
 def account(request):
+    now = date.today()
     customUser = CustomUser.objects.get(user = request.user)
-    return render(request, 'product/account.html', {'customUser': customUser})
+    list = []
+    for reservation in customUser.carreservation_set.all():
+        if reservation.endDate >= now:
+            list.append(reservation)
+    return render(request, 'product/account.html', {'customUser': customUser,'reservations':list})
 
 # Create your views here.
 
@@ -94,7 +100,7 @@ def loginTest(request):
     
     # check if user is already logged in
     if request.user.is_authenticated:
-        return redirect(reverse('product:customUser'))
+        return redirect(reverse('product:account'))
 
     
     return render(request, 'product/login.html')
@@ -103,15 +109,15 @@ def logoutPage(request):
         logout(request)
         return redirect(reverse('product:loginTest'))
 
-@login_required(login_url='product:loginTest')
-def customUser(request):
-    now = date.today()
-    customUser = CustomUser.objects.get(user = request.user)
-    list = []
-    for reservation in customUser.carreservation_set.all():
-        if reservation.endDate >= now:
-            list.append(reservation)
-    return render(request, 'product/account.html', {'customUser': customUser,'reservations':list})
+# @login_required(login_url='product:loginTest')
+# def customUser(request):
+#     now = date.today()
+#     customUser = CustomUser.objects.get(user = request.user)
+#     list = []
+#     for reservation in customUser.carreservation_set.all():
+#         if reservation.endDate >= now:
+#             list.append(reservation)
+#     return render(request, 'product/account.html', {'customUser': customUser,'reservations':list})
 
 
 
@@ -267,7 +273,11 @@ def logHours(request):
 
 def payEmployeePage(request):
     if request.user.has_perm('auth.Manager'):
-        return render(request, 'product/payEmployeePage.html')
+        employees = []
+        for employee in User.objects.all():
+            if "Employee" in employee.groups.all():
+                employees.append(employee)
+        return render(request, 'product/payEmployeePage.html', {'employees':employees})
     return redirect(reverse('product:customUser'))
 
 
