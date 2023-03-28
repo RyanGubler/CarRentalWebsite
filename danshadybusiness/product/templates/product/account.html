@@ -12,13 +12,20 @@
 
 </head>
 <body>
+    
 {% include 'product/header.html' %}
 {% block content %}
      <div id="details">
+        <a href = "{% url 'product:logoutPage' %}">Logout here</a>
         <h1>Welcome, {{customUser.user.first_name}} {{customUser.user.last_name}}</h1>
         <p>Email: {{customUser.user.username}}</p>
         <p>Balance: ${{customUser.balance}}</p>
-          {% for reservation in customUser.carreservation_set.all %}
+        {% if customUser.balance < 0 %}
+        <p style = "color:red">
+            YOU HAVE A NEGATIVE BALANCE!!!
+        </p>
+        {% endif %}
+          {% for reservation in reservations %}
          <p>
           Active Rental {{reservation.car.name}} {{reservation.startDate}} - {{reservation.endDate}}
          </p>
@@ -29,10 +36,9 @@
 
     <div class="page">
         {% include 'product/header.html' %}
-            {% block content %}
 
         {% include 'product/footer.html' %}
-            {% endblock %}
+
     </div>
 
 </body>
