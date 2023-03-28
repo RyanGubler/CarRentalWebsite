@@ -1,0 +1,9 @@
+.car{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+h3{
+    padding: 20px;
+}

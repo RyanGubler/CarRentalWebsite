@@ -62,93 +62,23 @@ input, label {
         list-style-type: none;
         padding: 0px 0px 5px 25px;
   }
-@media(min-width: 375px){
-    .dashboard-ctn{
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        
-    }
-    .dashboard-button{
-        margin-bottom: 50px;
-    }
-    #addCar{
-        margin-top: 200px;
-    }
-    .car-details-ctn{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
+  .purchase-button{
+    margin: 0px auto;
+  }
+.dashboard-ctn{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    
 }
-@media(min-width: 768px){
-    .dashboard-button{
-        margin-top: 350px;
-        flex-direction: row;
-    }
-    .dashboard-ctn{
-        display: flex;
-        justify-content: center;
-        flex-direction: row;
-    }
-    #addCar{
-        margin-top: 0px;
-    }
-    .purchase-button{
-        transform: translateX(50px);
-        margin-left:0px;
-    }
-    .car-price{
-        transform: translateX(25px);
-        margin-left:0px;
-    }
-    .car-name{
-        transform: translateX(25px);
-        margin-left: 0px;
-    }
-    .car-details-ctn{
-        display: block;
-
-    }
-
+.dashboard-button{
+    margin-bottom: 50px;
 }
-@media(min-width: 992px){
-    .dashboard-button{
-        margin-top: 350px;
-        flex-direction: row;
-    }
-    .dashboard-ctn{
-        display: flex;
-        justify-content: center;
-        flex-direction: row;
-    }
-
-    .purchase-button{
-        transform: translateX(220px) translateY(-100px);
-    }
-    .car-price{
-        transform: translateX(165px) translateY(-76px);
-    }
-    .car-name{
-        transform: translateX(-45px);
-    }
-    .funds{
-        margin-top: -80px;
-    }
-
+#addCar{
+    margin-top: 200px;
 }
-@media(min-width: 1200px){
-    .purchase-button{
-        transform: translateX(255px) translateY(-100px);
-    }
-    .car-price{
-        transform: translateX(200px) translateY(-76px);
-    }
-    .car-name{
-        transform: translateX(-10px);
-    }
-    .funds{
-        margin-top: -80px;
-    }
+.car-details-ctn{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
