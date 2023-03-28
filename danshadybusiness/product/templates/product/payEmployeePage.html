@@ -16,8 +16,8 @@
             <form action="{% url 'product:payAll' %}" method="post">
                 {% csrf_token %}
                 {% for employee in employees %}
-                <label for="{{ employee.user.id }}">{{ employee.user.first_name }} {{ employee.user.last_name }} - {{ employee.hours }}</label>
-                <input type="checkbox" value="{{ employee.user.id }}" id="{{ employee.user.id }}" name="{{ employee.user.id }}">
+                <label for="{{ employee.id }}">{{ employee.first_name }} {{ employee.last_name }}</label>
+                <input type="checkbox" value="{{ employee.user.id }}" id="{{ employee.id }}" name="{{ employee.id }}">
                 {% endfor %}
                 {% if employees %}
                 <div>
