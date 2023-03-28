@@ -209,7 +209,6 @@ def createTicket(customerId, carId):
     ticket = ServiceTicket(customerId=customerId, carId=carId)
     ticket.save()
 
-@login_required(login_url='product:loginTest')
 def terminate(request):
     serviceTicketId = request.POST['serviceTicketId']
     ServiceTicket.objects.filter(pk=serviceTicketId)
@@ -231,7 +230,6 @@ def service(request):
         firstTickets = ticketList[:3]
     return render(request, 'product/serviceTicket.html', {'ticketList' : ticketList})
 
-@login_required(login_url='product:loginTest')
 def deleteTickets(deleteList):
     ticketList = ServiceTicket.objects.all()
     firstTickets = []
@@ -365,7 +363,6 @@ def hirePage(request):
         'users' : User.objects.all
     })
 
-@login_required(login_url='product:loginTest')
 def hire(user, position):
     if position not in user.groups.all():
         user.groups.add(Group.objects.get(name= position))
