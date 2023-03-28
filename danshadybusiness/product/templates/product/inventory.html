@@ -2,18 +2,36 @@
 
 <html>
     <head>
-
+        <meta charset="UTF-8">
+        <title> Account </title>
+        {% load static %}
+    
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <link rel="stylesheet" href="{% static 'product/style/addFundsStyle.css' %}">
+        <link rel="stylesheet" href="{% static 'product/style/headerStyle.css' %}">
+        <link rel="stylesheet" href="{% static 'product/style/footerStyle.css' %}">
+        <link rel="stylesheet" href="{% static 'product/style/style.css' %}">
+        <link rel="stylesheet" href="{% static 'product/style/accountStyle.css' %}">
     </head>
     <body>
+        {% include 'product/header.html' %}
+        {% block content %}
         <h1>
             This is the inventory page....
         </h1>
+        <div class="car-ctn">
+            <div class="car">
+                {% for car in Cars %}
+                    <h3>
+                        {{car.name}}
+                    </h3>
+                {% endfor %}
+            </div>
+        </div>
+        
 
-        {% for car in Cars %}
-        <h1>
-            {{car.name}}
-        </h1>
-        {% endfor %}
-
+        {% include 'product/footer.html' %}
+        {% endblock %}
     </body>
 </html>
