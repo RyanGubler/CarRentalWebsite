@@ -1,6 +1,3 @@
-
-
-
 h1{
     text-align: center;
 }
@@ -20,36 +17,26 @@ li{
     transform: translateY(-330px);
 }
 .account-buttons{
-    transform: translateY(-420px);
     text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    margin-bottom: 1000px;
+}
+.nav-button{
+    margin: 5px;
 }
 .reservation-ctn{
-    margin: 240px 0px 0px 0px;
     text-align: center;
 }
 
 @media(min-width: 768px){
-    #logout{
-        transform: translateY(-115px);
-    }
     .account-buttons{
-        transform: translateY(-525px);
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+
     }
 }
-@media(min-width: 992px){
-
-}
-@media(min-width: 1200px){
-
-}
-
-body {
- background-color: #E0E1DD;
- }
-#details {
-font-weight: 600;
-    font-size: x-large;
-
-    text-align: center;
-}
-

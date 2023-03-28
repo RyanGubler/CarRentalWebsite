@@ -50,17 +50,16 @@
                 {% endfor %}
             </ul>
         </div>
-        <div class="account-buttons col-xs-12 col-sm-12">
-            <div class="col-sm-1"></div>
-            <a class="col-xs-6 col-sm-2" href="{% url 'product:addFunds' %}"><button class="button">Add Funds</button></a>
+        <div class="account-buttons col-xs-12">
+            <a class="" href="{% url 'product:addFunds' %}"><button class="button nav-button">Add Funds</button></a>
             {% if perms.auth.Manager %}
-                <a class="col-xs-6 col-sm-2" href="{% url 'product:addCarPage' %}"><button class="button">Add Car</button></a>
-                <a class="col-xs-6 col-sm-2" href = "{% url 'product:payEmployeePage' %}"><button class="button">Pay Employees</button></a>
+                <a class="" href="{% url 'product:addCarPage' %}"><button class="button  nav-button">Add Car</button></a>
+                <a class="" href = "{% url 'product:payEmployeePage' %}"><button class="button  nav-button">Pay Employees</button></a>
 
             {% endif %}
             {% if perms.auth.Employee or perms.auth.Manager %}
-                <a class="col-xs-6 col-sm-2" href="{% url 'product:service' %}"><button class="button">Service Tickets</button></a>
-                <a class="col-xs-6 col-sm-2" href = "{% url 'product:employeeHours' %}"><button class="button">Log Hours</button></a>
+                <a class="" href="{% url 'product:service' %}"><button class="button  nav-button">Service Tickets</button></a>
+                <a class="" href = "{% url 'product:employeeHours' %}"><button class="button  nav-button">Log Hours</button></a>
             {% endif %}
                 
         </div>
