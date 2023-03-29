@@ -15,32 +15,46 @@
     <body>
         {% include 'product/header.html' %}
         {% block content %}
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6 text-center">
-                    <div class="start-col"> 
-                        <h5><b>Start Date</b></h5>
-                        <input type="text" class="start-date" id="start-date" placeholder="MM/DD/YYYY"></input>
+        <div class="page">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4 text-center">
+                        <div class="start-col"> 
+                            <h5><b>Start Date</b></h5>
+                            <input type="text" class="start-date" id="start-date" placeholder="MM/DD/YYYY"></input>
+                        </div>
                     </div>
+                    <div class="col-xs-12 col-sm-4 text-center">
+                        <div class="end-col"> 
+                            <h5><b>End Date</b></h5>
+                            <input type="text" class="end-date" id="end-date" placeholder="MM/DD/YYYY"></input>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-3 text-center">
+                        <div class="price-col"> 
+                            <h5><b>Price</b></h5>
+                            <select class="selection-box" id="selection">
+                                <option class="number" value="10">$10</option>
+                                <option class="number" value="50">$50</option>
+                                <option class="number" value="100">$100</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class = "col-xs-12 col-sm-12 col-md-1 text-center">
+                        <div class = "button-col">
+                            <button class="enter-button" id = "enterButton">Enter</button>
+                        </div>
+                    </div> 
                 </div>
-                <div class="col-sm-5 text-center">
-                    <div class="end-col"> 
-                        <h5><b>End Date</b></h5>
-                        <input type="text" class="end-date" id="end-date" placeholder="MM/DD/YYYY"></input>
-                    </div>
-                </div>
-                <div class = "col-sm-1 text-center">
-                    <div class = "button-col">
-                        <button class="enter-button">Enter</button>
-                    </div>
-                </div> 
+                <div id = "belowDiv"></div>
             </div>
-        </div>
 
-        {% include 'product/footer.html' %}
-        {% endblock %}
-        <script src="{% static 'product/js/calendar.js' %}"></script>
-        <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
-        <script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
+            
+            <script src="{% static 'product/js/calendar.js' %}"></script>
+            <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+            <script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
+            {% include 'product/footer.html' %}
+            {% endblock %}
+        </div>
     </body>
 </html>

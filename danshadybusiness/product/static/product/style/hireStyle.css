@@ -1,0 +1,85 @@
+body{
+    background-color: #E0E1DD;
+}
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.button{
+    background-color: #1b263b;
+    color: white;
+    width: 125px;
+    text-align: center;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 3px #444;
+    min-width: 125px;
+    margin-bottom: 3px;
+}
+.button:hover{
+    background-color: #415a77;
+    transform: translateY(-2px) translateX(-1px);
+    transition: 0.35s;
+    box-shadow: 4px 4px 6px #444;
+}
+.button:active{
+    transform: translateY(0px) translateX(0px);
+    transition: 0.1s;
+    box-shadow: 0px 0px 0px #444;
+    background-color: #1b263b;
+}
+
+form {
+    max-width: 500px;
+    margin: auto;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+h3{
+    margin-top: 5%;
+    text-align: center;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+    @media (min-width:375px){
+        body{
+            margin: 0 auto;
+        }
+    }
+    @media (min-width:768px){
+        .form-button{
+            margin-left: 65%;
+            max-width: 125px;
+        }
+        h3{
+            margin-left: 100px;
+            margin-right: 100px;
+        }
+    }
+    @media (min-width: 992px){
+        .form-button{
+            margin-left: 65%;
+        }
+    }
+    @media (min-width: 1200px){
+        .form-button{
+            margin-left: 65%;
+        }
+    }
+    

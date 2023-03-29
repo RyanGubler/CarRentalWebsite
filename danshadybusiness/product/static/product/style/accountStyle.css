@@ -1,0 +1,42 @@
+h1{
+    text-align: center;
+}
+#logout{
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: white;
+    padding: 10px 25px 10px 0px;
+    font-size: larger;
+}
+li{
+    font-size: x-large;
+}
+
+#logout{
+    transform: translateY(-330px);
+}
+.account-buttons{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    margin-bottom: 1000px;
+}
+.nav-button{
+    margin: 5px;
+}
+.reservation-ctn{
+    text-align: center;
+}
+
+@media(min-width: 768px){
+    .account-buttons{
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+
+    }
+}

@@ -7,45 +7,42 @@
     <h1>
         Your balance: {{customUser.balance}}
         </h1>
+        {% if perms.auth.Employee %}
+        <h1>
+            Your hours logged: {{customUser.hours}}
+        </h1>
+        {% endif %}
     </head>
 <body>
-
-    <h4>Your Car Reservations:</h4>
-    <ul>
-        {% for reservation in customUser.carreservation_set.all %}
-        <li> 
-            <ul>
-                <li>
-                    Car name: {{reservation.car.name}}
-                </li>
-                <li>
-                    Start Date: {{reservation.startDate}}
-                </li>
-                <li>
-                    End Date: {{reservation.endDate}}
-                </li>
-            </ul>
-        </li>
-        {% endfor %}
-    </ul>
-  <a href="{% url 'product:addFunds' %}">Add funds to profile</a>
-  {% if perms.auth.Manager %}
-  <a href="{% url 'product:addCarPage' %}">Add car to database</a>
-  {% endif %}
-{% if perms.auth.Employee or perms.auth.Manager %}
-  <a href="{% url 'product:service' %}">Look at service tickets</a>
-  {% endif %}
-
-
-  <a href = "{% url 'product:logoutPage' %}">Logout here</a>
-
-
-
-
-
-
-
-
-
+    <div class="page">
+        <h4>Your Car Reservations:</h4>
+        <ul>
+            {% for reservation in customUser.carreservation_set.all %}
+            <li> 
+                <ul>
+                    <li>
+                        Car name: {{reservation.car.name}}
+                    </li>
+                    <li>
+                        Start Date: {{reservation.startDate}}
+                    </li>
+                    <li>
+                        End Date: {{reservation.endDate}}
+                    </li>
+                </ul>
+            </li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'product:addFunds' %}">Add funds to profile</a>
+        {% if perms.auth.Manager %}
+        <a href="{% url 'product:addCarPage' %}">Add car to database</a>
+        <a href = "{% url 'product:payEmployeePage' %}">Pay Employees</a>
+        {% endif %}
+        {% if perms.auth.Employee or perms.auth.Manager %}
+        <a href="{% url 'product:service' %}">Look at service tickets</a>
+        <a href = "{% url 'product:employeeHours' %}">Log Hours</a>
+        {% endif %}
+        <a href = "{% url 'product:logoutPage' %}">Logout here</a>
+    </div>
 </body>
 </html>

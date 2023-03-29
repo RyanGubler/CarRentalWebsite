@@ -1,13 +1,112 @@
-body{
-    background-color: #E0E1DD;
-}
 html, body {
+    margin: 0;
     max-width: 100%;
     overflow-x: hidden;
+    background-color: #E0E1DD;
+
+    height: 100%;
+
 }
-.home-page{
+.page {
+    position: relative;
+    min-height: 90vh;
+    min-height: 100%;
+}
+p{
+    font-size: 1.5em;
     text-align: center;
-    font-weight: 600;
-    font-size: x-large;
-    margin-top: 20%;
+    margin-top: 150px;
+    margin-bottom: -200px;
+    padding: 0px 25px 50px 25px;
+}
+.button{
+    background-color: #1b263b;
+    color: white;
+    width: 125px;
+    text-align: center;
+
+    border-radius: 10px;
+    box-shadow: 2px 2px 3px #444;
+    min-width: 125px;
+}
+.button:hover{
+    background-color: #415a77;
+    transform: translateY(-2px) translateX(-1px);
+    transition: 0.35s;
+    box-shadow: 4px 4px 6px #444;
+}
+.button:active{
+    transform: translateY(0px) translateX(0px);
+    transition: 0.1s;
+    box-shadow: 0px 0px 0px #444;
+    background-color: #1b263b;
+}
+.add-car-label{
+    margin: 75px 0px 30px 0px;
+}
+input, label {
+    display: block;
+}
+.car-content{
+    margin: 0px 0px 25px 0px;
+}
+
+.car-name .car-price {
+    display: flex;
+    justify-content: center; /* center the content horizontally */
+    align-items: center; /* center the content vertically */
+    height: 100vh; /* set the height to the full height of the viewport */
+    padding: 20px; /* add some padding for spacing */
+  }
+  ul{
+        list-style-type: none;
+        padding: 0px 0px 5px 25px;
+  }
+  .purchase-button{
+    margin: 0px auto;
+  }
+.dashboard-ctn{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    
+}
+.dashboard-button{
+    margin-bottom: 50px;
+}
+#addCar{
+    margin-top: 200px;
+}
+.car-details-ctn{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+@media(min-width: 768px){
+    .dashboard-button{
+        margin-top: 350px;
+        flex-direction: row;
+    }
+    .dashboard-ctn{
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+    }
+    #addCar{
+        margin-top: 0px;
+    }
+}
+@media(min-width: 992px){
+    .dashboard-button{
+        margin-top: 350px;
+        flex-direction: row;
+    }
+    .dashboard-ctn{
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+    }
+
 }

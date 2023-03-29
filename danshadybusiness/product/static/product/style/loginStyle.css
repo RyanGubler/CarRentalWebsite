@@ -3,6 +3,18 @@ text-align: center;
 }
 
 
+body{
+    background-color: #E0E1DD;
+}
+
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+
 
 #titleDiv {
 background-color: #1b263B;
@@ -15,11 +27,12 @@ margin: auto;
 max-width: 250px;
 padding: 10px;
 border-radius: 4px;
+background-color: #E0E1DD;
 }
 
 input[type=text] {
 display: inline-block;
-width: 100%
+width: 100%;
 padding: 10px;
 box-sizing: border-box;
 border: .5px solid;
@@ -28,7 +41,7 @@ margin: 10px 0;
 }
 input[type=password] {
 display: inline-block;
-width: 100%
+width: 100%;
 padding: 10px;
 box-sizing: border-box;
 border: .5px solid;
@@ -37,7 +50,7 @@ margin: 10px 0;
 }
 
 input[type=submit] {
-width: 100%
+width: 100%;
 padding: 10px;
 margin: 10px 0;
 border-radius: 4px;

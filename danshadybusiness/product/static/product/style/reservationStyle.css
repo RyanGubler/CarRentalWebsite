@@ -1,14 +1,68 @@
+html, body {
+    margin: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+    background-color: #E0E1DD;
+    overflow-y: auto;
+    height: 100%;
+
+}
+.page {
+    position: relative;
+    min-height: 90vh;
+    min-height: 100%;
+    /* equal to footer height + some padding */
+    margin-bottom: -60px;
+}
+.enter-button{
+    background-color: #1b263b;
+    color: white;
+    min-width: 100px;
+    text-align:center;
+    border-radius: 10px;
+    box-shadow: 2px 2px 3px #444;
+
+}
+.enter-button:hover{
+    background-color: #415a77;
+    transform: translateY(-2px) translateX(-1px);
+    transition: 0.35s;
+    box-shadow: 4px 4px 6px #444444;
+}
+.enter-button:active{
+    transform: translateY(0px) translateX(0px);
+    transition: 0.1s;
+    box-shadow: 0px 0px 0px #444;
+    background-color: #1b263b;
+}
+.start-col{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+.end-col{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
 @media (min-width: 375px){
     .start-col{
-        margin-top: 52px;
+        margin: 52px 25% 0px 25%;
+        max-width: 50%;
     }
     .end-col{
+        margin: 10px 25% 0px 25%;
+        max-width: 50%;
+    }
+    .price-col{
         margin-top: 10px;
     }
     .enter-button{
         margin-top: 20px;
         width: 178px;
+        margin-bottom: 10px;
     }
 }
 
@@ -16,27 +70,29 @@
     .end-col{
         margin-top: 52px;
     }
+    .price-col{
+        margin-top: 65px;
+    }
     .enter-button{
         margin-top: 77px;
-        margin-left: -130px;
+        margin-left: 0px;
         width: 50px;
+        
     }
 }
 
 @media (min-width: 992px){
 
     .enter-button{
-        margin-top: 78px;
-        margin-left: -245px;
+        margin-top: 88px;
+        margin-left: -130px;
         width: 50px;
     }
+
 }
 
 @media (min-width: 1200px){
-
     .enter-button{
-        margin-top: 78px;
-        margin-left: -350px;
-        width: 50px;
+        margin-left: -200px;
     }
 }
