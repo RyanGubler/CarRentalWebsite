@@ -18,9 +18,7 @@
     <div id="reportContainer">
 
         <form action="{% url 'product:logHours' %}" method="post">
-
             {% csrf_token %}
-
             <div class="r">
         <label for="hours">Enter Hours worked</label>
             </div>
