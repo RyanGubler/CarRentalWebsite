@@ -13,7 +13,7 @@
      {% include 'product/header.html' %}
         {% block content %}
         <div class="page">
-            <form action="{% url 'product:payAll' %}" method="post">
+            <form id="form" action="{% url 'product:payAll' %}" method="post">
                 {% csrf_token %}
                 {% for employee in employees %}
                 <label for="{{ employee.id }}">{{ employee.first_name }} {{ employee.last_name }}</label>
