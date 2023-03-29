@@ -47,15 +47,6 @@ def aboutUs(request):
 def index(request):
     customUser = CustomUser.objects.get(user = request.user)
     return render(request, 'product/index.html', {'customUser': customUser})
-
-# def login(request):
-#     return render(request, 'product/login.html', {})
-
-# def signup(request):
-#     return render(request, 'product/signup.html', {})
-
-# def service(request):
-#     return render(request, 'product/serviceTicket.html', {})
 @login_required(login_url='product:loginTest')
 def reservation(request):
     return render(request, 'product/reservation.html', {})
@@ -74,16 +65,6 @@ def account(request):
             list.append(reservation)
     return render(request, 'product/account.html', {'customUser': customUser,'reservations':list})
 
-# Create your views here.
-
-# @login_required
-# def index(request):
-#     customUser = CustomUser.objects.get(user = request.user)
-#     return render(request, 'product/index.html',{'customUser': customUser})
-
-
-
-
 def loginTest(request):
     if request.method == "POST":
         username = request.POST['username']
@@ -97,10 +78,6 @@ def loginTest(request):
         else:
             context = {'errorMessage': "Invalid login credentials, please try again!"}
             return render(request, 'product/login.html', context)
-
-        # Return an 'invalid login' error message.
-    
-    # check if user is already logged in
     if request.user.is_authenticated:
         return redirect(reverse('product:account'))
 
@@ -111,20 +88,6 @@ def loginTest(request):
 def logoutPage(request):
         logout(request)
         return redirect(reverse('product:loginTest'))
-
-
-# @login_required(login_url='product:loginTest')
-# def customUser(request):
-#     now = date.today()
-#     customUser = CustomUser.objects.get(user = request.user)
-#     list = []
-#     for reservation in customUser.carreservation_set.all():
-#         if reservation.endDate >= now:
-#             list.append(reservation)
-#     return render(request, 'product/account.html', {'customUser': customUser,'reservations':list})
-
-
-
 
 @login_required(login_url='product:loginTest')
 def addCarPage(request):
@@ -354,10 +317,7 @@ def reserveCar(request, car_id):
 @login_required(login_url='product:loginTest')  
 def hirePage(request):
     if request.method == 'POST':
-        # print(request.POST['position'])
-        # print(type(request.POST['position']))
         user = User.objects.get(email=request.POST['email'])
-        # print(user.groups.get(request.POST['position']))
         hire(user,request.POST['position'].capitalize() )
     return render(request, 'product/hire.html', context={
         'users' : User.objects.all

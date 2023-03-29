@@ -1,20 +1,9 @@
 h1{
     text-align: center;
 }
-#logout{
-    position: absolute;
-    right: 0;
-    top: 0;
-    color: white;
-    padding: 10px 25px 10px 0px;
-    font-size: larger;
-}
+
 li{
     font-size: x-large;
-}
-
-#logout{
-    transform: translateY(-330px);
 }
 .account-buttons{
     text-align: center;

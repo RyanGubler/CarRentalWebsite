@@ -2,6 +2,7 @@ var startDatePicker;
 var endDatePicker;
 var startDate;
 var endDate;
+var ENV_URL = 'http://localhost:8000';
 
 window.onload = function() {
     function pikadayCalender(){
@@ -28,13 +29,12 @@ var endList = end.split(' ');
 
 
 
-fetch(`http://127.0.0.1:8000/product/availableCars?carPrice=${selection}&startDate=${startList[3]}-${getMonthNumber(startList[1])}-${startList[2]}&endDate=${endList[3]}-${getMonthNumber(endList[1])}-${endList[2]}`)
+fetch(`${ENV_URL}/product/availableCars?carPrice=${selection}&startDate=${startList[3]}-${getMonthNumber(startList[1])}-${startList[2]}&endDate=${endList[3]}-${getMonthNumber(endList[1])}-${endList[2]}`)
 .then(info => info.json())
 .then(info => {
     console.log(info);
-
-
     var oldDiv = document.getElementById('belowDiv');
+    oldDiv.setAttribute('class', 'parent-div col-xs-12');
     while (oldDiv.firstChild) {
         oldDiv.removeChild(oldDiv.firstChild);
     }
@@ -42,8 +42,6 @@ fetch(`http://127.0.0.1:8000/product/availableCars?carPrice=${selection}&startDa
     if (item === 'start-date' || item === 'end-date'){
         continue;
     }
-    
-        
     var newDiv = document.createElement('div');
     if (item == 'error'){
         var error = document.createElement('h1');
@@ -52,40 +50,27 @@ fetch(`http://127.0.0.1:8000/product/availableCars?carPrice=${selection}&startDa
         oldDiv.appendChild(newDiv);
         break;
     }
-       
 
-    var h1 = document.createElement('h1');
     var link = document.createElement('a');
+    link.setAttribute('class', 'reserve-link col-xs-12 col-sm-4')
     var name = info[item];
     
     link.href = `${item}/${info['start-date']}/${info['end-date']}`;
     link.textContent = `Reserve ${name}`;
-    h1.textContent = name;
-    newDiv.appendChild(h1);
+
+
     newDiv.appendChild(link);
-
-    
-
     oldDiv.appendChild(newDiv);
     }
-
-
-    
-
 })
 .catch(err =>{
     console.log(err);
 })
 
 }
-
-
-
 document.getElementById('enterButton').addEventListener('click', function(event){
     getAvailableCars(document.getElementById('selection').value, document.getElementById('start-date').value, document.getElementById('end-date').value)
 });
-
-
 
 function getMonthNumber(month){
     if (month === 'Jan'){

@@ -8,6 +8,7 @@
                     <div class="col-xs-3"></div>
                     <h1 class="title col-xs-6 text-center">Dan's Getaway Car Shack</h1>
                     <div class="col-xs-3"></div>
+                    <a id="logout" href = "{% url 'product:logoutPage' %}">Logout</a>
                 </div>
             </div>
         </div>
@@ -16,6 +17,7 @@
     <div class="control-bar-container" onload="mobileView()">
         
         <div class="control-bar mobile-view" id="links">
+                        
 
             <a class="col-xs-12 col-sm-2 text-center link" id="home" href="{% url 'product:index' %}">Home</a>
             <a class="col-xs-12 col-sm-2 text-center link" id="add-funds" href="{% url 'product:addFunds' %}">Add Funds</a>

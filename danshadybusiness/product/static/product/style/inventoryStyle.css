@@ -1,9 +1,16 @@
 .car{
-    display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
     padding: 20px;
 }
-h3{
+.cars{
     padding: 20px;
+    text-align: center;
+    margin: 0 auto;
+}
+h1{
+    text-align: center;
+}
+h3{
+    text-align: center;
+
 }
