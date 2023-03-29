@@ -6,69 +6,60 @@ html, body {
     overflow-x: hidden;
     overflow-y: auto;
 }
-    
-    form {
-		max-width: 500px;
-		margin: auto;
-	}
+.button{
+    background-color: #1b263b;
+    color: white;
+    width: 125px;
+    text-align: center;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 3px #444;
+    min-width: 125px;
+    margin-bottom: 3px;
+}
+.button:hover{
+    background-color: #415a77;
+    transform: translateY(-2px) translateX(-1px);
+    transition: 0.35s;
+    box-shadow: 4px 4px 6px #444;
+}
+.button:active{
+    transform: translateY(0px) translateX(0px);
+    transition: 0.1s;
+    box-shadow: 0px 0px 0px #444;
+    background-color: #1b263b;
+}
 
-	label {
-		display: block;
-		margin-top: 10px;
-	}
-    h3{
-        margin-top: 5%;
-        text-align: center;
+form {
+    max-width: 500px;
+    margin: auto;
+}
 
-    }
+label {
+    display: block;
+    margin-top: 10px;
+}
+h3{
+    margin-top: 5%;
+    text-align: center;
+}
 
-	input[type="text"],
-	input[type="email"],
-	input[type="tel"],
-	input[type="number"],
-	select,
-	textarea {
-		width: 100%;
-		padding: 10px;
-		border: 1px solid #ccc;
-		border-radius: 4px;
-		box-sizing: border-box;
-	}
-
-	input[type="submit"] {
-        
-		background-color: #1b263b;
-        margin-top: 20px;
-		color: white;
-		padding: 10px 20px;
-		border: none;
-		border-radius: 4px;
-		cursor: pointer;
-	}
-
-	input[type="submit"]:hover {
-		background-color: #415a77;
-	}
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
 
     @media (min-width:375px){
-        .form-input{
-            max-width: 75%;
-            margin-left: 15%;
-            margin-bottom: 5px;
-        }
-        .label-text{
-            margin-left: 15%;
-        }
-        .form-button{
-            margin-left: 15%;
-            max-width: 75%;
-        }
-        #email-label{
-            margin-top:10%;
-        }
-        h3{
-            margin-left: 50px;
-            margin-right: 50px;
+        body{
+            margin: 0 auto;
         }
     }
     @media (min-width:768px){

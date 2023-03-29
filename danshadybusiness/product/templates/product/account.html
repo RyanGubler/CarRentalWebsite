@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{% static 'product/style/accountStyle.css' %}">
 </head>
 <body>
+    
 
     {% include 'product/header.html' %}
     {% block content %}
@@ -22,6 +23,7 @@
         <h1>
             Your username: {{customUser.user.username}}
         </h1>
+
         <h1>
             Your balance: {{customUser.balance}}
         </h1>
@@ -50,20 +52,22 @@
                 {% endfor %}
             </ul>
         </div>
-        <div class="account-buttons col-xs-12 col-sm-12">
-            <div class="col-sm-1"></div>
+        <div class="account-buttons col-xs-12">
+            <a id="logout" href = "{% url 'product:logoutPage' %}">Logout</a>
+
+            <a class="" href="{% url 'product:addFunds' %}"><button class="button nav-button">Add Funds</button></a>
+
             {% if perms.auth.Manager %}
-                <a class="col-xs-6 col-sm-2" href="{% url 'product:addCarPage' %}"><button class="button">Add Car</button></a>
-                <a class="col-xs-6 col-sm-2" href = "{% url 'product:payEmployeePage' %}"><button class="button">Pay Employees</button></a>
+                <a class="" href="{% url 'product:addCarPage' %}"><button class="button  nav-button">Add Car</button></a>
+                <a class="" href = "{% url 'product:payEmployeePage' %}"><button class="button  nav-button">Pay Employees</button></a>
 
             {% endif %}
             {% if perms.auth.Employee or perms.auth.Manager %}
-                <a class="col-xs-6 col-sm-2" href="{% url 'product:service' %}"><button class="button">Service Tickets</button></a>
-                <a class="col-xs-6 col-sm-2" href = "{% url 'product:employeeHours' %}"><button class="button">Log Hours</button></a>
+                <a class="" href="{% url 'product:service' %}"><button class="button  nav-button">Service Tickets</button></a>
+                <a class="" href = "{% url 'product:employeeHours' %}"><button class="button  nav-button">Log Hours</button></a>
             {% endif %}
                 
         </div>
-        <a id="logout" href = "{% url 'product:logoutPage' %}">Logout</a>
 
     {% include 'product/footer.html' %}
     {% endblock %}

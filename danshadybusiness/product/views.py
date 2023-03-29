@@ -11,7 +11,7 @@ from datetime import datetime, date
 
 
 
-
+@login_required(login_url='product:loginTest')
 def addFunds(request):
     customUser = CustomUser.objects.get(user = request.user)
     if request.method == 'POST':
@@ -39,10 +39,11 @@ def addFunds(request):
     return render(request, 'product/addFunds.html', {'customUser': customUser})
 
 
-
+@login_required(login_url='product:loginTest')
 def aboutUs(request):
     return render(request, 'product/aboutUs.html', {})
 
+@login_required(login_url='product:loginTest')
 def index(request):
     customUser = CustomUser.objects.get(user = request.user)
     return render(request, 'product/index.html', {'customUser': customUser})
@@ -55,10 +56,11 @@ def index(request):
 
 # def service(request):
 #     return render(request, 'product/serviceTicket.html', {})
-
+@login_required(login_url='product:loginTest')
 def reservation(request):
     return render(request, 'product/reservation.html', {})
 
+@login_required(login_url='product:loginTest')
 def hire(request):
     return render(request, 'product/hire.html', {})
 
@@ -105,6 +107,7 @@ def loginTest(request):
     
     return render(request, 'product/login.html')
 
+@login_required(login_url='product:loginTest')
 def logoutPage(request):
         logout(request)
         return redirect(reverse('product:loginTest'))
@@ -123,15 +126,15 @@ def logoutPage(request):
 
 
 
-
+@login_required(login_url='product:loginTest')
 def addCarPage(request):
     if not request.user.has_perm('auth.Manager'):
-        return redirect(reverse('product:customUser'))
+        return redirect(reverse('product:account'))
 
     context = CustomUser.objects.get(user=request.user)
     return render(request, 'product/addCarPage.html', {'context':context})
 
-
+@login_required(login_url='product:loginTest')
 def addCar(request):
     customUser = CustomUser.objects.get(user = request.user)
     if customUser.balance < float(request.POST['carPrice']):
@@ -190,7 +193,7 @@ def availableCars(request):
 
     return response
 
-
+@login_required(login_url='product:loginTest')
 def createTicketPage(request):
     # take an integer in a post
     # passes context with list of all current reservations in appropriate date window
@@ -201,6 +204,7 @@ def createTicketPage(request):
     validReservations = CarReservation.objects.exclude(startDate__gte=currentDate)
     return render(request, 'product/createTicketPage.html', {'validReservations' : validReservations})
 
+@login_required(login_url='product:loginTest')
 def createTicket(customerId, carId):
     ticket = ServiceTicket(customerId=customerId, carId=carId)
     ticket.save()
@@ -209,6 +213,7 @@ def terminate(request):
     serviceTicketId = request.POST['serviceTicketId']
     ServiceTicket.objects.filter(pk=serviceTicketId)
 
+@login_required(login_url='product:loginTest')
 def service(request):
 
     if request.method == 'POST':
@@ -236,6 +241,7 @@ def deleteTickets(deleteList):
         if deleteList[i] == "on":
             firstTickets[i].delete()
 
+
 def signup(request):
     if request.method == 'POST':
         try:
@@ -253,37 +259,40 @@ def signup(request):
     return render(request,'product/signup.html', {})
 
 
-
+@login_required(login_url='product:loginTest')
 def employeeHours(request):
     if request.user.has_perm('auth.Employee'):
-        return render(request,'product/employeeHours.html')
+        return render(request,'product/reportHours.html')
 
     else:
-        return redirect(reverse('product:customUser'))
+        return redirect(reverse('product:account'))
     
-
+@login_required(login_url='product:loginTest')
 def logHours(request):
     if request.method == 'POST' and request.user.has_perm('auth.Employee'):
         totalHours = request.POST['hours']
         user = CustomUser.objects.get(user = request.user)
         user.addHours(float(totalHours))
         user.save()
-        return redirect(reverse('product:customUser'))
+        return redirect(reverse('product:account'))
     return redirect(reverse('product:employeeHours'))
 
 
 
-
+@login_required(login_url='product:loginTest')
 def payEmployeePage(request):
     if request.user.has_perm('auth.Manager'):
         employees = []
         for employee in User.objects.all():
-            if "Employee" in employee.groups.all():
+            if employee.has_perm('auth.Employee'):
+                if employee.has_perm('is super user'):
+                    continue
                 employees.append(employee)
+        print(employees)
         return render(request, 'product/payEmployeePage.html', {'employees':employees})
-    return redirect(reverse('product:customUser'))
+    return redirect(reverse('product:account'))
 
-
+@login_required(login_url='product:loginTest')
 def payAll(request):
     if request.method == "POST" and request.user.has_perm('auth.Manager'):
         for user in CustomUser.objects.all():
@@ -293,12 +302,12 @@ def payAll(request):
                 user.addFunds(float(hours*15.0))
                 user.addHours(float(hours*-1))
                 user.save()
-        return redirect(reverse('product:customUser'))
-    return redirect(reverse('product:customUser'))
+        return redirect(reverse('product:account'))
+    return redirect(reverse('product:account'))
 
 
 
-
+@login_required(login_url='product:loginTest')
 def displayCar(request, car_id, startDate, endDate):
     
     car = Car.objects.get(pk=car_id)
@@ -308,6 +317,7 @@ def displayCar(request, car_id, startDate, endDate):
 
     return render(request, 'product/displayCar.html', {'car':car,'startDate': startDate, 'endDate':endDate, 'customUser':customUser, 'totalPrice': ((end-start).days +1)*car.price})
 
+@login_required(login_url='product:loginTest')
 def reserveCar(request, car_id):
     car = Car.objects.get(pk=car_id)
     customUser = CustomUser.objects.get(user = request.user)
@@ -339,8 +349,9 @@ def reserveCar(request, car_id):
         customUser.addFunds(-300)
         customUser.save()
     
-    return redirect(reverse('product:customUser'))
-    
+    return redirect(reverse('product:account'))
+
+@login_required(login_url='product:loginTest')  
 def hirePage(request):
     if request.method == 'POST':
         # print(request.POST['position'])
@@ -358,16 +369,16 @@ def hire(user, position):
         user.save()
 
 
-
+@login_required(login_url='product:loginTest')
 def inventory(request):
     Cars = Car.objects.all()
     return render(request,'product/inventory.html', {'Cars':Cars})
 
 
-
+@login_required(login_url='product:loginTest')
 def overdueReservations(request):
     if not request.user.has_perm('auth.Manager'):
-        return redirect(reverse('product:customUser'))
+        return redirect(reverse('product:account'))
     list = []
     now = date.today()
     for reservation in CarReservation.objects.all():
@@ -375,7 +386,7 @@ def overdueReservations(request):
             list.append(reservation)
     return render(request, 'product/overdueReservations.html', {'reservations':list})
 
-
+@login_required(login_url='product:loginTest')
 def lojackCar(request,reservation_id):
     return redirect(reverse('product:overdueReservations'))
 
