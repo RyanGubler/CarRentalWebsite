@@ -46,6 +46,19 @@ html, body {
     flex-direction: column;
     justify-content: center;
 }
+.parent-div{
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+.reserve-link{
+    text-decoration: underline;
+    color: #1b263b;
+    padding: 20px;
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 10px;
+}
 
 @media (min-width: 375px){
     .start-col{
