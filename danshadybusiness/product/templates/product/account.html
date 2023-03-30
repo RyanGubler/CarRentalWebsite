@@ -54,9 +54,6 @@
         </div>
         <div class="account-buttons col-xs-12">
 
-
-            <a class="" href="{% url 'product:addFunds' %}"><button class="button nav-button">Add Funds</button></a>
-
             {% if perms.auth.Manager %}
                 <a class="" href="{% url 'product:addCarPage' %}"><button class="button  nav-button">Add Car</button></a>
                 <a class="" href = "{% url 'product:payEmployeePage' %}"><button class="button  nav-button">Pay Employees</button></a>
