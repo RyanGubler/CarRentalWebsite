@@ -250,9 +250,9 @@ def logHours(request):
 def payEmployeePage(request):
     if request.user.has_perm('auth.Manager'):
         employees = []
-        for employee in User.objects.all():
-            if employee.has_perm('auth.Employee'):
-                if employee.has_perm('is super user'):
+        for employee in CustomUser.objects.all():
+            if employee.user.has_perm('auth.Employee'):
+                if employee.user.has_perm('is super user'):
                     continue
                 employees.append(employee)
         print(employees)
