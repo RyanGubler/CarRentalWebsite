@@ -18,11 +18,11 @@
     <h3>Customer late on a rental return? Did they rent a car without insurance? Lojack 'em here!</h3>
 </div>
 <div id="formDiv">
-    <form action="{% url 'product:createTicketPage' %}" method="post">
+    <form action="{% url 'product:lojackCar' %}" method="post">
         {% csrf_token %}
         <label for="options">Select a car to lo-jack</label>
         <select id="options" name="options">
-            {% if reservation in reservation %}
+            {% if reservations %}
     {% for reservation in reservations %}
         <option name="reservationId" id="reservationId" value="{{reservation.id}}">{{reservation.car}}--{{reservation.user}}</option>
         {% endfor %}
@@ -31,7 +31,7 @@
             {% endif %}
             </select>
         <div>
-            {% if reservation in reservations %}
+            {% if reservations %}
             <button type="submit">Lojack car #{{reservation.car.id}}</button>
             {% endif %}
         </div>

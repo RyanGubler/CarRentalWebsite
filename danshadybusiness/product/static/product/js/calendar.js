@@ -2,7 +2,7 @@ var startDatePicker;
 var endDatePicker;
 var startDate;
 var endDate;
-var ENV_URL = 'http://localhost:8000';
+var ENV_URL = 'http://127.0.0.1:8000';
 
 window.onload = function() {
     function pikadayCalender(){

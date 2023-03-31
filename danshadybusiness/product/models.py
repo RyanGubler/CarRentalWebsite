@@ -47,6 +47,7 @@ class CarReservation(models.Model):
     startDate = models.DateField()
     endDate = models.DateField()
     lojacked = models.BooleanField(default=False)
+    insurance = models.BooleanField(default = False)
 
 
     def __str__(self):

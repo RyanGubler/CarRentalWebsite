@@ -202,6 +202,10 @@ def deleteTickets(deleteList):
         firstTickets = ticketList[:3]
     for i in range(len(firstTickets)):
         if deleteList[i] == "on":
+            customUserId = firstTickets[i].customerId
+            customUser = CustomUser.objects.get(pk = customUserId)
+            customUser.addFunds(-300.0)
+            customUser.save()
             firstTickets[i].delete()
 
 
@@ -290,10 +294,10 @@ def reserveCar(request, car_id):
 
     if insurance == "Yes":
         insurance = 50.0
-        lojacked = False
+        # lojacked = False
     else:
         insurance = 0.0
-        lojacked = True
+        # lojacked = True
     start = datetime.strptime(startDate, '%Y-%m-%d').date()
     end = datetime.strptime(endDate, '%Y-%m-%d').date()
     if customUser.balance < ((float((end - start).days +1)*car.price) + insurance):
@@ -301,16 +305,20 @@ def reserveCar(request, car_id):
 
     customUser.addFunds(-((float((end - start).days +1)*car.price) + insurance))
     customUser.save()
-    
-    reservation = CarReservation(car = car, user = customUser, startDate = request.POST['startDate'], endDate = request.POST['endDate'], lojacked = lojacked)
+    if insurance == 50.0:
+
+        reservation = CarReservation(car = car, user = customUser, startDate = request.POST['startDate'], endDate = request.POST['endDate'], lojacked = False, insurance = True)
+    else:
+        reservation = CarReservation(car = car, user = customUser, startDate = request.POST['startDate'], endDate = request.POST['endDate'], lojacked = False, insurance = False)
+
     reservation.save()
 
 
-    if lojacked:
-        ticket = ServiceTicket(customerId = customUser.id, carId = car.id)
-        ticket.save()
-        customUser.addFunds(-300)
-        customUser.save()
+    # if lojacked:
+    #     ticket = ServiceTicket(customerId = customUser.id, carId = car.id)
+    #     ticket.save()
+    #     customUser.addFunds(-300)
+    #     customUser.save()
     
     return redirect(reverse('product:account'))
 
@@ -339,15 +347,27 @@ def inventory(request):
 def overdueReservations(request):
     if not request.user.has_perm('auth.Manager'):
         return redirect(reverse('product:account'))
-    list = []
+    reservations = []
     now = date.today()
     for reservation in CarReservation.objects.all():
-        if reservation.endDate < now:
-            list.append(reservation)
-    return render(request, 'product/overdueReservations.html', {'reservations':list})
+        if (reservation.endDate < now) and (not reservation.lojacked):
+            reservations.append(reservation)
+        elif (not reservation.insurance) and (not reservation.lojacked):
+            reservations.append(reservation)
+    return render(request, 'product/createTicketPage.html', {'reservations':reservations})
 
 @login_required(login_url='product:loginTest')
-def lojackCar(request,reservation_id):
-    return redirect(reverse('product:overdueReservations'))
+def lojackCar(request):
+    if request.method == "POST" and request.user.has_perm('auth.Manager'):
+        reservation_id = request.POST['options']
+        reservation = CarReservation.objects.get(pk = reservation_id)
+        customUser = reservation.user
+        reservation.lojacked = True
+        ticket = ServiceTicket(customerId = customUser.user.id, carId = reservation.car.id)
+        ticket.save()
+        reservation.save()
+        customUser.save()
+        return redirect(reverse('product:overdueReservations'))
+    return redirect(reverse('product:account'))
 
 
