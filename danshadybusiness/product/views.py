@@ -255,7 +255,6 @@ def payEmployeePage(request):
                 if employee.user.has_perm('is super user'):
                     continue
                 employees.append(employee)
-        print(employees)
         return render(request, 'product/payEmployeePage.html', {'employees':employees})
     return redirect(reverse('product:account'))
 
@@ -370,4 +369,17 @@ def lojackCar(request):
         return redirect(reverse('product:overdueReservations'))
     return redirect(reverse('product:account'))
 
+@login_required(login_url='product:loginTest')
+def currentReservations(request):
+    customUser = CustomUser.objects.get(user = request.user)
+    reservations = customUser.carreservation_set.all()
+    return render(request, 'product/currentReservations.html', {'reservations':reservations})
 
+@login_required(login_url='product:loginTest')
+def returnCar(request):
+    if request.method == "POST":
+        reservation_id = request.POST['options']
+        reservation = CarReservation.objects.get(pk = reservation_id)
+        reservation.delete()
+        return redirect(reverse('product:currentReservations'))
+    return redirect(reverse('product:account'))

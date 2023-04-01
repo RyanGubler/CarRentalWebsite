@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <h1>This is the return car page!</h1>
+        <form action="{% url 'product:returnCar' %}" method="post">
+            {% csrf_token %}
+            <label for="options">Select a car reservation to return</label>
+            <select id="options" name="options">
+                {% if reservations %}
+        {% for reservation in reservations %}
+            <option name="reservationId" id="reservationId" value="{{reservation.id}}">{{reservation.car}}--{{reservation.user}}</option>
+            {% endfor %}
+                {% else %}
+                <option name="reservationID">No rentals available to return! Head over to the reservations tab to rent a car!</option>
+                {% endif %}
+                </select>
+            <div>
+                {% if reservations %}
+                <button type="submit">Return Car</button>
+                {% endif %}
+            </div>
+        </form>
+    </body>
+</html>

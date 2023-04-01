@@ -56,10 +56,17 @@
 
 
             <a class="" href="{% url 'product:addFunds' %}"><button class="button nav-button">Add Funds</button></a>
+            {% if not perms.auth.Employee and not perms.auth.Manager %}
+
+            <a class="" href="{% url 'product:currentReservations' %}"><button class="button nav-button">Return Car?</button></a>
+            {% endif %}
+
 
             {% if perms.auth.Manager %}
                 <a class="" href="{% url 'product:addCarPage' %}"><button class="button  nav-button">Add Car</button></a>
                 <a class="" href = "{% url 'product:payEmployeePage' %}"><button class="button  nav-button">Pay Employees</button></a>
+                <a class="" href = "{% url 'product:overdueReservations' %}"><button class="button  nav-button">Lojack</button></a>
+
 
             {% endif %}
             {% if perms.auth.Employee or perms.auth.Manager %}
