@@ -24,7 +24,7 @@
         <select id="options" name="options">
             {% if reservations %}
     {% for reservation in reservations %}
-        <option name="reservationId" id="reservationId" value="{{reservation.id}}">{{reservation.car}}--{{reservation.user}}</option>
+        <option name="reservationId" id="reservationId" value="{{reservation.id}}">{{reservation}}</option>
         {% endfor %}
             {% else %}
             <option name="reservationID">No rentals available to lojack! Rent more cars out!</option>
