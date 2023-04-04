@@ -1,7 +1,27 @@
 <!DOCTYPE html>
 <html>
     <body>
-        {% for reservation in reservations %}
+        <h1>
+            Car Reservations that are late:
+        </h1>
+        {% for reservation in lateReservations %}
+        <form action = "{% url 'product:lojackCar' reservation.id %}" method = "post">
+            {% csrf_token %}
+
+            <h1>
+                {{reservation}}
+            </h1>
+            <h1>
+                {{reservation.car.id}}
+            </h1>
+            <button>Lojack Car</button>
+        </form>
+        
+        {% endfor %}
+        <h1>
+            Car Reservations with no insurance:
+        </h1>
+        {% for reservation in noInsurance %}
         <form action = "{% url 'product:lojackCar' reservation.id %}" method = "post">
             {% csrf_token %}
 

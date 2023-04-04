@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="{% static 'product/style/payEmployeeStyle.css' %}">
         <link rel="stylesheet" href="{% static 'product/style/headerStyle.css' %}">
         <link rel="stylesheet" href="{% static 'product/style/footerStyle.css' %}">
+        <link rel="stylesheet" href="{% static 'product/style/style.css' %}">
     </head>
     <body>
      {% include 'product/header.html' %}
@@ -16,12 +17,12 @@
             <form id="form" action="{% url 'product:payAll' %}" method="post">
                 {% csrf_token %}
                 {% for employee in employees %}
-                <label for="{{ employee.id }}">{{ employee.first_name }} {{ employee.last_name }}</label>
-                <input type="checkbox" value="{{ employee.id }}" id="{{ employee.id }}" name="{{ employee.id }}">
+                <label for="{{ employee.user.id }}">{{ employee.user.first_name }} {{ employee.user.last_name }} - ${% widthratio employee.hours 1 15.0 %}
+                <input id="check" type="checkbox" value="{{ employee.user.id }}" id="{{ employee.user.id }}" name="{{ employee.user.id }}"></label>
                 {% endfor %}
                 {% if employees %}
                 <div>
-                    <button type="submit">Pay All Employees</button>
+                    <button class="button" type="submit">Pay All Employees</button>
                 </div>
                 {% endif %}
             </form>

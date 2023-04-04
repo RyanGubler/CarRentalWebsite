@@ -89,9 +89,10 @@ body{
     color: black;
 }
 #logout{
-    position: absolute;
-    right: 50px;
-    top: 20px;
+    float: right;
     color: white;
     font-size: larger;
+}
+.logout-ctn{
+    margin-bottom: 10px;
 }

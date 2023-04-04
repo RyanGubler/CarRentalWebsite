@@ -22,7 +22,7 @@ urlpatterns = [
 
     path('account/', views.account, name='account'),
 
-
+    
     path('hire/', views.hirePage, name='hirePage'),
     path('createserviceticket/', views.createTicketPage, name='createTicketPage'),
     path('employeeHours/', views.employeeHours, name='employeeHours'),
@@ -33,7 +33,9 @@ urlpatterns = [
     path('reservation/<int:car_id>/reserveCar/', views.reserveCar, name = 'reserveCar'),
     path('inventory/',views.inventory,name = "inventory"),
     path('overdueReservations/',views.overdueReservations, name = "overdueReservations"),
-    path('overdueReservations/lojackCar/<int:reservation_id>/',views.lojackCar, name='lojackCar'),
+    path('overdueReservations/lojackCar/',views.lojackCar, name='lojackCar'),
+    path('account/currentReservations/',views.currentReservations, name = "currentReservations"),
+    path('account/currentReservations/returnCar/',views.returnCar,name = "returnCar"),
 
 
 
