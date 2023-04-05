@@ -73,7 +73,7 @@ def loginTest(request):
         if user is not None:
             login(request, user)
             # Redirect to a success page.
-            return redirect(reverse('product:account'))
+            return redirect(reverse('product:index'))
         
         else:
             context = {'errorMessage': "Invalid login credentials, please try again!"}

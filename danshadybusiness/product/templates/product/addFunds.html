@@ -19,7 +19,6 @@
                     {% csrf_token %}
                     <div class="button-ctn text-center">
                         <div class="col-sm-2 money-button"></div>
-                            
                         <div class="col-xs-12 col-sm-2 money-button" id="ten-button" >
                             <button class="button" name="10" value = "10">$10</button>
                         </div>
@@ -36,29 +35,22 @@
                     </div>
                     <div class="custom-add">
                         <div class="col-sm-5"></div>
-
                         <div class="custom-amount-ctn col-xs-12 col-sm-2 text-center">
                             <input type="number" min="0" class="custom-amount" placeholder="Custom" name = "custom">
-
                         </div>
                         <div class="col-xs-12 col-sm-1 text-center">
                             <button class="button" id="custom-button" value = "">Add</button>
-                        </div>
-                        <!-- <div class="col-xs-4"></div> -->
-                        
+                        </div>   
                     </div>
                 </form>
-                
             </div>
                 <div class="balance-ctn">
                     <div class=" balance col-xs-12 text-center">
                         <h2>
-                            Current Balance: $ {{customUser.balance}}
+                            Current Balance: ${{customUser.balance}}
                         </h2>
                     </div>
                 </div>
-        
-
             {% include 'product/footer.html' %}
             {% endblock %}
         </div>
