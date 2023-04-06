@@ -16,8 +16,8 @@ Django is our groups framework of choice for this app. We all have experience us
 
 ## Build instructions
 Clone the project in git bash. `` $ git clone https://github.com/RyanGubler/cs3450_group4 ``   
-Migrate in bash `` $ python manage.py migrate
-Next, to create a manager user, `` $ python manage.py createsuperuser   
+Migrate in bash `` $ python manage.py migrate ``
+Next, to create a manager user, `` $ python manage.py createsuperuser   ``
 Go through the instructions after running the command, those will be used for login.
 Finally, ``$ python manage.py runserver ``   
 Navigate in the browser to [localhost:8000](localhost:8000) /product to view the app.   
