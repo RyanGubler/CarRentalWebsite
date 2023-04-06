@@ -101,8 +101,7 @@ def addCarPage(request):
 def addCar(request):
     customUser = CustomUser.objects.get(user = request.user)
     if customUser.balance < float(request.POST['carPrice']):
-        return render(request, 'product/addCarPage.html', {'errorMessage': "Insufficient funds, cannot purchase car"})
-
+        return render(request, 'product/addCarPage.html', {'errorMessage': "Insufficient funds, cannot purchase car", 'context':customUser})
 
     customUser.addFunds(float(request.POST['carPrice']) * -1)
     customUser.save()
