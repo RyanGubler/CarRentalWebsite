@@ -99,6 +99,7 @@ def addCarPage(request):
 
 @login_required(login_url='product:loginTest')
 def addCar(request):
+    ##this method adds cars to the database
     customUser = CustomUser.objects.get(user = request.user)
     if customUser.balance < float(request.POST['carPrice']):
         return render(request, 'product/addCarPage.html', {'errorMessage': "Insufficient funds, cannot purchase car", 'context':customUser})
