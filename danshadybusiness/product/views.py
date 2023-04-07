@@ -261,13 +261,16 @@ def payEmployeePage(request):
 @login_required(login_url='product:loginTest')
 def payAll(request):
     if request.method == "POST" and request.user.has_perm('auth.Manager'):
+        manager = CustomUser.objects.get(user = request.user)
         for user in CustomUser.objects.all():
             user1 = user.user
             if user1.has_perm('auth.Employee'):
                 hours = user.hours
                 user.addFunds(float(hours*15.0))
                 user.addHours(float(hours*-1))
+                manager.addFunds(float(hours*-15.0))
                 user.save()
+                manager.save()
         return redirect(reverse('product:account'))
     return redirect(reverse('product:account'))
 
